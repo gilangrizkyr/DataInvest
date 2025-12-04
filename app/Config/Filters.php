@@ -12,20 +12,23 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\AuthFilter;
 
 class Filters extends BaseFilters
 {
     public array $aliases = [
-        'csrf'          => CSRF::class,
-        'toolbar'       => DebugToolbar::class,
-        'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
-        'secureheaders' => SecureHeaders::class,
-        'cors'          => Cors::class,
-        'forcehttps'    => ForceHTTPS::class,
-        'pagecache'     => PageCache::class,
-        'performance'   => PerformanceMetrics::class,
-        'threatdetection' => \App\Filters\ThreatDetection::class,
+        'csrf'              => CSRF::class,
+        'toolbar'           => DebugToolbar::class,
+        'honeypot'          => Honeypot::class,
+        'invalidchars'      => InvalidChars::class,
+        'secureheaders'     => SecureHeaders::class,
+        'cors'              => Cors::class,
+        'forcehttps'        => ForceHTTPS::class,
+        'pagecache'         => PageCache::class,
+        'performance'       => PerformanceMetrics::class,
+        'threatdetection'   => \App\Filters\ThreatDetection::class,
+        'roleFilter'        => \App\Filters\RoleFilter::class,
+        'auth'              => AuthFilter::class,
     ];
 
     public array $required = [
@@ -46,15 +49,4 @@ class Filters extends BaseFilters
     ];
 
     public array $methods = [];
-
-    // public array $filters = [
-    //     'threatdetection' => [
-    //         'before' => [
-    //             'dashboard/upload',
-    //             'dashboard/processMetadata',
-    //             'dashboard/updateMetadata',
-    //             'dashboard/deleteUpload',
-    //         ]
-    //     ],
-    // ];
 }

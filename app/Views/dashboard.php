@@ -51,55 +51,77 @@
         <div class="p-4 md:p-6">
             <div class="container mx-auto max-w-7xl">
 
-                <!-- Header -->
-                <div class="mb-8">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h1 class="text-4xl font-bold text-white mb-2 flex items-center">
-                                <i class="fas fa-chart-pie mr-4 text-blue-300"></i>
-                                <?= lang('Dashboard.dashboard_title') ?>
-                            </h1>
-                            <p class="text-blue-100"><?= lang('Dashboard.dashboard_subtitle') ?></p>
-                        </div>
+                <!-- Navbar -->
+                <!-- Navbar -->
+                <nav class="bg-gradient-to-r from-blue-800 to-blue-900 shadow-lg mb-8">
+                    <div class="container mx-auto px-6 py-4">
+                        <div class="flex justify-between items-center">
+                            <!-- Logo & Title Section -->
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-chart-pie text-3xl text-blue-300"></i>
+                                <div>
+                                    <h1 class="text-2xl font-bold text-white">
+                                        <?= lang('Dashboard.dashboard_title') ?>
+                                    </h1>
+                                    <p class="text-blue-100 text-sm"><?= lang('Dashboard.dashboard_subtitle') ?></p>
+                                </div>
+                            </div>
 
-                        <div class="flex items-center space-x-3">
+                            <!-- Navigation Actions -->
+                            <div class="flex items-center space-x-3">
+                                <!-- Language Switcher -->
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-blue-100 text-sm font-medium">
+                                        <?= lang('Dashboard.language') ?>:
+                                    </span>
+                                    <select id="language-switcher"
+                                        class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                               rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
+                               transform transition duration-300 focus:ring-2 focus:ring-blue-300 cursor-pointer">
+                                        <option class="bg-white text-black"
+                                            value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
+                                            <?= lang('Dashboard.indonesian') ?>
+                                        </option>
+                                        <option class="bg-white text-black"
+                                            value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
+                                            <?= lang('Dashboard.english') ?>
+                                        </option>
+                                    </select>
+                                </div>
 
-                            <!-- Tombol Cek Keamanan (tetap bagus seperti sebelumnya) -->
-                            <button type="button"
-                                onclick="window.location.href='<?= base_url('security-monitoring') ?>'"
-                                class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
-                       rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
-                       transform transition duration-300">
-                                Cek Keamanan
-                            </button>
+                                <!-- Security Check Button -->
+                                <button type="button"
+                                    onclick="window.location.href='<?= base_url('security-monitoring') ?>'"
+                                    class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                           rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
+                           transform transition duration-300">
+                                    <i class="fas fa-shield-alt mr-2"></i>
+                                    Cek Keamanan
+                                </button>
 
-                            <!-- Label -->
-                            <span class="text-blue-100 text-sm font-medium">
-                                <?= lang('Dashboard.language') ?>:
-                            </span>
+                                <!-- User Management Button -->
+                                <button type="button"
+                                    onclick="window.location.href='<?= base_url('/user-management') ?>'"
+                                    class="px-5 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold 
+                           rounded-lg shadow hover:from-green-600 hover:to-green-700 
+                           transition duration-200">
+                                    <i class="fas fa-users mr-2"></i>
+                                    <?= lang('Dashboard.user_management') ?>
+                                </button>
 
-                            <!-- SELECT yang mengikuti style tombol Cek Keamanan -->
-                            <select id="language-switcher"
-                                class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
-                              rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
-                                 transform transition duration-300 focus:ring-2 focus:ring-blue-300">
-
-                                <option class="bg-white text-black"
-                                    value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
-                                    <?= lang('Dashboard.indonesian') ?>
-                                </option>
-
-                                <option class="bg-white text-black"
-                                    value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
-                                    <?= lang('Dashboard.english') ?>
-                                </option>
-
-                            </select>
-
-
+                                <!-- Logout Button -->
+                                <button type="button"
+                                    onclick="window.location.href='<?= base_url('auth/logout') ?>'"
+                                    class="px-5 py-2 bg-red-600 text-white font-semibold 
+                           rounded-lg shadow hover:bg-red-700 
+                           transition duration-200">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>
+                                    Logout
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </nav>
 
 
                 <!-- Control Panels -->

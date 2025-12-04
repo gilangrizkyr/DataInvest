@@ -2,6 +2,7 @@
 
 return [
     // Header
+    'user_management' => 'Manajemen Pengguna',
     'dashboard_title' => 'Dashboard Statistik PMA dan PMDN',
     'dashboard_subtitle' => 'Sistem Informasi Terpadu untuk Analisis Investasi',
 

@@ -5,27 +5,35 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Dashboard::index');
-$routes->get('/dashboard', 'Dashboard::index');
-$routes->post('/dashboard/upload', 'Dashboard::upload');
-$routes->get('/dashboard/metadata/(:num)', 'Dashboard::metadata/$1');
-$routes->post('/dashboard/processMetadata', 'Dashboard::processMetadata');
-$routes->get('/dashboard/edit-metadata/(:num)', 'Dashboard::editMetadata/$1');
-$routes->post('/dashboard/updateMetadata', 'Dashboard::updateMetadata');
-$routes->post('/dashboard/deleteUpload', 'Dashboard::deleteUpload');
-$routes->get('/dashboard/download', 'Dashboard::download');
-$routes->post('/dashboard/setLanguage', 'Dashboard::setLanguage');
 
-// Security Monitoring
-// $routes->get('security-monitoring', 'SecurityMonitoring::index');
-// $routes->get('api/security/threats', 'SecurityMonitoring::getThreats');
-// $routes->get('api/security/statistics', 'SecurityMonitoring::getStatistics');
-// $routes->get('api/security/trend', 'SecurityMonitoring::getTrend');
-// $routes->get('api/security/threat/(:num)', 'SecurityMonitoring::getThreatDetail/$1');
-// $routes->get('api/security/filter/severity/(:alpha)', 'SecurityMonitoring::filterBySeverity/$1');
-// $routes->get('api/security/filter/status/(:alpha)', 'SecurityMonitoring::filterByStatus/$1');
-// $routes->get('api/security/export', 'SecurityMonitoring::exportThreats');
+$routes->get('/auth/login', 'Auth::login', ['filter' => 'auth:guest']);
+$routes->post('/auth/process-login', 'Auth::processLogin');
+$routes->get('/auth/logout', 'Auth::logout');
+$routes->get('/auth/forgot-password', 'Auth::forgotPassword');
+$routes->post('/auth/process-forgot-password', 'Auth::processForgotPassword');
+$routes->get('/auth/reset-password/(:segment)', 'Auth::resetPassword/$1');
+$routes->post('/auth/process-reset-password', 'Auth::processResetPassword');
 
-$routes->get('security-monitoring', 'SecurityMonitoring::index');
-$routes->get('api/security/threats', 'SecurityMonitoring::getThreats');
-$routes->get('api/security/export', 'SecurityMonitoring::export');
+$routes->get('/', 'Dashboard::index', ['filter' => 'roleFilter']);
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'roleFilter']);
+$routes->post('/dashboard/upload', 'Dashboard::upload', ['filter' => 'roleFilter']);
+$routes->get('/dashboard/metadata/(:num)', 'Dashboard::metadata/$1', ['filter' => 'roleFilter']);
+$routes->post('/dashboard/processMetadata', 'Dashboard::processMetadata', ['filter' => 'roleFilter']);
+$routes->get('/dashboard/edit-metadata/(:num)', 'Dashboard::editMetadata/$1', ['filter' => 'roleFilter']);
+$routes->post('/dashboard/updateMetadata', 'Dashboard::updateMetadata', ['filter' => 'roleFilter']);
+$routes->post('/dashboard/deleteUpload', 'Dashboard::deleteUpload', ['filter' => 'roleFilter']);
+$routes->get('/dashboard/download', 'Dashboard::download', ['filter' => 'roleFilter']);
+$routes->post('/dashboard/setLanguage', 'Dashboard::setLanguage', ['filter' => 'roleFilter']);
+
+$routes->get('security-monitoring', 'SecurityMonitoring::index', ['filter' => 'roleFilter']);
+$routes->get('api/security/threats', 'SecurityMonitoring::getThreats', ['filter' => 'roleFilter']);
+$routes->get('api/security/export', 'SecurityMonitoring::export', ['filter' => 'roleFilter']);
+
+$routes->group('user-management', ['filter' => 'roleFilter:superadmin'], function ($routes) {
+    $routes->get('/', 'UserManagement::index');
+    $routes->get('create', 'UserManagement::create');
+    $routes->post('store', 'UserManagement::store');
+    $routes->get('edit/(:num)', 'UserManagement::edit/$1');
+    $routes->post('update/(:num)', 'UserManagement::update/$1');
+    $routes->get('delete/(:num)', 'UserManagement::delete/$1');
+});

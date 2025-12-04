@@ -2,6 +2,7 @@
 
 return [
     // Header
+    'user_management' => 'User Management',
     'dashboard_title' => 'PMA and PMDN Statistics Dashboard',
     'dashboard_subtitle' => 'Comprehensive analysis of Foreign Direct Investment (PMA) and Domestic Direct Investment (PMDN)',
     'language' => 'Language',
