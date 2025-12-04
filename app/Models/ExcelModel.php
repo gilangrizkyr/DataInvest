@@ -11,9 +11,18 @@ class ExcelModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [];
 
+    protected $projectModel;
+    protected $uploadModel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->projectModel = new \App\Models\ProjectModel();
+        $this->uploadModel = new \App\Models\UploadModel();
+    }
+
     // Template kolom yang diharapkan (sama untuk PMA dan PMDN)
     private $expectedColumns = [
-        "No.",
         "ID Laporan",
         "ID Proyek",
         "Periode Tahap",
@@ -21,13 +30,12 @@ class ExcelModel extends Model
         "23 Sektor",
         "Jenis Badan Usaha",
         "Nama Perusahaan",
-        "",
+        "Kecamatan",
         "Email",
         "Alamat",
         "Cetak Lokasi",
         "Sektor",
         "Deskripsi KBLI",
-        "Wilayah",
         "Provinsi",
         "Kabkot",
         "No Izin",
@@ -35,7 +43,6 @@ class ExcelModel extends Model
         "Total Investasi",
         "Negara",
         "Rencana Total Investasi",
-        "Proyek",
         "TKI",
         "TKA",
         "Nama Petugas",
@@ -43,12 +50,11 @@ class ExcelModel extends Model
         "Keterangan Masalah",
         "Penjelasan Modal Tetap",
         "No Telp",
-        "PMA/PMDN",
-        "Kecamatan"
+        "PMA/PMDN"
     ];
 
     /**
-     * Validasi kolom Excel
+     * Validasi kolom Excel - hanya cek kolom yang wajib ada
      */
     public function validateColumns($filePath)
     {
@@ -58,6 +64,15 @@ class ExcelModel extends Model
         if (!in_array('PMA', $sheetNames) || !in_array('PMDN', $sheetNames)) {
             return ['valid' => false, 'missing' => ['Sheet PMA dan PMDN harus ada']];
         }
+
+        // Kolom yang wajib ada (minimal untuk proses data)
+        $requiredColumns = [
+            "nama perusahaan",
+            "provinsi",
+            "kabkot",
+            "kecamatan",
+            "pma/pmdn"
+        ];
 
         $missingColumns = [];
 
@@ -69,14 +84,16 @@ class ExcelModel extends Model
             $actualColumns = [];
             for ($col = 1; $col <= $highestColumnIndex; $col++) {
                 $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . '1')->getValue() ?? '';
-                $actualColumns[] = $cellValue;
+                $actualColumns[] = strtolower(trim($cellValue));
             }
 
-            $expectedColumns = $this->expectedColumns;
-            $missing = array_diff($expectedColumns, $actualColumns);
-            $extra = array_diff($actualColumns, $expectedColumns);
-            if (!empty($missing) || !empty($extra)) {
-                $missingColumns = array_merge($missingColumns, $missing, $extra);
+            $requiredColumnsNormalized = array_map(function ($col) {
+                return strtolower(trim($col));
+            }, $requiredColumns);
+
+            $missing = array_diff($requiredColumnsNormalized, $actualColumns);
+            if (!empty($missing)) {
+                $missingColumns = array_merge($missingColumns, $missing);
             }
         }
 
@@ -84,12 +101,12 @@ class ExcelModel extends Model
     }
 
     /**
-     * Proses data dari Excel
+     * Proses data dari Excel dan simpan ke database
      */
-    public function processData($filePath)
+    public function processData($filePath, $uploadId)
     {
         $spreadsheet = IOFactory::load($filePath);
-        $data = ['PMA' => [], 'PMDN' => []];
+        $totalRecords = 0;
 
         foreach (['PMA', 'PMDN'] as $sheetName) {
             $sheet = $spreadsheet->getSheetByName($sheetName);
@@ -100,198 +117,118 @@ class ExcelModel extends Model
             // Get actual columns from header row
             $actualColumns = [];
             for ($col = 1; $col <= $highestColumnIndex; $col++) {
-                $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . '1')->getValue() ?? '';
-                $actualColumns[] = $cellValue;
+                $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . '1')->getValue();
+                $actualColumns[] = (string) $cellValue;
             }
 
-            // Create map from column name to index (0-based)
-            $columnMap = array_flip($actualColumns);
+            // Create map from column name to index (0-based) - case insensitive
+            $columnMap = [];
+            foreach ($actualColumns as $index => $colName) {
+                $columnMap[strtolower(trim($colName))] = $index;
+            }
 
             $expectedColumns = $this->expectedColumns;
+            $projectsData = [];
+
             for ($row = 2; $row <= $highestRow; $row++) {
                 $rowData = [];
                 foreach ($expectedColumns as $colName) {
-                    $index = $columnMap[$colName] ?? null;
+                    $index = $columnMap[strtolower(trim($colName))] ?? null;
                     if ($index !== null) {
                         $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($index + 1) . $row)->getValue();
                         $rowData[] = $cellValue;
                     } else {
-                        $rowData[] = null; // If column missing, set to null
+                        $rowData[] = null;
                     }
                 }
-                $data[$sheetName][] = array_combine($expectedColumns, $rowData);
+                $rowData = array_combine($expectedColumns, $rowData);
+
+                // Normalize PMA/PMDN to uppercase
+                $investmentType = strtoupper(trim($rowData['PMA/PMDN'] ?? ''));
+
+                // Skip projects without subdistrict name
+                $subdistrict = trim($rowData['Kecamatan'] ?? '');
+                if (empty($subdistrict)) {
+                    continue; // Skip this project
+                }
+
+                // Prepare project data for database
+                $projectData = [
+                    'upload_id' => $uploadId,
+                    'report_id' => $rowData['ID Laporan'] ?? null,
+                    'project_id' => $rowData['ID Proyek'] ?? null,
+                    'project_name' => $rowData['Nama Perusahaan'] ?? null,
+                    'investment_type' => $investmentType,
+                    'period_stage' => $rowData['Periode Tahap'] ?? null,
+                    'main_sector' => $rowData['Sektor Utama'] ?? null,
+                    'sector_23' => $rowData['23 Sektor'] ?? null,
+                    'business_type' => $rowData['Jenis Badan Usaha'] ?? null,
+                    'company_name' => $rowData['Nama Perusahaan'] ?? null,
+                    'email' => $rowData['Email'] ?? null,
+                    'address' => $rowData['Alamat'] ?? null,
+                    'location_print' => $rowData['Cetak Lokasi'] ?? null,
+                    'sector_detail' => $rowData['Sektor'] ?? null,
+                    'kbli_description' => $rowData['Deskripsi KBLI'] ?? null,
+                    'province' => $rowData['Provinsi'] ?? null,
+                    'district' => $rowData['Kabkot'] ?? null,
+                    'subdistrict' => $subdistrict,
+                    'license_number' => $rowData['No Izin'] ?? null,
+                    'additional_investment' => $this->cleanNumericValue($rowData['Tambahan Investasi'] ?? 0),
+                    'total_investment' => $this->cleanNumericValue($rowData['Total Investasi'] ?? 0),
+                    'planned_total_investment' => $this->cleanNumericValue($rowData['Rencana Total Investasi'] ?? 0),
+                    'fixed_capital_planned' => $this->cleanNumericValue($rowData['Rencana Modal Tetap'] ?? 0),
+                    'tki' => (int) ($rowData['TKI'] ?? 0),
+                    'tka' => (int) ($rowData['TKA'] ?? 0),
+                    'officer_name' => $rowData['Nama Petugas'] ?? null,
+                    'problem_description' => $rowData['Keterangan Masalah'] ?? null,
+                    'fixed_capital_explanation' => $rowData['Penjelasan Modal Tetap'] ?? null,
+                    'phone_number' => $rowData['No Telp'] ?? null,
+                    'country' => $rowData['Negara'] ?? null
+                ];
+
+                $projectsData[] = $projectData;
+                $totalRecords++;
+            }
+
+            // Insert projects in batches
+            if (!empty($projectsData)) {
+                $this->projectModel->insertBatch($projectsData);
             }
         }
 
-        // Gabungkan data untuk analisis
-        $allData = array_merge($data['PMA'], $data['PMDN']);
+        // Update upload record with total records
+        $this->uploadModel->updateStatus($uploadId, 'completed', [
+            'total_records' => $totalRecords,
+            'processed_records' => $totalRecords
+        ]);
 
-        return [
-            'raw' => $allData,
-            'total_projects' => [
-                'PMA' => count($data['PMA']),
-                'PMDN' => count($data['PMDN'])
-            ],
-            'total_investment' => $this->calculateTotalInvestment($allData),
-            'projects_by_district' => $this->calculateProjectsByDistrict($allData),
-            'investment_by_location' => $this->calculateInvestmentByLocation($allData),
-            'sector_analysis' => $this->analyzeSectors($allData),
-            'workforce' => $this->analyzeWorkforce($allData),
-            'projects_by_country' => $this->calculateProjectsByCountry($allData),
-            'additional_investment' => $this->analyzeAdditionalInvestment($allData),
-            'realization_investment' => $this->analyzeRealizationInvestment($allData),
-            'quarterly_results' => $this->analyzeQuarterlyResults($allData)
-        ];
+        // Calculate statistics using stored procedures
+        $this->calculateStatistics($uploadId);
+
+        return $totalRecords;
     }
 
-    private function calculateTotalInvestment($data)
+    /**
+     * Clean numeric value from Excel (remove Rp, dots, commas)
+     */
+    private function cleanNumericValue($value)
     {
-        $totalPMA = 0;
-        $totalPMDN = 0;
-
-        foreach ($data as $row) {
-            $investment = (float) str_replace(['Rp', '.', ','], '', $row['Total Investasi'] ?? 0);
-            if ($row['PMA/PMDN'] === 'PMA') {
-                $totalPMA += $investment;
-            } else {
-                $totalPMDN += $investment;
-            }
+        if (is_null($value) || $value === '') {
+            return 0;
         }
 
-        return ['PMA' => $totalPMA, 'PMDN' => $totalPMDN];
+        $value = str_replace(['Rp', '.', ','], '', $value);
+        return (float) $value;
     }
 
-    private function calculateProjectsByDistrict($data)
+    /**
+     * Calculate statistics using stored procedures
+     */
+    private function calculateStatistics($uploadId)
     {
-        $districts = [];
-
-        foreach ($data as $row) {
-            $district = $row['Kecamatan'] ?? 'Unknown';
-            $type = $row['PMA/PMDN'] === 'PMA' ? 'PMA' : 'PMDN';
-            if (!isset($districts[$type])) {
-                $districts[$type] = [];
-            }
-            if (!isset($districts[$type][$district])) {
-                $districts[$type][$district] = 0;
-            }
-            $districts[$type][$district]++;
-        }
-
-        return $districts;
-    }
-
-    private function calculateInvestmentByLocation($data)
-    {
-        $locations = [];
-
-        foreach ($data as $row) {
-            $location = $row['Kecamatan'] ?? 'Unknown';
-            $investment = (float) str_replace(['Rp', '.', ','], '', $row['Total Investasi'] ?? 0);
-            if (!isset($locations[$location])) {
-                $locations[$location] = 0;
-            }
-            $locations[$location] += $investment;
-        }
-
-        return $locations;
-    }
-
-    private function analyzeSectors($data)
-    {
-        $sectors = [];
-
-        foreach ($data as $row) {
-            $sector = $row['Sektor'] ?? 'Unknown';
-            if (!isset($sectors[$sector])) {
-                $sectors[$sector] = 0;
-            }
-            $sectors[$sector]++;
-        }
-
-        $total = count($data);
-        $analysis = [];
-        foreach ($sectors as $sector => $count) {
-            $analysis[] = [
-                'sector' => $sector,
-                'count' => $count,
-                'percentage' => round(($count / $total) * 100, 2)
-            ];
-        }
-
-        return $analysis;
-    }
-
-    private function analyzeWorkforce($data)
-    {
-        $workforce = ['PMA' => ['TKI' => 0, 'TKA' => 0], 'PMDN' => ['TKI' => 0, 'TKA' => 0]];
-
-        foreach ($data as $row) {
-            $type = $row['PMA/PMDN'] === 'PMA' ? 'PMA' : 'PMDN';
-            $tki = (int) ($row['TKI'] ?? 0);
-            $tka = (int) ($row['TKA'] ?? 0);
-            $workforce[$type]['TKI'] += $tki;
-            $workforce[$type]['TKA'] += $tka;
-        }
-
-        return $workforce;
-    }
-
-    private function calculateProjectsByCountry($data)
-    {
-        $countries = [];
-
-        foreach ($data as $row) {
-            $country = $row['Negara'] ?? 'Unknown';
-            if (!isset($countries[$country])) {
-                $countries[$country] = 0;
-            }
-            $countries[$country]++;
-        }
-
-        return $countries;
-    }
-
-    private function analyzeAdditionalInvestment($data)
-    {
-        $additional = [];
-
-        foreach ($data as $row) {
-            $addInv = $row['Tambahan Investasi'] ?? 'Unknown';
-            if (!isset($additional[$addInv])) {
-                $additional[$addInv] = 0;
-            }
-            $additional[$addInv]++;
-        }
-
-        return $additional;
-    }
-
-    private function analyzeRealizationInvestment($data)
-    {
-        $realization = ['PMA' => 0, 'PMDN' => 0];
-
-        foreach ($data as $row) {
-            $planned = (float) str_replace(['Rp', '.', ','], '', $row['Rencana Total Investasi'] ?? 0);
-            $actual = (float) str_replace(['Rp', '.', ','], '', $row['Total Investasi'] ?? 0);
-            $type = $row['PMA/PMDN'] === 'PMA' ? 'PMA' : 'PMDN';
-            $realization[$type] += $actual - $planned;
-        }
-
-        return $realization;
-    }
-
-    private function analyzeQuarterlyResults($data)
-    {
-        $quarters = [];
-
-        foreach ($data as $row) {
-            $period = $row['Periode Tahap'] ?? 'Unknown';
-            if (!isset($quarters[$period])) {
-                $quarters[$period] = 0;
-            }
-            $quarters[$period]++;
-        }
-
-        return $quarters;
+        // Call stored procedures to calculate statistics
+        $this->db->query("CALL calculate_upload_statistics(?)", [$uploadId]);
+        $this->db->query("CALL calculate_district_statistics(?)", [$uploadId]);
+        $this->db->query("CALL calculate_sector_statistics(?)", [$uploadId]);
     }
 }

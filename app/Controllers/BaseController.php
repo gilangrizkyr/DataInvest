@@ -54,5 +54,15 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        // Set locale from session if available, otherwise use default
+        $session = session();
+        $locale = $session->get('locale') ?: 'id'; // Default to Indonesian
+
+        if (in_array($locale, ['id', 'en'])) {
+            service('request')->setLocale($locale);
+            $languageService = \Config\Services::language();
+            $languageService->setLocale($locale);
+        }
     }
 }
