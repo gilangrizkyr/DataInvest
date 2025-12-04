@@ -11314,3 +11314,773 @@ DEBUG - 2025-12-04 23:30:43 --> Upload ID 28 (Year: 2025, Q1) - PMA: 16536223939
 DEBUG - 2025-12-04 23:30:43 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
 DEBUG - 2025-12-04 23:30:43 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
 DEBUG - 2025-12-04 23:30:43 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:33:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:33:23 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:33:23 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:33:23 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:33:23 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:33:23 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:33:23 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:33:23 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:33:23 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:23 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:33:23 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:33:23 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:33:23 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:33:23 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:33:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:33:35 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:33:35 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:33:35 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:33:35 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:33:35 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:33:35 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:33:35 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:33:35 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:33:35 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:33:35 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:33:35 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:33:35 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:33:35 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:37:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:37:20 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:37:20 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:37:20 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:37:20 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:37:20 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:37:20 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:37:20 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:37:20 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:37:20 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:37:20 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:37:20 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:37:20 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:37:20 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:38:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:38:38 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:38:38 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:38:38 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:38:38 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:38:38 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:38:38 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:38:38 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:38:38 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:38:38 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:38:38 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:38:38 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:38:38 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:38:38 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:39:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:39:08 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:39:08 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:39:08 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:39:08 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:39:08 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:39:08 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:39:08 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:39:08 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:08 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:39:08 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:39:08 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:39:08 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:39:08 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:39:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:39:52 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:39:52 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:39:52 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:39:52 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:39:52 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:39:52 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:39:52 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:39:52 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:39:52 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:39:52 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:39:52 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:39:52 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:39:52 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:40:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:40:12 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:40:12 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:40:12 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:40:12 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:40:12 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:40:12 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:40:12 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:40:12 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:40:12 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:40:12 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:40:12 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:40:12 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:40:12 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:41:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:41:57 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:41:57 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:41:57 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:41:57 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:41:57 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:41:57 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:41:57 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:41:57 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:41:57 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:41:57 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:41:57 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:41:57 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:41:57 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:42:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:42:19 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:42:19 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:42:19 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:42:19 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:42:19 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:42:19 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:42:19 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:42:19 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:42:19 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:42:19 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:42:19 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:42:19 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:42:19 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:43:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:43:10 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:43:10 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:43:10 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:43:10 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:43:10 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:43:10 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:43:10 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:43:10 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:10 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:43:10 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:43:10 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:43:10 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:43:10 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:43:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:43:33 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:43:33 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:43:33 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:43:33 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:43:33 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:43:33 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:43:33 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:43:33 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:43:33 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:43:33 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:43:33 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:43:33 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:43:33 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:47:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:47:40 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:47:40 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:47:40 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:47:40 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:47:40 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:47:40 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:47:40 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:47:40 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:47:40 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:47:40 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:47:40 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:47:40 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:47:40 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:49:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:49:01 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:49:01 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:49:01 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:49:01 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:49:01 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:49:01 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:49:01 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:49:01 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:01 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:49:01 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:49:01 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:49:01 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:49:01 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:49:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:49:57 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:49:57 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:49:57 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:49:57 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:49:57 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:49:57 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:49:57 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:49:57 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:49:57 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:49:57 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:49:57 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:49:57 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:49:57 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:50:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:50:03 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:50:03 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:50:03 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:50:03 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:50:03 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:50:03 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:50:03 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:50:03 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:03 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:50:03 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:50:03 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:50:03 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:50:03 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:50:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:50:11 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:50:11 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:50:11 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:50:11 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:50:11 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:50:11 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:50:11 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:50:11 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:50:11 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:50:11 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:50:11 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:50:11 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:50:11 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:53:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:53:05 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:53:05 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:53:05 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:53:05 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:53:05 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:53:05 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:53:05 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:53:05 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:53:05 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:53:05 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:53:05 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:53:05 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:53:05 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:54:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:54:21 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:54:21 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:54:21 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:54:21 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:54:21 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:54:21 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:54:21 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:54:21 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:54:21 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:54:21 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:54:21 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:54:21 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:54:21 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:58:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:58:52 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:58:52 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:58:52 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:58:52 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:58:52 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:58:52 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:58:52 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:58:52 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:58:52 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:58:52 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:58:52 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:58:52 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:58:52 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:59:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:59:01 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:59:01 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:59:01 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:59:01 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:59:01 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:01 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:01 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:01 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:01 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:01 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:01 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:59:01 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:59:01 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:59:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:59:27 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:59:27 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:59:27 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:59:27 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:59:27 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:27 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:27 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:27 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:27 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:27 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:27 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:59:27 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:59:27 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}
+INFO - 2025-12-04 23:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-04 23:59:47 --> prepareQuarterlyAdditionalInvestmentChartData - Total uploads: 4
+DEBUG - 2025-12-04 23:59:47 --> prepareQuarterlyAdditionalInvestmentChartData - Selected year: all
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 33 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 32 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 29 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Q3: 3022949966742 (Total now: 6045899933484)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 28 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Q1: 3470898725913 (Total now: 6493848692655)
+DEBUG - 2025-12-04 23:59:47 --> Final quarterly data before conversion: {"Q1":6493848692655,"Q2":0,"Q3":6045899933484,"Q4":0}
+DEBUG - 2025-12-04 23:59:47 --> prepareQuarterlyAdditionalInvestmentChartData - Final result: {"labels":["Q1","Q2","Q3","Q4"],"values":[6493848692655,0,6045899933484,0],"year":"Semua Tahun"}
+DEBUG - 2025-12-04 23:59:47 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Total uploads: 4
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 33, Status: completed, Year: 2024, Quarter: Q1
+DEBUG - 2025-12-04 23:59:47 --> Initialized year: 2024
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 33 (Year: 2024, Q1) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Year 2024 Q1: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 32, Status: completed, Year: 2022, Quarter: Q3
+DEBUG - 2025-12-04 23:59:47 --> Initialized year: 2022
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 32 (Year: 2022, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Year 2022 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 29, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-04 23:59:47 --> Initialized year: 2025
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 29 (Year: 2025, Q3) - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Year 2025 Q3: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-04 23:59:47 --> Processing upload ID: 28, Status: completed, Year: 2025, Quarter: Q1
+DEBUG - 2025-12-04 23:59:47 --> Upload ID 28 (Year: 2025, Q1) - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-04 23:59:47 --> Added to Year 2025 Q1: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-04 23:59:47 --> Yearly quarterly data before conversion: {"2024":{"Q1":3022949966742,"Q2":0,"Q3":0,"Q4":0},"2022":{"Q1":0,"Q2":0,"Q3":3022949966742,"Q4":0},"2025":{"Q1":3470898725913,"Q2":0,"Q3":3022949966742,"Q4":0}}
+DEBUG - 2025-12-04 23:59:47 --> prepareQuarterlyAdditionalInvestmentChartDataAllYears - Final result: {"2024":{"labels":["Q1","Q2","Q3","Q4"],"values":[3022949966742,0,0,0]},"2022":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3022949966742,0]},"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[3470898725913,0,3022949966742,0]}}

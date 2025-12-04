@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Statistik PMA dan PMDN</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-pl5ugin-datalabels"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
+        integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -842,16 +846,43 @@
                         backgroundColor: ['#3B82F6', '#F59E0B']
                     }]
                 },
+                plugins: [ChartDataLabels],
                 options: {
                     plugins: {
+                        datalabels: {
+                            color: '#ffffff',
+                            formatter: (value, ctx) => {
+                                const total = ctx.chart.data.datasets[0].data
+                                    .reduce((a, b) => a + b, 0);
+
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                const label = ctx.chart.data.labels[ctx.dataIndex]; // 'PMA' or 'PMDN'
+
+                                // Menambahkan total tambahan investasi ke dalam label
+                                const addInv = label === 'PMA' ? addInvPMA : addInvPMDN;
+                                const addInvFormatted = currency === "USD" ? formatUSD(addInv) : formatRp(addInv);
+
+                                return `${value} (${percentage}%)\nTambahan: ${addInvFormatted}`;
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            }
+                        },
+
                         tooltip: {
                             callbacks: {
                                 label: function(ctx) {
                                     const label = ctx.label || '';
                                     const value = ctx.raw || 0;
                                     const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                                    return `${label}: ${value} proyek (${percentage}%)`;
+                                    const percentage = ((value / total) * 100).toFixed(1);
+
+                                    // Menambahkan total tambahan investasi ke dalam tooltip
+                                    const addInv = label === 'PMA' ? addInvPMA : addInvPMDN;
+                                    const addInvFormatted = currency === "USD" ? formatUSD(addInv) : formatRp(addInv);
+
+                                    return `${label}: ${value} proyek (${percentage}%)\nTambahan Investasi: ${addInvFormatted}`;
                                 }
                             }
                         }
