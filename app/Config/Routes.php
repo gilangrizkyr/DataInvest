@@ -15,3 +15,17 @@ $routes->post('/dashboard/updateMetadata', 'Dashboard::updateMetadata');
 $routes->post('/dashboard/deleteUpload', 'Dashboard::deleteUpload');
 $routes->get('/dashboard/download', 'Dashboard::download');
 $routes->post('/dashboard/setLanguage', 'Dashboard::setLanguage');
+
+// Security Monitoring
+// $routes->get('security-monitoring', 'SecurityMonitoring::index');
+// $routes->get('api/security/threats', 'SecurityMonitoring::getThreats');
+// $routes->get('api/security/statistics', 'SecurityMonitoring::getStatistics');
+// $routes->get('api/security/trend', 'SecurityMonitoring::getTrend');
+// $routes->get('api/security/threat/(:num)', 'SecurityMonitoring::getThreatDetail/$1');
+// $routes->get('api/security/filter/severity/(:alpha)', 'SecurityMonitoring::filterBySeverity/$1');
+// $routes->get('api/security/filter/status/(:alpha)', 'SecurityMonitoring::filterByStatus/$1');
+// $routes->get('api/security/export', 'SecurityMonitoring::exportThreats');
+
+$routes->get('security-monitoring', 'SecurityMonitoring::index');
+$routes->get('api/security/threats', 'SecurityMonitoring::getThreats');
+$routes->get('api/security/export', 'SecurityMonitoring::export');

@@ -61,21 +61,46 @@
                             </h1>
                             <p class="text-blue-100"><?= lang('Dashboard.dashboard_subtitle') ?></p>
                         </div>
-                        <!-- Language Switcher -->
-                        <div class="flex items-center space-x-2">
-                            <span class="text-blue-100 text-sm font-medium"><?= lang('Dashboard.language') ?>:</span>
-                            <select id="language-switcher" class="bg-black/40 backdrop-blur-sm border border-white/30 rounded-lg px-3 py-2 text-white text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-300">
 
-                                <option value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
+                        <div class="flex items-center space-x-3">
+
+                            <!-- Tombol Cek Keamanan (tetap bagus seperti sebelumnya) -->
+                            <button type="button"
+                                onclick="window.location.href='<?= base_url('security-monitoring') ?>'"
+                                class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                       rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
+                       transform transition duration-300">
+                                Cek Keamanan
+                            </button>
+
+                            <!-- Label -->
+                            <span class="text-blue-100 text-sm font-medium">
+                                <?= lang('Dashboard.language') ?>:
+                            </span>
+
+                            <!-- SELECT yang mengikuti style tombol Cek Keamanan -->
+                            <select id="language-switcher"
+                                class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                              rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
+                                 transform transition duration-300 focus:ring-2 focus:ring-blue-300">
+
+                                <option class="bg-white text-black"
+                                    value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
                                     <?= lang('Dashboard.indonesian') ?>
                                 </option>
-                                <option value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
+
+                                <option class="bg-white text-black"
+                                    value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
                                     <?= lang('Dashboard.english') ?>
                                 </option>
+
                             </select>
+
+
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Control Panels -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
