@@ -449,54 +449,57 @@
                             <canvas id="projects-pmdn-chart" height="300"></canvas>
                         </div>
                     </div>
-
-                    <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-6">
-                        <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="country-container">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-globe mr-3 text-emerald-600"></i><?= lang('Dashboard.projects_per_country') ?>
-                                </h3>
-                                <select id="country-type" class="text-sm border rounded px-2 py-1">
-                                    <option value="bar">Bar</option>
-                                    <option value="horizontalBar">Horizontal Bar</option>
-                                    <option value="pie">Pie</option>
-                                    <option value="doughnut">Doughnut</option>
-                                </select>
-                            </div>
-                            <canvas id="country-chart" height="200"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-7">
-                        <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="quarterly-additional-investment-container" style="display: block;">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
-                                </h3>
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex items-center space-x-2">
-                                        <label class="text-sm font-medium text-gray-700">Tahun:</label>
-                                        <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
-                                            <option value="all">Semua Tahun</option>
-                                            <?php
-                                            $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
-                                            sort($availableYears);
-                                            foreach ($availableYears as $year) {
-                                                $selected = (isset($data['filters']['quarterly_year']) && $data['filters']['quarterly_year'] == $year) ? 'selected' : '';
-                                                echo "<option value=\"$year\" $selected>$year</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <select id="quarterly-additional-investment-type" class="text-sm border rounded px-2 py-1">
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4" id="chart-row-5">
+                        <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-6">
+                            <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="country-container">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-globe mr-3 text-emerald-600"></i><?= lang('Dashboard.projects_per_country') ?>
+                                    </h3>
+                                    <select id="country-type" class="text-sm border rounded px-2 py-1">
                                         <option value="bar">Bar</option>
-                                        <option value="line">Line</option>
-                                        <option value="area">Area</option>
+                                        <option value="horizontalBar">Horizontal Bar</option>
                                         <option value="pie">Pie</option>
+                                        <option value="doughnut">Doughnut</option>
                                     </select>
                                 </div>
+                                <canvas id="country-chart" height="200"></canvas>
                             </div>
-                            <canvas id="quarterly-additional-investment-chart" height="200"></canvas>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-7">
+                            <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="quarterly-additional-investment-container" style="display: block;">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                        <i class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
+                                    </h3>
+                                    <div class="flex items-center space-x-4">
+                                        <?php if (session()->get('role') === 'superadmin'): ?>
+                                            <div class="flex items-center space-x-2">
+                                                <label class="text-sm font-medium text-gray-700">Tahun:<?= lang('') ?></label>
+                                                <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
+                                                    <option value="all">Semua Tahun</option>
+                                                    <?php
+                                                    $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
+                                                    sort($availableYears);
+                                                    foreach ($availableYears as $year) {
+                                                        $selected = (isset($data['filters']['quarterly_year']) && $data['filters']['quarterly_year'] == $year) ? 'selected' : '';
+                                                        echo "<option value=\"$year\" $selected>$year</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        <?php endif; ?>
+                                        <select id="quarterly-additional-investment-type" class="text-sm border rounded px-2 py-1">
+                                            <option value="bar">Bar</option>
+                                            <option value="line">Line</option>
+                                            <option value="area">Area</option>
+                                            <option value="pie">Pie</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <canvas id="quarterly-additional-investment-chart" height="200"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>

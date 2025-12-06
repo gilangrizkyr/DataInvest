@@ -1,0 +1,507 @@
+INFO - 2025-12-06 09:04:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 09:04:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 09:04:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 09:04:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:04:43 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 09:04:43 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:04:43 --> Processing upload ID: 37, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 09:04:43 --> Upload ID 37 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 09:04:43 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 09:04:43 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:04:43 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:04:43 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:04:43 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:04:43 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 09:04:43 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:04:43 --> Upload ID 37 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 09:04:43 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 09:04:43 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:04:43 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:04:43 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:04:43 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 09:10:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 09:10:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:10:53 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:10:53 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:10:53 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:10:53 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:10:53 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:10:53 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:10:53 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:10:53 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:10:53 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:10:53 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:10:53 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:10:53 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:15:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:15:48 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:15:48 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:15:48 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:15:48 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:15:48 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:15:48 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:15:48 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:15:48 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:15:48 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:15:48 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:15:48 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:15:48 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:16:05 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:16:05 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:16:05 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:16:05 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:16:05 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:16:05 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:16:05 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:16:05 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:16:05 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:16:05 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:16:05 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:16:05 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:26:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:26:21 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:26:21 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:26:21 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:26:21 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:26:21 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:26:21 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:26:21 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:26:21 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:26:21 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:26:21 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:26:21 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:26:21 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:26:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:26:48 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:26:48 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:26:48 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:26:48 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:26:48 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:26:48 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:26:48 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:26:48 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:26:48 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:26:48 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:26:48 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:26:48 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:27:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:27:07 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:27:07 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:27:07 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:27:07 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:27:07 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:27:07 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:27:07 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:27:07 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:27:07 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:27:07 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:27:07 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:27:07 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 09:31:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:31:17 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:31:17 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:31:17 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:31:17 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:31:17 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:31:17 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:31:17 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:31:17 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:31:17 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:31:17 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:31:17 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:31:17 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:31:17 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:31:17 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:36:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:36:25 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:36:25 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:36:25 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:36:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:36:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:36:25 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:36:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:36:25 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:36:25 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:36:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:36:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:36:25 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:36:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:36:25 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:37:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:37:20 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:37:20 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:37:20 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:37:20 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:37:20 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:37:20 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:37:20 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:37:20 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:37:20 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:37:20 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:37:20 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:37:20 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:37:20 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:37:20 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:44:53 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:44:53 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:44:53 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:44:53 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:44:53 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:44:53 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:44:53 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:44:53 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:44:53 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:44:53 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:44:53 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:44:53 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:44:53 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:44:53 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:45:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:45:23 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:45:23 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:45:23 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:45:23 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:45:23 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:45:23 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:45:23 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:45:23 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:45:23 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:45:23 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:45:23 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:45:23 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:45:23 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:45:23 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:53:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:53:23 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:53:23 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:53:23 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:53:23 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:53:23 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:53:23 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:53:23 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:53:23 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:53:23 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:53:23 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:53:23 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:53:23 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:53:23 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:53:23 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:53:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:53:40 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:53:40 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:53:40 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:53:40 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:53:40 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:53:40 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:53:40 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:53:40 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:53:40 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:53:40 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:53:40 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:53:40 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:53:40 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:53:40 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:55:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:55:42 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:55:42 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:55:42 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:55:42 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:55:42 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:55:42 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:55:42 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:55:42 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:55:42 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:55:42 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:55:42 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:55:42 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:55:42 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:55:42 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:56:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:56:10 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:56:10 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:56:10 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:56:10 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:56:10 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:56:10 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:56:10 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:56:10 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:56:10 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:56:10 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:56:10 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:56:10 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:56:10 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:56:10 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 09:56:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 09:56:13 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 09:56:13 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 09:56:13 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 09:56:13 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:56:13 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:56:13 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 09:56:13 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:56:13 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 09:56:13 --> Initialized year: 2025
+DEBUG - 2025-12-06 09:56:13 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 09:56:13 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 09:56:13 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 09:56:13 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 09:56:13 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:00:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:00:20 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:00:20 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:00:20 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:00:20 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:20 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:20 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:00:20 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:20 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:00:20 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:00:20 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:20 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:20 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:00:20 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:20 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:00:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:00:25 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:00:25 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:00:25 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:00:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:25 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:00:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:25 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:00:25 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:00:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:25 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:00:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:25 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:00:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:00:31 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:00:31 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:00:31 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:00:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:31 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:00:31 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:31 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:00:31 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:00:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:00:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:00:31 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:00:31 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:00:31 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:03:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:03:19 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:03:19 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:03:19 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:03:19 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:03:19 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:03:19 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:03:19 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:03:19 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:03:19 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:03:19 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:03:19 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:03:19 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:03:19 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:03:19 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:48:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:48:25 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:48:25 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:48:25 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:48:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:48:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:48:25 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:48:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:48:25 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:48:25 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:48:25 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:48:25 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:48:25 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:48:25 --> Converted to USD with rate 16653
+DEBUG - 2025-12-06 10:48:25 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,208424831.92,0]}}
+INFO - 2025-12-06 10:51:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:51:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:52:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:52:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:52:11 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:52:11 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:52:11 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:52:11 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:52:11 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:52:11 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:52:11 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:52:11 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:52:11 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:52:11 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:52:11 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:52:11 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 10:53:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:53:06 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:53:06 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:53:06 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:53:06 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:53:06 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:53:06 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:53:06 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:53:06 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:53:06 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:53:06 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:53:06 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:53:06 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 10:53:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:53:59 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:53:59 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:53:59 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:53:59 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:53:59 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:53:59 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:53:59 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:53:59 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:53:59 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:53:59 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:53:59 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:53:59 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 10:54:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:54:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:54:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:54:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:54:14 --> QuarterlyChartService - Total uploads: 1
+DEBUG - 2025-12-06 10:54:14 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:54:14 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:54:14 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:54:14 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:54:14 --> Final quarterly data before conversion: {"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:54:14 --> QuarterlyChartService (All Years) - Total uploads: 1
+DEBUG - 2025-12-06 10:54:14 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:54:14 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:54:14 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:54:14 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:54:14 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-06 10:57:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:57:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 10:57:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:57:38 --> ValidateMetadata called - UploadID: 38, Quarter: 2, Normalized: 2, Year: 2025
+DEBUG - 2025-12-06 10:57:38 --> === DUPLICATE CHECK START ===
+DEBUG - 2025-12-06 10:57:38 --> Checking duplicate: Quarter=Q2, Year=2025, ExcludeId=38
+DEBUG - 2025-12-06 10:57:38 --> ❌ NO DUPLICATE - Data aman untuk diproses
+DEBUG - 2025-12-06 10:57:38 --> === DUPLICATE CHECK END ===
+DEBUG - 2025-12-06 10:57:38 --> Validation passed - no duplicate found
+INFO - 2025-12-06 10:57:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 10:57:41 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 10:57:41 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 10:57:41 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 10:57:41 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 10:57:41 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 10:57:41 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 10:57:41 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:57:41 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:57:41 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 10:57:41 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 10:57:41 --> Initialized year: 2025
+DEBUG - 2025-12-06 10:57:41 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 10:57:41 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 10:57:41 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 10:57:41 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 10:57:41 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 10:57:41 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 11:06:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 11:06:31 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 11:06:31 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 11:06:31 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 11:06:31 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:06:31 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:06:31 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 11:06:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:06:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:06:31 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 11:06:31 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 11:06:31 --> Initialized year: 2025
+DEBUG - 2025-12-06 11:06:31 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:06:31 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:06:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:06:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:06:31 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 11:06:31 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 11:07:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 11:07:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 11:07:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 11:07:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 11:07:31 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 11:07:31 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 11:07:31 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 11:07:31 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:07:31 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:07:31 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 11:07:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:07:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:07:31 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 11:07:31 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 11:07:31 --> Initialized year: 2025
+DEBUG - 2025-12-06 11:07:31 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:07:31 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:07:31 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:07:31 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:07:31 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 11:07:31 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 11:07:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 11:07:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 11:07:45 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 11:07:45 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 11:07:45 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 11:07:45 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:07:45 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:07:45 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 11:07:45 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:07:45 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:07:45 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 11:07:45 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 11:07:45 --> Initialized year: 2025
+DEBUG - 2025-12-06 11:07:45 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:07:45 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:07:45 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:07:45 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:07:45 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 11:07:45 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 11:10:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 11:10:12 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 11:10:12 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 11:10:12 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 11:10:12 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:10:12 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:10:12 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 11:10:12 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:10:12 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:10:12 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 11:10:12 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 11:10:12 --> Initialized year: 2025
+DEBUG - 2025-12-06 11:10:12 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 11:10:12 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 11:10:12 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 11:10:12 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 11:10:12 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 11:10:12 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}
+INFO - 2025-12-06 13:49:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 13:49:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 13:49:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-06 13:49:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-06 13:49:38 --> QuarterlyChartService - Total uploads: 2
+DEBUG - 2025-12-06 13:49:38 --> QuarterlyChartService - Selected year: all
+DEBUG - 2025-12-06 13:49:38 --> Processing upload ID: 38, Status: completed, Year: 2025, Quarter: Q2
+DEBUG - 2025-12-06 13:49:38 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 13:49:38 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 13:49:38 --> Processing upload ID: 36, Status: completed, Year: 2025, Quarter: Q3
+DEBUG - 2025-12-06 13:49:38 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 13:49:38 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 13:49:38 --> Final quarterly data before conversion: {"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}
+DEBUG - 2025-12-06 13:49:38 --> QuarterlyChartService (All Years) - Total uploads: 2
+DEBUG - 2025-12-06 13:49:38 --> Initialized year: 2025
+DEBUG - 2025-12-06 13:49:38 --> Upload ID 38 - PMA: 1653622393959.00, PMDN: 1369327572783.00
+DEBUG - 2025-12-06 13:49:38 --> Added to Q2: 3022949966742 (Total now: 3022949966742)
+DEBUG - 2025-12-06 13:49:38 --> Upload ID 36 - PMA: 1653622393959.00, PMDN: 1817276331954.00
+DEBUG - 2025-12-06 13:49:38 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
+DEBUG - 2025-12-06 13:49:38 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":3022949966742,"Q3":3470898725913,"Q4":0}}
+DEBUG - 2025-12-06 13:49:38 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,3022949966742,3470898725913,0]}}

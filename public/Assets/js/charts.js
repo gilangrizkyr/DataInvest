@@ -594,6 +594,7 @@ class ChartsManager {
             });
         });
     }
+    
 }
 
 // Initialize charts when DOM is ready
