@@ -488,7 +488,7 @@
                                         <i class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
                                     </h3>
                                     <div class="flex items-center space-x-4">
-                                        <?php if (session()->get('role') === 'superadmin'): ?>
+                                       
                                             <div class="flex items-center space-x-2">
                                                 <label class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
                                                 <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
@@ -503,7 +503,7 @@
                                                     ?>
                                                 </select>
                                             </div>
-                                        <?php endif; ?>
+                                       
                                         <select id="quarterly-additional-investment-type" class="text-sm border rounded px-2 py-1">
                                             <option value="bar">Bar</option>
                                             <option value="line">Line</option>

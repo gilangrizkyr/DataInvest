@@ -97,7 +97,7 @@
             updateTime();
 
             // Auto refresh setiap 30 detik
-            setInterval(fetchAndRenderAllData, 30000);
+            setInterval(fetchAndRenderAllData, 5000);
         }
 
         // Fetch semua data dari API

@@ -18,7 +18,7 @@ return [
     'upload_management' => 'Manajemen Unggahan',
     'currency' => 'Mata Uang',
     'upload_name' => 'Nama Unggahan',
-    'quarter' => 'Kuartal',
+    'quarter' => 'Triwulan',
     'year' => 'Tahun',
     'status' => 'Status',
     'total_records' => 'Total Data',

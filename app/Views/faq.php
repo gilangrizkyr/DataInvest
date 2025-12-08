@@ -161,7 +161,7 @@
                         <li><i class="fas fa-check text-green-600 mr-2"></i>Dashboard dengan visualisasi chart interaktif</li>
                         <li><i class="fas fa-check text-green-600 mr-2"></i>Filter data berdasarkan periode (Quarter & Tahun)</li>
                         <li><i class="fas fa-check text-green-600 mr-2"></i>Konversi mata uang (IDR/USD)</li>
-                        <li><i class="fas fa-check text-green-600 mr-2"></i>Download hasil analisis ke Excel</li>
+                        <!-- <li><i class="fas fa-check text-green-600 mr-2"></i>Download hasil analisis ke Excel</li> -->
                         <li><i class="fas fa-check text-green-600 mr-2"></i>Multi-bahasa (Indonesia & English)</li>
                         <!-- <li><i class="fas fa-check text-green-600 mr-2"></i>Security monitoring (untuk Superadmin)</li> -->
                         <!-- <li><i class="fas fa-check text-green-600 mr-2"></i>User management (untuk Superadmin)</li> -->
@@ -597,7 +597,7 @@
                     </ol>
                 </div>
             </div>
-
+<!-- 
             <div class="faq-item mb-4 border border-gray-200 rounded-lg">
                 <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50">
                     <span class="font-semibold text-gray-800">
@@ -620,7 +620,7 @@
                         </li>
                     </ol>
                 </div>
-            </div>
+            </div> -->
 
             <div class="faq-item mb-4 border border-gray-200 rounded-lg">
                 <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50">
@@ -829,7 +829,7 @@
                 <i class="fas fa-headset text-5xl mb-4"></i>
                 <h2 class="text-2xl font-bold mb-2">Butuh Bantuan Lebih Lanjut?</h2>
                 <p class="text-blue-100 mb-6">
-                    Jika pertanyaan Anda tidak terjawab di FAQ ini, silakan hubungi Staf IT DPMPTSP
+                    Jika pertanyaan Anda tidak terjawab di FAQ ini, silakan hubungi Tim IT DPMPTSP Tanah Bumbu
                 </p>
                 <!-- <div class="flex justify-center gap-4 flex-wrap">
                     <div class="bg-white/10 backdrop-blur rounded-lg px-6 py-3">
