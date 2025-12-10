@@ -142,7 +142,7 @@
                 <div class="faq-answer px-6 pb-4">
                     <p class="text-gray-600 leading-relaxed">
                         Aplikasi ini hanya dapat dikelola oleh <strong>Admin DPMPTSP</strong> yang telah memiliki akun.
-                        Untuk membuat akun baru, silakan hubungi Staf IT DPMPTSP Kabupaten Tanah Bumbu.
+                        Untuk membuat akun baru, silakan hubungi Tim IT DPMPTSP Kabupaten Tanah Bumbu.
                     </p>
                 </div>
             </div>
@@ -205,8 +205,8 @@
                 </button>
                 <div class="faq-answer px-6 pb-4">
                     <p class="text-gray-600 leading-relaxed">
-                        Jika Anda lupa password, silakan <strong>hubungi Staf IT DPMPTSP</strong> untuk melakukan reset password.
-                        Staf IT akan membantu Anda mendapatkan password baru.
+                        Jika Anda lupa password, silakan <strong>hubungi Tim IT DPMPTSP</strong> untuk melakukan reset password.
+                        Tim IT akan membantu Anda mendapatkan password baru.
                     </p>
                     <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
                         <p class="text-sm text-yellow-800">
@@ -227,8 +227,8 @@
                 </button>
                 <div class="faq-answer px-6 pb-4">
                     <p class="text-gray-600 leading-relaxed">
-                        Pembuatan akun baru hanya dapat dilakukan oleh <strong>Staf IT DPMPTSP</strong>.
-                        Silakan hubungi Staf IT dan berikan informasi berikut:
+                        Pembuatan akun baru hanya dapat dilakukan oleh <strong>Tim IT DPMPTSP</strong>.
+                        Silakan hubungi Tim IT dan berikan informasi berikut:
                     </p>
                     <ul class="text-gray-600 space-y-1 ml-4 mt-2">
                         <li><i class="fas fa-caret-right text-blue-600 mr-2"></i>Nama lengkap</li>
@@ -597,7 +597,7 @@
                     </ol>
                 </div>
             </div>
-<!-- 
+            <!-- 
             <div class="faq-item mb-4 border border-gray-200 rounded-lg">
                 <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50">
                     <span class="font-semibold text-gray-800">
@@ -754,7 +754,7 @@
                     <ol class="text-gray-600 space-y-2 ml-4 list-decimal">
                         <li>Clear cookies dan cache browser</li>
                         <li>Pastikan email dan password benar</li>
-                        <li>Jika lupa password, hubungi Staf IT</li>
+                        <li>Jika lupa password, hubungi Tim IT</li>
                         <li>Jika masih tidak bisa, logout dan login kembali</li>
                     </ol>
                 </div>
@@ -790,7 +790,7 @@
                     <ul class="text-green-800 text-sm space-y-1 ml-4">
                         <li>• Gunakan filter untuk melihat data spesifik</li>
                         <li>• Ubah tipe chart sesuai kebutuhan visualisasi</li>
-                        <li>• Download hasil analisis secara berkala sebagai backup</li>
+                        <!-- <li>• Download hasil analisis secara berkala sebagai backup</li> -->
                         <li>• Sembunyikan chart yang tidak diperlukan untuk performa lebih baik</li>
                     </ul>
                 </div>
@@ -803,7 +803,7 @@
                     <ul class="text-purple-800 text-sm space-y-1 ml-4">
                         <li>• Jangan share password dengan orang lain</li>
                         <li>• Logout setelah selesai menggunakan aplikasi</li>
-                        <li>• Gunakan password yang kuat</li>
+                        <!-- <li>• Gunakan password yang kuat</li> -->
                         <li>• Jangan mengakses dari komputer publik</li>
                     </ul>
                 </div>
