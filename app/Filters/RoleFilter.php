@@ -10,13 +10,18 @@ class RoleFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->has('user_id')) {
+        $session = session();
+
+        // Jika user belum login, redirect ke login
+        if (!$session->has('user_id')) {
+            // Hanya redirect jika route bukan guest
             return redirect()->to('/auth/login');
         }
 
-        if ($arguments) {
-            $userRole = session()->get('role');
-            $allowedRoles = $arguments;
+        // Jika ada role check
+        if ($arguments && $session->has('role')) {
+            $userRole = $session->get('role');
+            $allowedRoles = is_array($arguments) ? $arguments : [$arguments];
 
             if (!in_array($userRole, $allowedRoles)) {
                 throw new \CodeIgniter\Exceptions\PageNotFoundException();
@@ -25,6 +30,7 @@ class RoleFilter implements FilterInterface
 
         return null;
     }
+
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
