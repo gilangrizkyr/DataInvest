@@ -6,6 +6,16 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 // LOGIN & AUTHENTICATION ROUTES
+$routes->get('DataInvest', function () {
+    return redirect()->to('/auth/login');
+});
+
+$routes->get('DataInvest/', function () {
+    return redirect()->to('/auth/login');
+});
+
+
+
 $routes->get('/auth/login', 'Auth::login', ['filter' => 'auth:guest']);
 $routes->post('/auth/process-login', 'Auth::processLogin');
 $routes->get('/auth/logout', 'Auth::logout');
