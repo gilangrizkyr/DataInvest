@@ -524,7 +524,7 @@
                     </div>
                 </div>
 
-
+                <!-- Lapor LKPM -->
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4" id="sector-count-tables">
                     <!-- Tabel PMA -->
                     <div class="glass-card shadow-xl rounded-xl p-6">

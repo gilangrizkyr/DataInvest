@@ -27,10 +27,11 @@ class DashboardService
 
     public function getDashboardData(array $filters): array
     {
-        // Get upload
-        $upload = $this->getUpload($filters['upload']);
+        // Ambil upload berdasarkan filter
+        $upload = $this->getUpload($filters['upload'] ?? null);
         $allUploads = $this->uploadModel->getAllUploads();
 
+        // Jika tidak ada upload, kembalikan dashboard kosong
         if (!$upload) {
             return $this->getEmptyDashboard($filters, $allUploads);
         }
@@ -38,25 +39,33 @@ class DashboardService
         $uploadId = $upload['id'];
         $filterConditions = $this->filterBuilder->build($filters);
 
-        // Get raw data with filters
+        // Ambil data proyek berdasarkan upload dan filter
         $rawData = $this->projectModel->getProjectsByUpload($uploadId, $filterConditions);
 
+        // Jika tidak ada data proyek, kembalikan dashboard kosong
         if (empty($rawData)) {
             return $this->getEmptyDashboard($filters, $allUploads, $upload);
         }
 
-        // Get statistics
+        // Hitung statistik proyek
         $statistics = $this->statisticsService->calculate($uploadId, $filterConditions, $upload['usd_value']);
-        // Get sector count by company for LKPM
+
+        // Ambil jumlah sektor per perusahaan (LKPM)
         $sectorCountByCompany = $this->projectModel->getSectorCountByCompany($uploadId, $filterConditions);
+
+        // Pastikan selalu ada key PMA & PMDN meskipun kosong
+        $sectorCountByCompany = [
+            'PMA'  => $sectorCountByCompany['PMA']  ?? ['data' => [], 'total' => 0],
+            'PMDN' => $sectorCountByCompany['PMDN'] ?? ['data' => [], 'total' => 0],
+        ];
         log_message('debug', 'Sector count in DashboardService: ' . json_encode($sectorCountByCompany));
 
-        // Get additional investment percentages
+        // Hitung persentase tambahan investasi per distrik
         $additionalInvestmentPercentages = $this->statisticsService->calculateAdditionalInvestmentPercentages(
-            $statistics['additional_investment_by_district']
+            $statistics['additional_investment_by_district'] ?? []
         );
 
-        // Generate charts
+        // Generate semua chart
         $charts = $this->chartService->generateAllCharts(
             $uploadId,
             $filterConditions,
@@ -64,12 +73,12 @@ class DashboardService
             $filters
         );
 
-        // Convert to USD if needed
-        if ($filters['currency'] === 'USD') {
+        // Convert ke USD jika filter currency = USD
+        if (($filters['currency'] ?? 'IDR') === 'USD') {
             $this->currencyService->convertToUSD($statistics, $upload['usd_value']);
         }
 
-        // Merge all data
+        // Merge semua data untuk dikirim ke view
         return array_merge($statistics, [
             'raw' => $rawData,
             'charts' => $charts,
@@ -78,10 +87,11 @@ class DashboardService
             'usd_rate' => $upload['usd_value'],
             'additional_investment_percentages' => $additionalInvestmentPercentages,
             'sector_count_by_company' => $sectorCountByCompany,
-            'ranking_pma' => $statistics['projects_by_district']['PMA'] ?? [],
-            'ranking_pmdn' => $statistics['projects_by_district']['PMDN'] ?? []
+            'ranking_pma'  => $statistics['projects_by_district']['PMA']  ?? [],
+            'ranking_pmdn' => $statistics['projects_by_district']['PMDN'] ?? [],
         ]);
     }
+
 
     public function generateExcelDownload(): array
     {
@@ -289,6 +299,10 @@ class DashboardService
             'realization_investment' => ['PMA' => 0, 'PMDN' => 0],
             'quarterly_results' => [],
             'additional_investment_percentages' => ['PMA' => [], 'PMDN' => []],
+            'sector_count_by_company' => [  // ✅ TAMBAHKAN INI
+                'PMA' => ['data' => [], 'total' => 0],
+                'PMDN' => ['data' => [], 'total' => 0]
+            ],
             'charts' => $this->chartService->getEmptyCharts(),
             'usd_rate' => $upload['usd_value'] ?? 16653
         ];
