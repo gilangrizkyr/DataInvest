@@ -3,5 +3,5 @@ namespace Config;
 
 class Maintenance
 {
-    public static $enabled = true; // ubah ke false kalau maintenance selesai
+    public static $enabled = false; // ubah ke false kalau maintenance selesai
 }
