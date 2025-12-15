@@ -11,7 +11,7 @@ Options -Indexes
     RewriteBase /DataInvest/
 
     # Pengecualian untuk file statis seperti gambar, CSS, dan JS
-    RewriteCond %{REQUEST_URI} !^/Laporin/(assets|uploads|img|css|js)/
+    RewriteCond %{REQUEST_URI} !^/DataInvest/(assets|uploads|img|css|js)/
 
     # Menghapus trailing slash
     RewriteCond %{REQUEST_FILENAME} !-d
