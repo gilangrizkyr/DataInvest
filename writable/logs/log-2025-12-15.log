@@ -2620,3 +2620,66 @@ DEBUG - 2025-12-15 10:56:28 --> Upload ID 61 - PMA: 1653622393959.00, PMDN: 1817
 DEBUG - 2025-12-15 10:56:28 --> Added to Q3: 3470898725913 (Total now: 3470898725913)
 DEBUG - 2025-12-15 10:56:28 --> Yearly quarterly data before conversion: {"2025":{"Q1":0,"Q2":0,"Q3":3470898725913,"Q4":0}}
 DEBUG - 2025-12-15 10:56:28 --> QuarterlyChartService (All Years) - Final result: {"2025":{"labels":["Q1","Q2","Q3","Q4"],"values":[0,0,3470898725913,0]}}
+INFO - 2025-12-15 19:02:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-15 19:02:34 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'ptsp'@'localhost' (using password: YES) in C:\laragon\www\DataInvest\system\Database\MySQLi\Connection.php:186
+Stack trace:
+#0 C:\laragon\www\DataInvest\system\Database\MySQLi\Connection.php(186): mysqli->real_connect('localhost', 'ptsp', Object(SensitiveParameterValue), 'sst', 3306, '', 0)
+#1 C:\laragon\www\DataInvest\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\DataInvest\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\DataInvest\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\DataInvest\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\DataInvest\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\DataInvest\app\Models\UploadModel.php(143): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\DataInvest\app\Services\DashboardService.php(274): App\Models\UploadModel->getLatestUpload()
+#8 C:\laragon\www\DataInvest\app\Services\DashboardService.php(31): App\Services\DashboardService->getUpload('all')
+#9 C:\laragon\www\DataInvest\app\Controllers\Dashboard.php(26): App\Services\DashboardService->getDashboardData(Array)
+#10 C:\laragon\www\DataInvest\system\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+#11 C:\laragon\www\DataInvest\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#12 C:\laragon\www\DataInvest\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#13 C:\laragon\www\DataInvest\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#14 C:\laragon\www\DataInvest\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#15 C:\laragon\www\DataInvest\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#16 C:\laragon\www\DataInvest\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#17 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in C:\laragon\www\DataInvest\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\laragon\www\DataInvest\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\DataInvest\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\DataInvest\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\DataInvest\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\DataInvest\system\BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 C:\laragon\www\DataInvest\app\Models\UploadModel.php(143): CodeIgniter\BaseModel->first()
+#6 C:\laragon\www\DataInvest\app\Services\DashboardService.php(274): App\Models\UploadModel->getLatestUpload()
+#7 C:\laragon\www\DataInvest\app\Services\DashboardService.php(31): App\Services\DashboardService->getUpload('all')
+#8 C:\laragon\www\DataInvest\app\Controllers\Dashboard.php(26): App\Services\DashboardService->getDashboardData(Array)
+#9 C:\laragon\www\DataInvest\system\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+#10 C:\laragon\www\DataInvest\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\laragon\www\DataInvest\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\DataInvest\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\DataInvest\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\DataInvest\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 C:\laragon\www\DataInvest\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#16 {main}
+CRITICAL - 2025-12-15 19:02:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `uploads`
+ORDER BY `upload_date` DESC
+ LIMIT 1', [], false)
+ 3 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\UploadModel.php(143): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Services\DashboardService.php(274): App\Models\UploadModel->getLatestUpload()
+ 7 APPPATH\Services\DashboardService.php(31): App\Services\DashboardService->getUpload('all')
+ 8 APPPATH\Controllers\Dashboard.php(26): App\Services\DashboardService->getDashboardData([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('C:\\laragon\\www\\DataInvest\\public\\index.php')
