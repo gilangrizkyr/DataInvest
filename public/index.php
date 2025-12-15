@@ -46,8 +46,8 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  * and fires up an environment-specific bootstrapping.
  */
 
-require FCPATH . 'app/Config/Paths.php';
-require FCPATH . 'vendor/autoload.php';
+require FCPATH . '..app/Config/Paths.php';
+require FCPATH . '..vendor/autoload.php';
 
 
 $paths = new Paths();

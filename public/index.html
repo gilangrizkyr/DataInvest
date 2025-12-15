@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maintenance - DPMPTSP Tanah Bumbu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .pulse-animation {
+            animation: pulse-slow 2s ease-in-out infinite;
+        }
+        
+        .rotate-animation {
+            animation: rotate 2s linear infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    
+    <!-- Main Container -->
+    <div class="max-w-4xl w-full">
+        
+        <!-- Logo Section -->
+        <div class="text-center mb-8">
+            <div class="inline-block glass-effect rounded-full p-6 mb-4">
+                <i class="fas fa-tools text-6xl text-white float-animation"></i>
+            </div>
+        </div>
+        
+        <!-- Card Content -->
+        <div class="glass-effect rounded-3xl shadow-2xl p-8 md:p-12 text-white">
+            
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Sedang dalam Perbaikan
+                </h1>
+                <div class="flex items-center justify-center gap-2 text-yellow-300">
+                    <i class="fas fa-exclamation-triangle pulse-animation"></i>
+                    <p class="text-xl md:text-2xl">
+                        Website Maintenance
+                    </p>
+                    <i class="fas fa-exclamation-triangle pulse-animation"></i>
+                </div>
+            </div>
+            
+            <!-- Description -->
+            <div class="text-center mb-8 space-y-4">
+                <p class="text-lg md:text-xl text-white/90">
+                    Mohon maaf atas ketidaknyamanannya.
+                </p>
+                <p class="text-base md:text-lg text-white/80">
+                    Kami sedang melakukan perawatan dan peningkatan sistem untuk memberikan pengalaman yang lebih baik kepada Anda.
+                </p>
+            </div>
+            
+            <!-- Loading Icon -->
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <i class="fas fa-cog text-6xl text-white/30"></i>
+                    <i class="fas fa-cog text-6xl text-white absolute top-0 left-0 rotate-animation"></i>
+                </div>
+            </div>
+            
+          
+            <!-- Contact Information -->
+            <!-- <div class="bg-white/10 rounded-xl p-6 mb-6">
+                <h3 class="font-bold text-xl mb-4 text-center">
+                    <i class="fas fa-address-card mr-2"></i>
+                    Informasi Kontak
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-envelope text-xl text-blue-300"></i>
+                        <div>
+                            <p class="text-white/60">Email</p>
+                            <p class="font-semibold">dpmptsp@tanahbumbu.go.id</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-phone text-xl text-green-300"></i>
+                        <div>
+                            <p class="text-white/60">Telepon</p>
+                            <p class="font-semibold">(0518) 12345</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-map-marker-alt text-xl text-red-300"></i>
+                        <div>
+                            <p class="text-white/60">Alamat</p>
+                            <p class="font-semibold">Tanah Bumbu, Kalimantan Selatan</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-clock text-xl text-yellow-300"></i>
+                        <div>
+                            <p class="text-white/60">Jam Kerja</p>
+                            <p class="font-semibold">Senin - Jumat, 08:00 - 16:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- Social Media -->
+                <!-- <div class="text-center">
+                    <p class="text-white/80 mb-4">Ikuti kami di media sosial:</p>
+                    <div class="flex justify-center gap-4">
+                        <a href="#" class="bg-white/20 hover:bg-white/30 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-white/20 hover:bg-white/30 w-12 h-12 rounded-full flex items-center justify-center transition-all hover:scale-110">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div> -->
+            
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center mt-8 text-white/70">
+            <p class="text-sm">
+                © <?= date('Y') ?> DPMPTSP Kabupaten Tanah Bumbu. All Rights Reserved.
+            </p>
+        </div>
+        
+    </div>
+    
+    <!-- Auto Refresh Script (Optional) -->
+    <script>
+        // Auto refresh setiap 5 menit untuk cek apakah maintenance sudah selesai
+        setTimeout(function() {
+            location.reload();
+        }, 300000); // 5 menit = 300000 ms
+        
+        // Countdown timer (optional)
+        let countdownElement = document.createElement('div');
+        countdownElement.className = 'text-center mt-4 text-white/60 text-sm';
+        countdownElement.innerHTML = '<i class="fas fa-sync-alt mr-2"></i>Halaman akan refresh otomatis dalam <span id="countdown">5:00</span> menit';
+        document.querySelector('.max-w-4xl').appendChild(countdownElement);
+        
+        let seconds = 300;
+        setInterval(function() {
+            seconds--;
+            let minutes = Math.floor(seconds / 60);
+            let remainingSeconds = seconds % 60;
+            document.getElementById('countdown').textContent = 
+                minutes + ':' + (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+            
+            if (seconds <= 0) {
+                location.reload();
+            }
+        }, 1000);
+    </script>
+    
+</body>
+</html>

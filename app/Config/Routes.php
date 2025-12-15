@@ -1,6 +1,18 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use Config\Maintenance;
+
+if (Maintenance::$enabled) {
+    // Redirect semua request ke index.html
+    $routes->setDefaultNamespace('');
+    $routes->setDefaultController('');
+    $routes->set404Override(function(){
+        echo file_get_contents(FCPATH . 'index.html');
+    });
+    return;
+}
+
 
 /**
  * @var RouteCollection $routes
