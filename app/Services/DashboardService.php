@@ -47,6 +47,9 @@ class DashboardService
 
         // Get statistics
         $statistics = $this->statisticsService->calculate($uploadId, $filterConditions, $upload['usd_value']);
+        // Get sector count by company for LKPM
+        $sectorCountByCompany = $this->projectModel->getSectorCountByCompany($uploadId, $filterConditions);
+        log_message('debug', 'Sector count in DashboardService: ' . json_encode($sectorCountByCompany));
 
         // Get additional investment percentages
         $additionalInvestmentPercentages = $this->statisticsService->calculateAdditionalInvestmentPercentages(
@@ -74,6 +77,7 @@ class DashboardService
             'filters' => $filters,
             'usd_rate' => $upload['usd_value'],
             'additional_investment_percentages' => $additionalInvestmentPercentages,
+            'sector_count_by_company' => $sectorCountByCompany,
             'ranking_pma' => $statistics['projects_by_district']['PMA'] ?? [],
             'ranking_pmdn' => $statistics['projects_by_district']['PMDN'] ?? []
         ]);

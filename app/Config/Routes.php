@@ -44,3 +44,5 @@ $routes->group('user-management', ['filter' => 'roleFilter:superadmin'], functio
 // FAQ ROUTE
 $routes->get('/faq', 'Faq::index');
 $routes->get('/faq', 'Faq::index', ['filter' => 'roleFilter']);
+
+$routes->get('dashboard/download-sector-lkpm', 'Dashboard::downloadSectorLKPM');    

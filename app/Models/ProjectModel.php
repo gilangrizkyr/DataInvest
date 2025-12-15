@@ -451,6 +451,66 @@ class ProjectModel extends Model
     }
 
     /**
+     * Get sector count by company name (PMA and PMDN)
+     * Returns count of unique sectors per company for LKPM reporting
+     */
+    public function getSectorCountByCompany($uploadId, $filters = [])
+    {
+        log_message('debug', '=== getSectorCountByCompany START ===');
+        log_message('debug', 'Upload ID: ' . $uploadId);
+
+        // Function to get sector-company combinations with count
+        $getSectorCompanyCounts = function ($investmentType) use ($uploadId, $filters) {
+            $builder = $this->db->table($this->table)
+                ->select('sector_detail as sektor, project_name as nama_perusahaan, COUNT(*) as jumlah')
+                ->where('upload_id', $uploadId)
+                ->where('investment_type', $investmentType)
+                ->where('project_name IS NOT NULL')
+                ->where('project_name !=', '')
+                ->where('sector_detail IS NOT NULL')
+                ->where('sector_detail !=', '');
+
+            if (!empty($filters['quarter']) && $filters['quarter'] !== 'all') {
+                $builder->where('period_stage', $filters['quarter']);
+            }
+
+            $builder->groupBy(['sector_detail', 'project_name'])
+                ->orderBy('sector_detail', 'ASC')
+                ->orderBy('project_name', 'ASC');
+
+            $result = $builder->get()->getResultArray();
+
+            log_message('debug', $investmentType . ' records found: ' . count($result));
+
+            return $result;
+        };
+
+        // Process PMA
+        $resultPMA = $getSectorCompanyCounts('PMA');
+        $totalPMA = array_sum(array_column($resultPMA, 'jumlah'));
+
+        // Process PMDN
+        $resultPMDN = $getSectorCompanyCounts('PMDN');
+        $totalPMDN = array_sum(array_column($resultPMDN, 'jumlah'));
+
+        log_message('debug', 'PMA: ' . count($resultPMA) . ' rows, Total: ' . $totalPMA);
+        log_message('debug', 'PMDN: ' . count($resultPMDN) . ' rows, Total: ' . $totalPMDN);
+        log_message('debug', '=== getSectorCountByCompany END ===');
+
+        return [
+            'PMA' => [
+                'data' => $resultPMA,
+                'total' => $totalPMA
+            ],
+            'PMDN' => [
+                'data' => $resultPMDN,
+                'total' => $totalPMDN
+            ]
+        ];
+    }
+
+
+    /**
      * Delete all projects by upload ID
      */
     public function deleteProjectsByUpload($uploadId)

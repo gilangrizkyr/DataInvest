@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard.css') ?>">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 </head>
 
 <body class="min-h-screen gradient-bg">
@@ -515,9 +520,248 @@
                                 <canvas id="quarterly-additional-investment-chart" height="200"></canvas>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
+
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4" id="sector-count-tables">
+                    <!-- Tabel PMA -->
+                    <div class="glass-card shadow-xl rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                <i class="fas fa-industry mr-3 text-blue-600"></i>
+                                Jumlah Sektor per Perusahaan - PMA (Lapor LKPM)
+                            </h3>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm font-normal text-gray-600 mr-3">
+                                    Total: <strong class="text-blue-600"><?= number_format($data['sector_count_by_company']['PMA']['total']) ?></strong>
+                                </span>
+                                <button onclick="downloadSectorPDF('PMA')"
+                                    class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-file-pdf mr-2"></i>PDF
+                                </button>
+                                <button onclick="downloadSectorExcel('PMA')"
+                                    class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-file-excel mr-2"></i>Excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search Box -->
+                        <div class="mb-4">
+                            <input type="text"
+                                id="search-pma"
+                                placeholder="Cari sektor atau perusahaan PMA..."
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <!-- Scrollable Table Container -->
+                        <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-blue-50 sticky top-0 z-10">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Sektor
+                                        </th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Nama Perusahaan
+                                        </th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Jumlah
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200" id="pma-table-body">
+                                    <?php if (!empty($data['sector_count_by_company']['PMA']['data'])): ?>
+                                        <?php foreach ($data['sector_count_by_company']['PMA']['data'] as $row): ?>
+                                            <tr class="hover:bg-blue-50 transition-colors pma-row">
+                                                <td class="px-4 py-3 text-sm text-gray-800"><?= esc($row['sektor']) ?></td>
+                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium"><?= esc($row['nama_perusahaan']) ?></td>
+                                                <td class="px-4 py-3 text-sm text-center font-bold text-blue-600"><?= number_format($row['jumlah']) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="3" class="px-4 py-8 text-center text-gray-500">
+                                                <i class="fas fa-inbox text-4xl mb-2 block text-gray-300"></i>
+                                                Tidak ada data PMA yang tersedia
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Summary Card -->
+                        <div class="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Total Record:</span>
+                                <span class="text-lg font-bold text-blue-600" id="pma-count">
+                                    <?= !empty($data['sector_count_by_company']['PMA']['data']) ? count($data['sector_count_by_company']['PMA']['data']) : 0 ?>
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm text-gray-700">Total Jumlah:</span>
+                                <span class="text-lg font-bold text-blue-600">
+                                    <?= number_format($data['sector_count_by_company']['PMA']['total']) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel PMDN -->
+                    <div class="glass-card shadow-xl rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                <i class="fas fa-industry mr-3 text-orange-600"></i>
+                                Jumlah Sektor per Perusahaan - PMDN (Lapor LKPM)
+                            </h3>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm font-normal text-gray-600 mr-3">
+                                    Total: <strong class="text-orange-600"><?= number_format($data['sector_count_by_company']['PMDN']['total']) ?></strong>
+                                </span>
+                                <button onclick="downloadSectorPDF('PMDN')"
+                                    class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-file-pdf mr-2"></i>PDF
+                                </button>
+                                <button onclick="downloadSectorExcel('PMDN')"
+                                    class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-file-excel mr-2"></i>Excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search Box -->
+                        <div class="mb-4">
+                            <input type="text"
+                                id="search-pmdn"
+                                placeholder="Cari sektor atau perusahaan PMDN..."
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+                        </div>
+
+                        <!-- Scrollable Table Container -->
+                        <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
+                            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                                <thead class="bg-orange-50 sticky top-0 z-10">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Sektor
+                                        </th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Nama Perusahaan
+                                        </th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider border-b">
+                                            Jumlah
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200" id="pmdn-table-body">
+                                    <?php if (!empty($data['sector_count_by_company']['PMDN']['data'])): ?>
+                                        <?php foreach ($data['sector_count_by_company']['PMDN']['data'] as $row): ?>
+                                            <tr class="hover:bg-orange-50 transition-colors pmdn-row">
+                                                <td class="px-4 py-3 text-sm text-gray-800"><?= esc($row['sektor']) ?></td>
+                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium"><?= esc($row['nama_perusahaan']) ?></td>
+                                                <td class="px-4 py-3 text-sm text-center font-bold text-orange-600"><?= number_format($row['jumlah']) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="3" class="px-4 py-8 text-center text-gray-500">
+                                                <i class="fas fa-inbox text-4xl mb-2 block text-gray-300"></i>
+                                                Tidak ada data PMDN yang tersedia
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Summary Card -->
+                        <div class="mt-4 bg-orange-50 rounded-lg p-4 border border-orange-200">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Total Record:</span>
+                                <span class="text-lg font-bold text-orange-600" id="pmdn-count">
+                                    <?= !empty($data['sector_count_by_company']['PMDN']['data']) ? count($data['sector_count_by_company']['PMDN']['data']) : 0 ?>
+                                </span>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm text-gray-700">Total Jumlah:</span>
+                                <span class="text-lg font-bold text-orange-600">
+                                    <?= number_format($data['sector_count_by_company']['PMDN']['total']) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript untuk Search Functionality -->
+                <script>
+                    // Search functionality for PMA table
+                    document.getElementById('search-pma').addEventListener('keyup', function() {
+                        const searchValue = this.value.toLowerCase();
+                        const rows = document.querySelectorAll('.pma-row');
+                        let visibleCount = 0;
+
+                        rows.forEach(row => {
+                            const text = row.textContent.toLowerCase();
+                            if (text.includes(searchValue)) {
+                                row.style.display = '';
+                                visibleCount++;
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
+
+                        document.getElementById('pma-count').textContent = visibleCount;
+                    });
+
+                    // Search functionality for PMDN table
+                    document.getElementById('search-pmdn').addEventListener('keyup', function() {
+                        const searchValue = this.value.toLowerCase();
+                        const rows = document.querySelectorAll('.pmdn-row');
+                        let visibleCount = 0;
+
+                        rows.forEach(row => {
+                            const text = row.textContent.toLowerCase();
+                            if (text.includes(searchValue)) {
+                                row.style.display = '';
+                                visibleCount++;
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
+
+                        document.getElementById('pmdn-count').textContent = visibleCount;
+                    });
+                </script>
+
+                <style>
+                    /* Custom scrollbar untuk tabel */
+                    #sector-count-tables .overflow-x-auto::-webkit-scrollbar {
+                        width: 8px;
+                        height: 8px;
+                    }
+
+                    #sector-count-tables .overflow-x-auto::-webkit-scrollbar-track {
+                        background: #f1f1f1;
+                        border-radius: 10px;
+                    }
+
+                    #sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb {
+                        background: #888;
+                        border-radius: 10px;
+                    }
+
+                    #sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+                        background: #555;
+                    }
+
+                    /* Sticky header shadow effect */
+                    #sector-count-tables thead.sticky {
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    }
+                </style>
                 <!-- ADDITIONAL INVESTMENT PERCENTAGES -->
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
                     <div class="glass-card shadow-xl rounded-xl p-4 chart-container">
@@ -628,6 +872,419 @@
     <script>
         const data = <?= json_encode($data, JSON_HEX_TAG) ?>;
         const currentFilters = <?= json_encode($data['filters'] ?? []) ?>;
+
+
+
+        function downloadSectorPDF(type) {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+
+            // Get data
+            const sectorData = data.sector_count_by_company[type].data;
+            const total = data.sector_count_by_company[type].total;
+
+            if (!sectorData || sectorData.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Tidak Ada Data',
+                    text: `Tidak ada data ${type} untuk diunduh.`
+                });
+                return;
+            }
+
+            // Header
+            const today = new Date().toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            // Title
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text('DPMPTSP Kabupaten Tanah Bumbu', 105, 15, {
+                align: 'center'
+            });
+
+            doc.setFontSize(14);
+            doc.text(`Laporan LKPM - ${type}`, 105, 23, {
+                align: 'center'
+            });
+
+            doc.setFontSize(12);
+            doc.text('Jumlah Sektor per Perusahaan', 105, 30, {
+                align: 'center'
+            });
+
+            // Info
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Tanggal: ${today}`, 14, 40);
+            doc.text(`Total Jumlah: ${total.toLocaleString('id-ID')}`, 14, 45);
+
+            // Table data
+            const tableData = sectorData.map((row, index) => [
+                index + 1,
+                row.sektor,
+                row.nama_perusahaan,
+                row.jumlah.toLocaleString('id-ID')
+            ]);
+
+            // Add total row
+            tableData.push([
+                '',
+                {
+                    content: 'TOTAL',
+                    colSpan: 2,
+                    styles: {
+                        fontStyle: 'bold',
+                        halign: 'right'
+                    }
+                },
+                {
+                    content: total.toLocaleString('id-ID'),
+                    styles: {
+                        fontStyle: 'bold'
+                    }
+                }
+            ]);
+
+            // Generate table
+            doc.autoTable({
+                startY: 50,
+                head: [
+                    ['No', 'Sektor', 'Nama Perusahaan', 'Jumlah']
+                ],
+                body: tableData,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: type === 'PMA' ? [37, 99, 235] : [249, 115, 22],
+                    textColor: 255,
+                    fontStyle: 'bold',
+                    halign: 'center'
+                },
+                styles: {
+                    fontSize: 9,
+                    cellPadding: 3,
+                    overflow: 'linebreak',
+                    cellWidth: 'wrap'
+                },
+                columnStyles: {
+                    0: {
+                        cellWidth: 10,
+                        halign: 'center'
+                    },
+                    1: {
+                        cellWidth: 70
+                    },
+                    2: {
+                        cellWidth: 70
+                    },
+                    3: {
+                        cellWidth: 30,
+                        halign: 'right'
+                    }
+                },
+                didDrawPage: function(data) {
+                    // Footer
+                    const pageCount = doc.internal.getNumberOfPages();
+                    const pageSize = doc.internal.pageSize;
+                    const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+
+                    doc.setFontSize(8);
+                    doc.text(
+                        `Halaman ${data.pageNumber} dari ${pageCount}`,
+                        pageSize.width / 2,
+                        pageHeight - 10, {
+                            align: 'center'
+                        }
+                    );
+                }
+            });
+
+            // Save
+            const filename = `LKPM_${type}_${new Date().getTime()}.pdf`;
+            doc.save(filename);
+
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: `File PDF ${type} berhasil diunduh.`,
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // Function untuk download Excel
+        function downloadSectorExcel(type) {
+            const sectorData = data.sector_count_by_company[type].data;
+            const total = data.sector_count_by_company[type].total;
+
+            if (!sectorData || sectorData.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Tidak Ada Data',
+                    text: `Tidak ada data ${type} untuk diunduh.`
+                });
+                return;
+            }
+
+            // Prepare data for Excel
+            const today = new Date().toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            // Create worksheet data
+            const wsData = [
+                ['DPMPTSP KABUPATEN TANAH BUMBU'],
+                [`LAPORAN LKPM - ${type}`],
+                ['Jumlah Sektor per Perusahaan'],
+                [],
+                [`Tanggal: ${today}`],
+                [`Total Jumlah: ${total.toLocaleString('id-ID')}`],
+                [],
+                ['No', 'Sektor', 'Nama Perusahaan', 'Jumlah']
+            ];
+
+            // Add data rows
+            sectorData.forEach((row, index) => {
+                wsData.push([
+                    index + 1,
+                    row.sektor,
+                    row.nama_perusahaan,
+                    row.jumlah
+                ]);
+            });
+
+            // Add total row
+            wsData.push([
+                '',
+                '',
+                'TOTAL',
+                total
+            ]);
+
+            // Create workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+            // Set column widths
+            ws['!cols'] = [{
+                    wch: 5
+                }, // No
+                {
+                    wch: 50
+                }, // Sektor
+                {
+                    wch: 40
+                }, // Nama Perusahaan
+                {
+                    wch: 15
+                } // Jumlah
+            ];
+
+            // Merge cells for title
+            ws['!merges'] = [{
+                    s: {
+                        r: 0,
+                        c: 0
+                    },
+                    e: {
+                        r: 0,
+                        c: 3
+                    }
+                }, // Title row 1
+                {
+                    s: {
+                        r: 1,
+                        c: 0
+                    },
+                    e: {
+                        r: 1,
+                        c: 3
+                    }
+                }, // Title row 2
+                {
+                    s: {
+                        r: 2,
+                        c: 0
+                    },
+                    e: {
+                        r: 2,
+                        c: 3
+                    }
+                } // Title row 3
+            ];
+
+            // Style header row (bold, centered)
+            const headerRow = 7; // Row index for header (0-based)
+            ['A', 'B', 'C', 'D'].forEach(col => {
+                const cell = ws[`${col}${headerRow + 1}`];
+                if (cell) {
+                    cell.s = {
+                        font: {
+                            bold: true
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        },
+                        fill: {
+                            fgColor: {
+                                rgb: type === 'PMA' ? '2563EB' : 'F97316'
+                            }
+                        }
+                    };
+                }
+            });
+
+            // Add worksheet to workbook
+            XLSX.utils.book_append_sheet(wb, ws, `LKPM ${type}`);
+
+            // Save file
+            const filename = `LKPM_${type}_${new Date().getTime()}.xlsx`;
+            XLSX.writeFile(wb, filename);
+
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: `File Excel ${type} berhasil diunduh.`,
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // Function untuk download gabungan PMA & PMDN
+        function downloadAllSectorPDF() {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+
+            const today = new Date().toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            let startY = 15;
+
+            // Process both PMA and PMDN
+            ['PMA', 'PMDN'].forEach((type, typeIndex) => {
+                const sectorData = data.sector_count_by_company[type].data;
+                const total = data.sector_count_by_company[type].total;
+
+                if (sectorData && sectorData.length > 0) {
+                    if (typeIndex > 0) {
+                        doc.addPage();
+                        startY = 15;
+                    }
+
+                    // Title
+                    doc.setFontSize(16);
+                    doc.setFont(undefined, 'bold');
+                    doc.text('DPMPTSP Kabupaten Tanah Bumbu', 105, startY, {
+                        align: 'center'
+                    });
+
+                    doc.setFontSize(14);
+                    doc.text(`Laporan LKPM - ${type}`, 105, startY + 8, {
+                        align: 'center'
+                    });
+
+                    doc.setFontSize(12);
+                    doc.text('Jumlah Sektor per Perusahaan', 105, startY + 15, {
+                        align: 'center'
+                    });
+
+                    // Info
+                    doc.setFontSize(10);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(`Tanggal: ${today}`, 14, startY + 25);
+                    doc.text(`Total Jumlah: ${total.toLocaleString('id-ID')}`, 14, startY + 30);
+
+                    // Table data
+                    const tableData = sectorData.map((row, index) => [
+                        index + 1,
+                        row.sektor,
+                        row.nama_perusahaan,
+                        row.jumlah.toLocaleString('id-ID')
+                    ]);
+
+                    tableData.push([
+                        '',
+                        {
+                            content: 'TOTAL',
+                            colSpan: 2,
+                            styles: {
+                                fontStyle: 'bold',
+                                halign: 'right'
+                            }
+                        },
+                        {
+                            content: total.toLocaleString('id-ID'),
+                            styles: {
+                                fontStyle: 'bold'
+                            }
+                        }
+                    ]);
+
+                    // Generate table
+                    doc.autoTable({
+                        startY: startY + 35,
+                        head: [
+                            ['No', 'Sektor', 'Nama Perusahaan', 'Jumlah']
+                        ],
+                        body: tableData,
+                        theme: 'grid',
+                        headStyles: {
+                            fillColor: type === 'PMA' ? [37, 99, 235] : [249, 115, 22],
+                            textColor: 255,
+                            fontStyle: 'bold',
+                            halign: 'center'
+                        },
+                        styles: {
+                            fontSize: 9,
+                            cellPadding: 3
+                        },
+                        columnStyles: {
+                            0: {
+                                cellWidth: 10,
+                                halign: 'center'
+                            },
+                            1: {
+                                cellWidth: 70
+                            },
+                            2: {
+                                cellWidth: 70
+                            },
+                            3: {
+                                cellWidth: 30,
+                                halign: 'right'
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Save
+            const filename = `LKPM_Lengkap_${new Date().getTime()}.pdf`;
+            doc.save(filename);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: 'File PDF lengkap (PMA & PMDN) berhasil diunduh.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
     </script>
     <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
     <script src="<?= base_url('assets/js/charts.js') ?>"></script>

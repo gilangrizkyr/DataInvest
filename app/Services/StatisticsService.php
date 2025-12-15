@@ -33,7 +33,8 @@ class StatisticsService
             'projects_by_country' => $this->projectModel->getProjectsByCountry($uploadId, $filterConditions),
             'ranking_by_district' => $this->projectModel->getRankingByDistrict($uploadId, $filterConditions),
             'realization_investment' => $this->projectModel->getRealizationInvestment($uploadId, $filterConditions),
-            'quarterly_results' => $this->projectModel->getQuarterlyResults($uploadId, $filterConditions)
+            'quarterly_results' => $this->projectModel->getQuarterlyResults($uploadId, $filterConditions),
+            'sector_count_by_company' => $this->projectModel->getSectorCountByCompany($uploadId, $filterConditions)
         ];
     }
 
