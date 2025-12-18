@@ -457,44 +457,56 @@ class ProjectModel extends Model
     public function getSectorCountByCompany($uploadId, $filters = [])
     {
         log_message('debug', '=== getSectorCountByCompany START ===');
-        log_message('debug', 'Upload ID: ' . $uploadId);
+        log_message('debug', 'Upload ID: ' . (is_array($uploadId) ? json_encode($uploadId) : $uploadId));
+        log_message('debug', 'Filters: ' . json_encode($filters));
 
-        // Function to get sector-company combinations with count
-        $getSectorCompanyCounts = function ($investmentType) use ($uploadId, $filters) {
+        $getCompanyData = function ($investmentType) use ($uploadId, $filters) {
             $builder = $this->db->table($this->table)
-                ->select('sector_detail as sektor, project_name as nama_perusahaan, COUNT(*) as jumlah')
-                ->where('upload_id', $uploadId)
+                ->select('company_name AS nama_perusahaan,
+                      SUM(additional_investment) AS tambahan_realisasi,
+                      SUM(tki) AS jumlah_tki,
+                      SUM(tka) AS jumlah_tka,
+                      COUNT(DISTINCT project_id) AS jumlah_proyek')
                 ->where('investment_type', $investmentType)
-                ->where('project_name IS NOT NULL')
-                ->where('project_name !=', '')
-                ->where('sector_detail IS NOT NULL')
-                ->where('sector_detail !=', '');
+                ->where('company_name IS NOT NULL')
+                ->where('company_name !=', '')
+                ->groupBy('company_name')
+                ->orderBy('company_name', 'ASC');
 
-            if (!empty($filters['quarter']) && $filters['quarter'] !== 'all') {
-                $builder->where('period_stage', $filters['quarter']);
+            // Jika upload_id adalah array, gunakan whereIn
+            if (is_array($uploadId)) {
+                $builder->whereIn('upload_id', $uploadId);
+            } else {
+                $builder->where('upload_id', $uploadId);
             }
 
-            $builder->groupBy(['sector_detail', 'project_name'])
-                ->orderBy('sector_detail', 'ASC')
-                ->orderBy('project_name', 'ASC');
+            if (!empty($filters['quarter']) && $filters['quarter'] !== 'all') {
+                $builder->where('quarter', $filters['quarter']);
+            }
 
             $result = $builder->get()->getResultArray();
+
+            // Pastikan semua field numerik dikonversi ke float/int agar view bisa number_format
+            foreach ($result as &$row) {
+                $row['tambahan_realisasi'] = (float)$row['tambahan_realisasi'];
+                $row['jumlah_tki'] = (int)$row['jumlah_tki'];
+                $row['jumlah_tka'] = (int)$row['jumlah_tka'];
+                $row['jumlah_proyek'] = (int)$row['jumlah_proyek'];
+            }
 
             log_message('debug', $investmentType . ' records found: ' . count($result));
 
             return $result;
         };
 
-        // Process PMA
-        $resultPMA = $getSectorCompanyCounts('PMA');
-        $totalPMA = array_sum(array_column($resultPMA, 'jumlah'));
+        // PMA
+        $resultPMA = $getCompanyData('PMA');
+        $totalPMA = array_sum(array_column($resultPMA, 'tambahan_realisasi'));
 
-        // Process PMDN
-        $resultPMDN = $getSectorCompanyCounts('PMDN');
-        $totalPMDN = array_sum(array_column($resultPMDN, 'jumlah'));
+        // PMDN
+        $resultPMDN = $getCompanyData('PMDN');
+        $totalPMDN = array_sum(array_column($resultPMDN, 'tambahan_realisasi'));
 
-        log_message('debug', 'PMA: ' . count($resultPMA) . ' rows, Total: ' . $totalPMA);
-        log_message('debug', 'PMDN: ' . count($resultPMDN) . ' rows, Total: ' . $totalPMDN);
         log_message('debug', '=== getSectorCountByCompany END ===');
 
         return [
@@ -508,7 +520,6 @@ class ProjectModel extends Model
             ]
         ];
     }
-
 
     /**
      * Delete all projects by upload ID

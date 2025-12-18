@@ -68,7 +68,7 @@ class DashboardApp {
             this.createStatCard('Total Investasi PMA', formatNumber(this.invPMA), 'Investasi PMA', 'indigo', 'fa-money-bill-wave'),
             this.createStatCard('Total Investasi PMDN', formatNumber(this.invPMDN), 'Investasi PMDN', 'cyan', 'fa-money-bill-wave'),
             this.createStatCard('Tambahan Investasi PMA', formatNumber(this.addInvPMA), 'Tambahan Investasi PMA', 'pink', 'fa-plus-circle'),
-            this.createStatCard('Tambahan Investasi PMDN', formatNumber(this.addInvPMDN), 'Tambahan Investasi PMDN', 'lime', 'fa-plus-circle')
+            this.createStatCard('Tambahan Investasi PMDN', formatNumber(this.addInvPMDN), 'Tambahan Investasi PMDN', 'lime', 'fa-plus-circle')  
         ];
         
         statsContainer.innerHTML = cards.join('');

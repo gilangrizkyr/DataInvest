@@ -19,6 +19,10 @@ class StatisticsService
         $totalInvestment = $this->projectModel->getTotalInvestment($uploadId, $filterConditions);
         $totalAdditionalInvestment = $this->projectModel->getAdditionalInvestment($uploadId, $filterConditions);
 
+        // Tambahan: sector count per company
+        $sectorCountPMA = $this->projectModel->getSectorCountByCompany(array_merge($filterConditions, ['jenis_investasi' => 'PMA']));
+        $sectorCountPMDN = $this->projectModel->getSectorCountByCompany(array_merge($filterConditions, ['jenis_investasi' => 'PMDN']));
+
         return [
             'total_projects' => $totalProjects,
             'total_investment' => $totalInvestment,
@@ -34,9 +38,20 @@ class StatisticsService
             'ranking_by_district' => $this->projectModel->getRankingByDistrict($uploadId, $filterConditions),
             'realization_investment' => $this->projectModel->getRealizationInvestment($uploadId, $filterConditions),
             'quarterly_results' => $this->projectModel->getQuarterlyResults($uploadId, $filterConditions),
-            'sector_count_by_company' => $this->projectModel->getSectorCountByCompany($uploadId, $filterConditions)
+            // Tambahan untuk controller LKPM
+            'sector_count_by_company' => [
+                'PMA' => [
+                    'data' => $sectorCountPMA,
+                    'total' => array_sum(array_column($sectorCountPMA, 'tambahan_realisasi')),
+                ],
+                'PMDN' => [
+                    'data' => $sectorCountPMDN,
+                    'total' => array_sum(array_column($sectorCountPMDN, 'tambahan_realisasi')),
+                ],
+            ],
         ];
     }
+
 
     public function calculateAdditionalInvestmentPercentages(array $additionalInvestmentByDistrict): array
     {
