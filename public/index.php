@@ -1,8 +1,10 @@
 <?php
 /**
- * CI4 Index - Working Without mod_rewrite
- * Uses query string: index.php?r=/dashboard
+ * Debug Index - Simple Test
  */
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 define('ENVIRONMENT', 'development');
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
@@ -11,24 +13,29 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
     chdir(FCPATH);
 }
 
-// Load paths
+echo "<h1>Debug Test</h1>";
+echo "<h2>Step 1: Loading Paths</h2>";
+
 require dirname(__DIR__) . '/app/Config/Paths.php';
 $paths = new \Config\Paths();
+echo "Paths loaded<br>";
 
-// Load vendor autoloader
+echo "<h2>Step 2: Loading Autoloader</h2>";
 require dirname(__DIR__) . '/vendor/autoload.php';
+echo "Vendor autoload loaded<br>";
 
-// Setup basic constants
+echo "<h2>Step 3: Defining Constants</h2>";
 define('APPPATH', realpath($paths->appDirectory) . DIRECTORY_SEPARATOR);
 define('ROOTPATH', realpath(APPPATH . '../') . DIRECTORY_SEPARATOR);
 define('SYSTEMPATH', realpath($paths->systemDirectory) . DIRECTORY_SEPARATOR);
-define('WRITEPATH', realpath($paths->writableDirectory) . DIRECTORY_SEPARATOR);
-define('TESTPATH', realpath($paths->testsDirectory) . DIRECTORY_SEPARATOR);
+echo "APPPATH: " . APPPATH . "<br>";
+echo "SYSTEMPATH: " . SYSTEMPATH . "<br>";
 
-// Load Config/Constants.php
+echo "<h2>Step 4: Loading Config/Constants</h2>";
 require APPPATH . 'Config/Constants.php';
+echo "Constants loaded<br>";
 
-// Load autoloader
+echo "<h2>Step 5: Loading Autoloader Classes</h2>";
 require SYSTEMPATH . 'Config/AutoloadConfig.php';
 require APPPATH . 'Config/Autoload.php';
 require SYSTEMPATH . 'Modules/Modules.php';
@@ -37,126 +44,91 @@ require SYSTEMPATH . 'Autoloader/Autoloader.php';
 require SYSTEMPATH . 'Config/BaseService.php';
 require SYSTEMPATH . 'Config/Services.php';
 require APPPATH . 'Config/Services.php';
+echo "Config classes loaded<br>";
 
-// Initialize autoloader
-\CodeIgniter\Config\Services::autoloader()->initialize(
-    new \Config\Autoload(),
-    new \Config\Modules()
-)->register();
+echo "<h2>Step 6: Initializing Autoloader</h2>";
+try {
+    $autoloader = \CodeIgniter\Config\Services::autoloader()->initialize(
+        new \Config\Autoload(),
+        new \Config\Modules()
+    )->register();
+    echo "Autoloader initialized<br>";
+} catch (Throwable $e) {
+    echo "<h2>ERROR in Autoloader</h2>";
+    echo "Message: " . $e->getMessage() . "<br>";
+    echo "File: " . $e->getFile() . "<br>";
+    echo "Line: " . $e->getLine() . "<br>";
+    echo "<pre>" . $e->getTraceAsString() . "</pre>";
+    exit;
+}
 
-// Load common functions
+echo "<h2>Step 7: Loading Common Functions</h2>";
 require SYSTEMPATH . 'Common.php';
+echo "Common loaded<br>";
 
-// Get the route from query string ?r=/dashboard
-$route = 'dashboard'; // default
+echo "<h2>Step 8: Getting Route</h2>";
+$route = isset($_GET['r']) ? ltrim($_GET['r'], '/') : 'dashboard';
+echo "Route: $route<br>";
 
-if (isset($_GET['r'])) {
-    $route = ltrim($_GET['r'], '/');
-}
+echo "<h2>Step 9: Parsing Route</h2>";
+$segments = explode('/', $route);
+$controllerName = ucfirst(array_shift($segments));
+$method = !empty($segments) ? array_shift($segments) : 'index';
+echo "Controller: $controllerName<br>";
+echo "Method: $method<br>";
 
-// Parse the route to get controller and method
-function parseRoute($route) {
-    // Default to dashboard
-    $controller = 'Dashboard';
-    $method = 'index';
-    $params = [];
-    
-    // Remove leading slash
-    $route = ltrim($route, '/');
-    
-    if (empty($route) || $route === 'dashboard') {
-        return [$controller, $method, $params];
-    }
-    
-    $segments = explode('/', $route);
-    
-    // First segment is controller
-    $controller = ucfirst(array_shift($segments));
-    
-    // If there are more segments, second is method
-    if (!empty($segments)) {
-        $method = array_shift($segments);
-    }
-    
-    // Remaining segments are parameters
-    $params = $segments;
-    
-    return [$controller, $method, $params];
-}
-
-list($controllerName, $method, $params) = parseRoute($route);
-
-// Build controller class name
-$controllerClass = "App\\Controllers\\" . $controllerName;
-
-// Load the controller file
+echo "<h2>Step 10: Loading Controller</h2>";
 $controllerFile = APPPATH . 'Controllers/' . $controllerName . '.php';
+echo "Controller file: $controllerFile<br>";
 
 if (!file_exists($controllerFile)) {
-    // Controller not found - show 404
-    header('HTTP/1.1 404 Not Found');
-    echo "<h1>404 - Page Not Found</h1>";
-    echo "<p>Controller '$controllerName' not found.</p>";
-    echo "<p>Route: $route</p>";
+    echo "<h2>ERROR: Controller file not found</h2>";
     exit;
 }
 
-// Load controller
 require_once $controllerFile;
+echo "Controller file loaded<br>";
 
-// Create controller instance
+$controllerClass = "App\\Controllers\\" . $controllerName;
+echo "Controller class: $controllerClass<br>";
+
 if (!class_exists($controllerClass)) {
-    header('HTTP/1.1 404 Not Found');
-    echo "<h1>404 - Page Not Found</h1>";
-    echo "<p>Class '$controllerClass' not found.</p>";
+    echo "<h2>ERROR: Controller class not found</h2>";
     exit;
 }
 
-// Create controller with dependencies
-$controller = new $controllerClass();
-
-// Check if method exists
-if (!method_exists($controller, $method)) {
-    header('HTTP/1.1 404 Not Found');
-    echo "<h1>404 - Page Not Found</h1>";
-    echo "<p>Method '$method' not found in controller '$controllerName'.</p>";
-    echo "<p>Route: $route</p>";
-    exit;
-}
-
-// Create a mock request
-$request = \CodeIgniter\Config\Services::request();
-
-// Create a mock response
-$response = \CodeIgniter\Config\Services::response();
-
-// Get logger
-$logger = \CodeIgniter\Config\Services::logger();
-
-// Initialize controller with request, response, and logger
-if (method_exists($controller, 'initController')) {
-    $controller->initController($request, $response, $logger);
-}
-
-// Call the method
+echo "<h2>Step 11: Creating Controller Instance</h2>";
 try {
-    // Call the controller method with parameters
-    $output = call_user_func_array([$controller, $method], $params);
-    
-    // If output is a string, send it
+    $controller = new $controllerClass();
+    echo "Controller instance created<br>";
+} catch (Throwable $e) {
+    echo "<h2>ERROR creating controller</h2>";
+    echo "Message: " . $e->getMessage() . "<br>";
+    exit;
+}
+
+echo "<h2>Step 12: Calling Method</h2>";
+if (!method_exists($controller, $method)) {
+    echo "<h2>ERROR: Method not found</h2>";
+    exit;
+}
+
+try {
+    echo "Calling $controllerClass->$method()<br>";
+    $output = $controller->$method();
+    echo "Method called successfully<br>";
+    echo "Output type: " . gettype($output) . "<br>";
     if (is_string($output)) {
-        echo $output;
-    } elseif ($output instanceof \CodeIgniter\HTTP\ResponseInterface) {
-        // If it's a Response object, send it
-        $output->send();
+        echo "<h2>Output</h2>";
+        echo "Output length: " . strlen($output) . " bytes<br>";
     }
 } catch (Throwable $e) {
-    // Handle errors
-    header('HTTP/1.1 500 Internal Server Error');
-    echo "<h1>500 - Error</h1>";
-    echo "<p>" . $e->getMessage() . "</p>";
-    if (ENVIRONMENT === 'development') {
-        echo "<pre>" . $e->getTraceAsString() . "</pre>";
-    }
+    echo "<h2>ERROR in method call</h2>";
+    echo "Message: " . $e->getMessage() . "<br>";
+    echo "File: " . $e->getFile() . "<br>";
+    echo "Line: " . $e->getLine() . "<br>";
+    echo "<pre>" . $e->getTraceAsString() . "</pre>";
 }
+
+echo "<h2>DONE</h2>";
 
