@@ -8,7 +8,7 @@ class App extends BaseConfig
 {
     public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/DataInvest/';
     public array $allowedHostnames = [];
-    public string $indexPage = '';
+    public string $indexPage = 'index.php';
     public string $uriProtocol = 'REQUEST_URI';
     public string $permittedURIChars = 'a-z 0-9~%.:_\-';
     public string $defaultLocale = 'id';
