@@ -10,21 +10,20 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
 
 echo "<h1>Debug CI4 Boot</h1>";
 
+$route = '';
 if (isset($_GET['r'])) {
     $route = ltrim($_GET['r'], '/');
+    unset($_GET['r']);
+    $_SERVER['QUERY_STRING'] = '';
     $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $_SERVER['REQUEST_URI'] = $requestUri . '/' . $route;
     $_SERVER['PATH_INFO'] = '/' . $route;
-    
     echo "Route: $route<br>";
-    echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
 }
 
 require dirname(__DIR__) . '/app/Config/Paths.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
-
 $paths = new \Config\Paths();
-
 require $paths->systemDirectory . '/Boot.php';
 
 try {
