@@ -29,6 +29,36 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
 
 /*
  *---------------------------------------------------------------
+ * FIX URI FOR TANPA mod_rewrite
+ *---------------------------------------------------------------
+ */
+
+// Get the path from REQUEST_URI
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
+$basePath = str_replace('index.php', '', $scriptName);
+
+// Extract path info
+$path = $requestUri;
+
+// Remove query string
+$path = strtok($path, '?');
+
+// Remove base path
+$path = str_replace($basePath, '', $path);
+
+// Remove index.php
+$path = str_replace('index.php', '', $path);
+
+// Clean up path
+$path = '/' . ltrim($path, '/');
+
+// Set PATH_INFO
+$_SERVER['PATH_INFO'] = $path;
+$_SERVER['SCRIPT_NAME'] = $scriptName;
+
+/*
+ *---------------------------------------------------------------
  * BOOTSTRAP THE APPLICATION
  *---------------------------------------------------------------
  */
