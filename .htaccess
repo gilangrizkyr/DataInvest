@@ -2,13 +2,14 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Redirect all requests to public folder
+    # Redirect root to public folder
     RewriteRule ^$ public/ [L]
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
+# Fallback untuk server TANPA mod_rewrite
+# Langsung akses folder public
 <IfModule !mod_rewrite.c>
-    # If mod_rewrite not available, redirect to public
-    RedirectMatch 307 ^/$ /public/
+    RedirectMatch 307 ^/$ /DataInvest/public/
 </IfModule>
 

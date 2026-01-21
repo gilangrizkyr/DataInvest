@@ -1,47 +1,36 @@
 # Disable directory browsing
 Options -Indexes
 
-# ----------------------------------------------------------------------
-# Rewrite engine
-# ----------------------------------------------------------------------
-
+# =====================================================
+# Untuk server DENGAN mod_rewrite (ideal)
+# =====================================================
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
+    RewriteBase /DataInvest/public/
     
-    # If accessing via a subdirectory, adjust RewriteBase
-    # For root access, use /
-    RewriteBase /
-
     # Pengecualian untuk file statis
-    RewriteCond %{REQUEST_URI} !^/public/assets/
-    RewriteCond %{REQUEST_URI} !^/public/uploads/
-    RewriteCond %{REQUEST_URI} !^/public/favicon\.ico
+    RewriteCond %{REQUEST_URI} !^/DataInvest/public/assets/
+    RewriteCond %{REQUEST_URI} !^/DataInvest/public/uploads/
+    RewriteCond %{REQUEST_URI} !^/DataInvest/public/favicon\.ico
     
-    # Jika diakses langsung tanpa "public" di URL (sudah diarahkan dari root .htaccess)
-    # Pastikan asset dan favicon tetap bisa diakses
-    RewriteCond %{REQUEST_URI} !^/assets/
-    RewriteCond %{REQUEST_URI} !^/uploads/
-    RewriteCond %{REQUEST_URI} !^/favicon\.ico
-
-    # Menghapus trailing slash
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Mengarahkan ke index.php untuk rute yang tidak ditemukan
+    # Redirect ke index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
-
-    # Menjaga Authorization Header jika ada
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteRule ^(.*)$ index.php/$1 [L,NC,QSA]
 </IfModule>
 
+# =====================================================
+# Fallback untuk server TANPA mod_rewrite
+# =====================================================
+# Arahkan semua 404 ke index.php
 <IfModule !mod_rewrite.c>
-    # Jika mod_rewrite tidak tersedia, semua 404 akan diarahkan ke index.php
-    ErrorDocument 404 index.php
+    ErrorDocument 404 /DataInvest/public/index.php
+</IfModule>
+
+# Enable MultiViews sebagai alternatif
+<IfModule mod_negotiation.c>
+    Options -MultiViews
 </IfModule>
 
 # Disable server signature
