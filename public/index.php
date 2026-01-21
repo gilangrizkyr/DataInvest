@@ -29,32 +29,40 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
 
 /*
  *---------------------------------------------------------------
- * SETUP PATH INFO UNTUK TANPA mod_rewrite
+ * SETUP PATH INFO - PENTING UNTUK TANPA mod_rewrite
  *---------------------------------------------------------------
  */
 
-// Ambil path dari query string ?r=/dashboard
-$path = '/dashboard'; // default
+// Default ke dashboard
+$_SERVER['PATH_INFO'] = '/dashboard';
+$_SERVER['REQUEST_URI'] = '/dashboard';
+$_SERVER['QUERY_STRING'] = '';
 
-if (isset($_GET['r'])) {
-    $path = '/' . ltrim($_GET['r'], '/');
-} elseif (isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO'])) {
-    $path = $_SERVER['PATH_INFO'];
-} elseif (isset($_SERVER['REQUEST_URI'])) {
-    $uri = parse_url($_SERVER['REQUEST_URI']);
-    $path = $uri['path'] ?? '/';
-    // Hapus /index.php dari path
-    $path = preg_replace('#/index\.php.*$#', '', $path);
-    $path = preg_replace('#/DataInvest/public.*$#', '', $path);
-    if (empty($path) || $path === '/') {
-        $path = '/dashboard';
-    }
+// Coba dari query string ?r=/dashboard
+if (!empty($_GET['r'])) {
+    $_SERVER['PATH_INFO'] = '/' . ltrim($_GET['r'], '/');
+    $_SERVER['REQUEST_URI'] = $_SERVER['PATH_INFO'];
 }
 
-// Set server variables
-$_SERVER['PATH_INFO'] = $path;
-$_SERVER['REQUEST_URI'] = $path;
-$_SERVER['QUERY_STRING'] = '';
+// Atau dari REQUEST_URI (jika index.php tidak di rewrite)
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/dashboard';
+
+// Bersihkan REQUEST_URI dari query string
+if (($pos = strpos($requestUri, '?')) !== false) {
+    $requestUri = substr($requestUri, 0, $pos);
+}
+
+// Hapus /index.php dari path jika ada
+$requestUri = preg_replace('#/index\.php.*$#', '', $requestUri);
+$requestUri = preg_replace('#/DataInvest/public.*$#', '', $requestUri);
+
+// Set ke dashboard jika kosong atau root
+if (empty($requestUri) || $requestUri === '/') {
+    $requestUri = '/dashboard';
+}
+
+$_SERVER['PATH_INFO'] = $requestUri;
+$_SERVER['REQUEST_URI'] = $requestUri;
 
 /*
  *---------------------------------------------------------------
@@ -62,7 +70,6 @@ $_SERVER['QUERY_STRING'] = '';
  *---------------------------------------------------------------
  */
 
-// Load Paths dan autoloader
 require dirname(__DIR__) . '/app/Config/Paths.php';
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -71,6 +78,10 @@ $paths = new Paths();
 // Load framework
 require $paths->systemDirectory . '/Boot.php';
 
-exit(Boot::bootWeb($paths));
+// Debug - uncomment untuk test
+// echo "PATH_INFO: " . $_SERVER['PATH_INFO'] . "<br>";
+// echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
+// exit;
 
+exit(Boot::bootWeb($paths));
 
