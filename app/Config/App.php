@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/DataInvest/';
+    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
