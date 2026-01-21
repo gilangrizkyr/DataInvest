@@ -1,6 +1,49 @@
+# Disable directory browsing
+Options -Indexes
+
+# ----------------------------------------------------------------------
+# Rewrite engine
+# ----------------------------------------------------------------------
+
 <IfModule mod_rewrite.c>
+    Options +FollowSymlinks
     RewriteEngine On
+    
+    # If accessing via a subdirectory, adjust RewriteBase
+    # For root access, use /
+    RewriteBase /
+
+    # Pengecualian untuk file statis
+    RewriteCond %{REQUEST_URI} !^/public/assets/
+    RewriteCond %{REQUEST_URI} !^/public/uploads/
+    RewriteCond %{REQUEST_URI} !^/public/favicon\.ico
+    
+    # Jika diakses langsung tanpa "public" di URL (sudah diarahkan dari root .htaccess)
+    # Pastikan asset dan favicon tetap bisa diakses
+    RewriteCond %{REQUEST_URI} !^/assets/
+    RewriteCond %{REQUEST_URI} !^/uploads/
+    RewriteCond %{REQUEST_URI} !^/favicon\.ico
+
+    # Menghapus trailing slash
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Mengarahkan ke index.php untuk rute yang tidak ditemukan
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php/$1 [L]
+    RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+
+    # Menjaga Authorization Header jika ada
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+<IfModule !mod_rewrite.c>
+    # Jika mod_rewrite tidak tersedia, semua 404 akan diarahkan ke index.php
+    ErrorDocument 404 index.php
+</IfModule>
+
+# Disable server signature
+ServerSignature Off
+
