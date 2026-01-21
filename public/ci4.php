@@ -31,31 +31,17 @@ if (empty($pathInfo) || $pathInfo === '/') {
     $pathInfo = '/dashboard';
 }
 
-// Set server variables
+// Set server variables untuk CI4
 $_SERVER['PATH_INFO'] = $pathInfo;
 $_SERVER['SCRIPT_NAME'] = $scriptName;
 $_SERVER['REQUEST_URI'] = $pathInfo;
 $_SERVER['QUERY_STRING'] = '';
 
-// Bootstrap CI4
+// Bootstrap CI4 menggunakan Boot class
 require FCPATH . '../app/Config/Paths.php';
 require FCPATH . '../vendor/autoload.php';
 
 $paths = new Config\Paths();
-$appConfig = require $paths->appDirectory . '/Config/App.php';
 
-// Load system files
-require $paths->systemDirectory . '/Common.php';
-require $paths->systemDirectory . '/Config/Constants.php';
-require $paths->systemDirectory . '/HTTP/Request.php';
-require $paths->systemDirectory . '/HTTP/Response.php';
-require $paths->systemDirectory . '/Controller.php';
-require $paths->appDirectory . '/Controllers/BaseController.php';
-
-// Create CodeIgniter instance
-$codeigniter = new \CodeIgniter\CodeIgniter($appConfig);
-$codeigniter->setContext('web');
-$codeigniter->initialize();
-
-// Run the application
-$codeigniter->run();
+// Load framework menggunakan Boot::bootWeb
+exit(\CodeIgniter\Boot::bootWeb($paths));
