@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/';
+    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/DataInvest/';
     public array $allowedHostnames = [];
     public string $indexPage = '';
     public string $uriProtocol = 'REQUEST_URI';
