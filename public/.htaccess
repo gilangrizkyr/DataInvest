@@ -1,36 +1,31 @@
 # Disable directory browsing
 Options -Indexes
 
-# =====================================================
-# Untuk server DENGAN mod_rewrite (ideal)
-# =====================================================
+# Untuk server TANPA mod_rewrite
+# Arahkan semua request ke simple.php
+
 <IfModule mod_rewrite.c>
-    Options +FollowSymlinks
+    # Jika mod_rewrite aktif, gunakan ini
     RewriteEngine On
     RewriteBase /DataInvest/public/
     
-    # Pengecualian untuk file statis
-    RewriteCond %{REQUEST_URI} !^/DataInvest/public/assets/
-    RewriteCond %{REQUEST_URI} !^/DataInvest/public/uploads/
-    RewriteCond %{REQUEST_URI} !^/DataInvest/public/favicon\.ico
-    
-    # Redirect ke index.php
+    # Jika ada file/folder nyata, lewati
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php/$1 [L,NC,QSA]
+    
+    # Arahkan ke simple.php dengan path
+    RewriteRule ^(.*)$ simple.php/$1 [L]
 </IfModule>
 
-# =====================================================
 # Fallback untuk server TANPA mod_rewrite
-# =====================================================
-# Arahkan semua 404 ke index.php
-<IfModule !mod_rewrite.c>
-    ErrorDocument 404 /DataInvest/public/index.php
-</IfModule>
+# Langsung akses simple.php di URL
+DirectoryIndex simple.php
 
-# Enable MultiViews sebagai alternatif
-<IfModule mod_negotiation.c>
-    Options -MultiViews
+# Allow access to assets folder directly
+<IfModule mod_rewrite.c>
+    RewriteRule ^assets/.*$ - [L]
+    RewriteRule ^uploads/.*$ - [L]
+    RewriteRule ^favicon\.ico$ - [L]
 </IfModule>
 
 # Disable server signature

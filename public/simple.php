@@ -1,100 +1,61 @@
 <?php
 /**
- * Simple entry point - bypasses CI4 routing entirely
- * For servers WITHOUT mod_rewrite
+ * Entry point CI4 tanpa mod_rewrite
+ * 
+ * Usage: /DataInvest/public/simple.php/dashboard
  */
 
-// Set environment
 define('ENVIRONMENT', 'development');
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 chdir(FCPATH);
 
-// Get the path
-$path = $_SERVER['REQUEST_URI'] ?? '/';
+// ====================================================================
+// PENTING: Set PATH_INFO sebelum CI4 bootstrap
+// ====================================================================
+
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 
-// Remove query string
-$path = strtok($path, '?');
+// Hapus query string
+$requestUri = strtok($requestUri, '?');
 
-// Remove script name
-$path = str_replace($scriptName, '', $path);
-$path = str_replace('/DataInvest/public', '', $path);
-$path = str_replace('/DataInvest', '', $path);
+// Extract path info - ini kuncinya!
+$pathInfo = '';
+
+if (strpos($requestUri, $scriptName) !== false) {
+    // Contoh: /DataInvest/public/index.php/dashboard
+    // Ambil bagian setelah index.php
+    $pathInfo = substr($requestUri, strpos($requestUri, $scriptName) + strlen($scriptName));
+} elseif (preg_match('#/DataInvest/public/simple\.php(/?.*)$#', $requestUri, $m)) {
+    // Contoh: /DataInvest/public/simple.php/dashboard
+    $pathInfo = $m[1];
+}
 
 // Clean path
-$path = '/' . ltrim($path, '/');
-$path = rtrim($path, '/');
-if ($path === '') $path = '/';
+$pathInfo = '/' . ltrim($pathInfo, '/');
+$pathInfo = rtrim($pathInfo, '/');
 
-// Remove leading/trailing slashes
-$segments = array_filter(explode('/', $path));
-$segments = array_values($segments);
+// Default ke dashboard jika root
+if (empty($pathInfo) || $pathInfo === '/' || $pathInfo === '') {
+    $pathInfo = '/dashboard';
+}
 
-// Bootstrap CI4 manually
+// Set PATH_INFO - INI YANG PALING PENTING!
+$_SERVER['PATH_INFO'] = $pathInfo;
+$_SERVER['SCRIPT_NAME'] = $scriptName;
+$_SERVER['REQUEST_URI'] = $pathInfo;
+$_SERVER['QUERY_STRING'] = '';
+
+// ====================================================================
+// Bootstrap CI4
+// ====================================================================
+
 require FCPATH . '../app/Config/Paths.php';
 require FCPATH . '../vendor/autoload.php';
 
 $paths = new Config\Paths();
 
-// Load required system files
-require $paths->systemDirectory . '/Common.php';
-require $paths->systemDirectory . '/Config/BaseConfig.php';
-require $paths->appDirectory . '/Config/App.php';
-require $paths->systemDirectory . '/Config/Constants.php';
+// Jalankan CI4
+exit(\CodeIgniter\Boot::bootWeb($paths));
 
-// Load the controller
-require FCPATH . '../app/Controllers/BaseController.php';
-require FCPATH . '../app/Controllers/Dashboard.php';
-require FCPATH . '../app/Controllers/Auth.php';
-
-// Get the controller and method
-$controllerName = !empty($segments[0]) ? $segments[0] : 'dashboard';
-$method = !empty($segments[1]) ? $segments[1] : 'index';
-$params = array_slice($segments, 2);
-
-// Map URL to controller
-$controllerMap = [
-    'dashboard' => 'Dashboard',
-    'auth' => 'Auth',
-    'login' => 'Auth',
-    'logout' => 'Auth',
-    'security-monitoring' => 'SecurityMonitoring',
-    'user-management' => 'UserManagement',
-    'faq' => 'Faq',
-];
-
-// Check if we need to redirect to login first
-$session = \Config\Services::session();
-$loginController = new \App\Controllers\Auth();
-
-if (in_array($controllerName, ['dashboard', 'security-monitoring', 'user-management'])) {
-    if (empty($session->get('logged_in'))) {
-        header('Location: /DataInvest/public/simple.php/auth/login');
-        exit;
-    }
-}
-
-// Route to appropriate controller
-switch ($controllerName) {
-    case 'dashboard':
-    case 'login':
-    case 'logout':
-    case 'auth':
-        $controller = $loginController;
-        break;
-    default:
-        $controller = new \App\Controllers\Dashboard();
-}
-
-// Call the method with params
-if (method_exists($controller, $method)) {
-    call_user_func_array([$controller, $method], $params);
-} else {
-    // Try index as fallback
-    if (method_exists($controller, 'index')) {
-        call_user_func([$controller, 'index']);
-    } else {
-        echo "404 - Page not found";
-    }
-}
 

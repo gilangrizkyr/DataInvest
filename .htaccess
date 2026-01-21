@@ -3,13 +3,13 @@
     RewriteEngine On
     
     # Redirect root to public folder
-    RewriteRule ^$ public/ [L]
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteRule ^$ public/simple.php [L]
+    RewriteRule ^(.*)$ public/simple.php [L]
 </IfModule>
 
 # Fallback untuk server TANPA mod_rewrite
-# Langsung akses folder public
+# Langsung akses simple.php
 <IfModule !mod_rewrite.c>
-    RedirectMatch 307 ^/$ /DataInvest/public/
+    RedirectMatch 307 ^/$ /DataInvest/public/simple.php/
 </IfModule>
 
