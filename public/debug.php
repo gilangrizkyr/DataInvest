@@ -27,24 +27,41 @@ namespace {
         require $paths->systemDirectory . '/Boot.php';
         echo "Boot.php loaded<br>";
 
-        // Get the request
-        $request = \Config\Services::request();
-        echo "Request service created<br>";
+        // Initialize autoloader manually to load routes
+        echo "<h2>Loading Autoloader</h2>";
+        require_once $paths->systemDirectory . '/Config/AutoloadConfig.php';
+        require_once APPPATH . 'Config/Autoload.php';
+        require_once $paths->systemDirectory . '/Modules/Modules.php';
+        require_once APPPATH . 'Config/Modules.php';
+        require_once $paths->systemDirectory . '/Autoloader/Autoloader.php';
+        require_once $paths->systemDirectory . '/Config/BaseService.php';
+        require_once $paths->systemDirectory . '/Config/Services.php';
+        require_once APPPATH . 'Config/Services.php';
 
-        // Get URI
-        $uri = $request->getUri();
-        echo "URI: " . $uri->getPath() . "<br>";
+        $autoloader = new \CodeIgniter\Autoloader\Autoloader();
+        $autoloader->initialize(new \Config\Autoload(), new \Config\Modules())->register();
+        echo "Autoloader initialized<br>";
 
-        // Try to create CI4 instance
-        $app = new \CodeIgniter\CodeIgniter($paths);
-        echo "CI4 instance created<br>";
+        // Load routes manually
+        echo "<h2>Loading Routes</h2>";
+        require_once APPPATH . 'Config/Routes.php';
+        $routes = \Config\Services::routes();
+        echo "Routes loaded<br>";
 
         // Show available routes
-        echo "<h2>Routes</h2>";
-        $routes = \Config\Services::routes()->getRoutes();
+        echo "<h2>Defined Routes</h2>";
+        $definedRoutes = $routes->getRoutes();
         echo "<pre>";
-        print_r(array_keys($routes));
+        print_r(array_keys($definedRoutes));
         echo "</pre>";
+
+        // Test if dashboard route exists
+        echo "<h2>Route Test</h2>";
+        echo "Dashboard route exists: " . (isset($definedRoutes['dashboard']) || isset($definedRoutes['/dashboard']) ? 'YES' : 'NO') . "<br>";
+
+        // Try to get route collection
+        echo "<h2>Route Collection</h2>";
+        echo "Total routes: " . count($definedRoutes) . "<br>";
 
     } catch (Exception $e) {
         echo "<h2>Error</h2>";
