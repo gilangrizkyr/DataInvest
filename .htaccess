@@ -8,10 +8,17 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
-    RewriteBase /DataInvest/
+    
+    # Jika diakses langsung tanpa subdirectory
+    RewriteBase /
 
-    # Pengecualian untuk file statis seperti gambar, CSS, dan JS
-    RewriteCond %{REQUEST_URI} !^/DataInvest/(assets|uploads|img|css|js)/
+    # Pengecualian untuk file statis - perhatikan: cek apakah diminta langsung atau dari subdirectory
+    RewriteCond %{REQUEST_URI} !^/assets/
+    RewriteCond %{REQUEST_URI} !^/uploads/
+    RewriteCond %{REQUEST_URI} !^/img/
+    RewriteCond %{REQUEST_URI} !^/css/
+    RewriteCond %{REQUEST_URI} !^/js/
+    RewriteCond %{REQUEST_URI} !^/favicon\.ico
 
     # Menghapus trailing slash
     RewriteCond %{REQUEST_FILENAME} !-d
