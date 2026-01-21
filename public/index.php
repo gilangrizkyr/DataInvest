@@ -33,34 +33,28 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  *---------------------------------------------------------------
  */
 
-// Cara 1: Dari query string ?r=/dashboard
+// Ambil path dari query string ?r=/dashboard
+$path = '/dashboard'; // default
+
 if (isset($_GET['r'])) {
-    $_SERVER['PATH_INFO'] = '/' . ltrim($_GET['r'], '/');
-    $_SERVER['REQUEST_URI'] = $_SERVER['PATH_INFO'];
-    $_SERVER['QUERY_STRING'] = 'r=' . $_GET['r'];
-    parse_str($_SERVER['QUERY_STRING'], $_GET);
-}
-// Cara 2: Dari PATH_INFO (jika diset server)
-elseif (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !== '') {
-    // PATH_INFO sudah ada
-}
-// Cara 3: Dari REQUEST_URI (fallback)
-elseif (isset($_SERVER['REQUEST_URI'])) {
+    $path = '/' . ltrim($_GET['r'], '/');
+} elseif (isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO'])) {
+    $path = $_SERVER['PATH_INFO'];
+} elseif (isset($_SERVER['REQUEST_URI'])) {
     $uri = parse_url($_SERVER['REQUEST_URI']);
     $path = $uri['path'] ?? '/';
-    
     // Hapus /index.php dari path
-    $path = str_replace('/index.php', '', $path);
-    $path = str_replace('/DataInvest/public/index.php', '', $path);
-    
-    if (!empty($path) && $path !== '/') {
-        $_SERVER['PATH_INFO'] = $path;
-        $_SERVER['REQUEST_URI'] = $path;
-    } else {
-        $_SERVER['PATH_INFO'] = '/dashboard';
-        $_SERVER['REQUEST_URI'] = '/dashboard';
+    $path = preg_replace('#/index\.php.*$#', '', $path);
+    $path = preg_replace('#/DataInvest/public.*$#', '', $path);
+    if (empty($path) || $path === '/') {
+        $path = '/dashboard';
     }
 }
+
+// Set server variables
+$_SERVER['PATH_INFO'] = $path;
+$_SERVER['REQUEST_URI'] = $path;
+$_SERVER['QUERY_STRING'] = '';
 
 /*
  *---------------------------------------------------------------
