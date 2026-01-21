@@ -23,16 +23,17 @@ namespace {
         require FCPATH . '../vendor/autoload.php';
         echo "1. Vendor autoload loaded<br>";
 
-        // Load Config classes
-        require $paths->systemDirectory . '/Config/AutoloadConfig.php';
-        require $paths->systemDirectory . '/Config/BaseConfig.php';
-        require $paths->systemDirectory . '/Config/Constants.php';
+        // Load Config classes - use realpath
+        $systemDir = realpath($paths->systemDirectory);
+        require $systemDir . '/Config/AutoloadConfig.php';
+        require $systemDir . '/Config/BaseConfig.php';
+        require $systemDir . '/Config/Constants.php';
         echo "2. Config classes loaded<br>";
 
         // Initialize Autoloader
-        require $paths->systemDirectory . '/Autoloader/Autoloader.php';
+        require $systemDir . '/Autoloader/Autoloader.php';
         require APPPATH . 'Config/Autoload.php';
-        require $paths->systemDirectory . '/Modules/Modules.php';
+        require $systemDir . '/Modules/Modules.php';
         require APPPATH . 'Config/Modules.php';
 
         $autoloader = new \CodeIgniter\Autoloader\Autoloader();
@@ -43,16 +44,16 @@ namespace {
         echo "3. Autoloader initialized<br>";
 
         // Initialize Services
-        require $paths->systemDirectory . '/Config/BaseService.php';
-        require $paths->systemDirectory . '/Config/Services.php';
+        require $systemDir . '/Config/BaseService.php';
+        require $systemDir . '/Config/Services.php';
         require APPPATH . 'Config/Services.php';
 
         // Load RouteCollection
-        require $paths->systemDirectory . '/Router/RouteCollection.php';
-        require $paths->systemDirectory . '/Router/RouteCollectionInterface.php';
-        require $paths->systemDirectory . '/Router/RouteHandler.php';
-        require $paths->systemDirectory . '/Router/Router.php';
-        require $paths->systemDirectory . '/Router/RouterInterface.php';
+        require $systemDir . '/Router/RouteCollection.php';
+        require $systemDir . '/Router/RouteCollectionInterface.php';
+        require $systemDir . '/Router/RouteHandler.php';
+        require $systemDir . '/Router/Router.php';
+        require $systemDir . '/Router/RouterInterface.php';
 
         echo "4. Router classes loaded<br>";
 
