@@ -63,7 +63,7 @@
             </div>
 
             <!-- Metadata Form -->
-            <form action="<?php echo isset($isEdit) && $isEdit ? '/dashboard/updateMetadata' : '/dashboard/processMetadata'; ?>" method="post" class="glass-card shadow-2xl rounded-xl p-6">
+<form action="<?php echo isset($isEdit) && $isEdit ? base_url('index.php/dashboard/updateMetadata') : base_url('index.php/dashboard/processMetadata'); ?>" method="post" class="glass-card shadow-2xl rounded-xl p-6">
                 <input type="hidden" name="upload_id" value="<?php echo $upload['id']; ?>">
 
                 <div class="flex items-center mb-6">
@@ -140,7 +140,7 @@
                         class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg">
                         <i class="fas <?php echo isset($isEdit) && $isEdit ? 'fa-save' : 'fa-play'; ?> mr-2"></i><?php echo isset($isEdit) && $isEdit ? 'Update Metadata' : 'Proses Data'; ?>
                     </button>
-                    <a href="/dashboard"
+<a href="<?= base_url('index.php/dashboard') ?>"
                         class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all text-center shadow-lg">
                         <i class="fas fa-times mr-2"></i>Batal
                     </a>

@@ -145,7 +145,7 @@
                                 <i class="fas fa-upload text-blue-600 mr-3 text-xl"></i>
                                 <h2 class="text-xl font-semibold text-gray-800"><?= lang('Dashboard.upload_file_excel') ?></h2>
                             </div>
-                            <form action="/dashboard/upload" method="post" enctype="multipart/form-data" class="space-y-4">
+<form action="<?= base_url('index.php/dashboard/upload') ?>" method="post" enctype="multipart/form-data" class="space-y-4">
                                 <div class="relative">
                                     <input type="file" name="excel_file" accept=".xlsx,.xls" id="excel-file-input"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
@@ -239,20 +239,20 @@
                                                 </td> -->
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                                     <div class="flex space-x-2">
-                                                        <a href="/dashboard?upload=<?php echo $upload['id']; ?>"
+<a href="<?= base_url('index.php/dashboard?upload=' . $upload['id']) ?>"
                                                             class="text-green-600 hover:text-green-900 transition-colors"
                                                             title="View Chart">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                         <?php if (session()->get('role') !== 'user'): ?>
                                                             <?php if ($upload['status'] === 'completed'): ?>
-                                                                <a href="/dashboard/edit-metadata/<?php echo $upload['id']; ?>"
+<a href="<?= base_url('index.php/dashboard/edit-metadata/' . $upload['id']) ?>"
                                                                     class="text-blue-600 hover:text-blue-900 transition-colors"
                                                                     title="Edit Metadata">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             <?php endif; ?>
-                                                            <form action="/dashboard/deleteUpload" method="post" class="inline-block" id="delete-form-<?php echo $upload['id']; ?>">
+<form action="<?= base_url('index.php/dashboard/deleteUpload') ?>" method="post" class="inline-block" id="delete-form-<?php echo $upload['id']; ?>">
                                                                 <input type="hidden" name="upload_id" value="<?php echo $upload['id']; ?>">
                                                                 <button type="button" onclick="confirmDelete(<?php echo $upload['id']; ?>)" class="text-red-600 hover:text-red-900 transition-colors" title="<?= lang('Dashboard.delete') ?>">
                                                                     <i class="fas fa-trash"></i>
@@ -2560,12 +2560,12 @@
                 if (currentUpload !== 'all') params.append('upload', currentUpload);
                 if (selectedCurrency !== 'IDR') params.append('currency', selectedCurrency);
 
-                const url = '/dashboard' + (params.toString() ? '?' + params.toString() : '');
+const url = '<?= base_url('index.php/dashboard') ?>' + (params.toString() ? '?' + params.toString() : '');
                 window.location.href = url;
             }
 
             changeLanguage(language) {
-                fetch('/dashboard/setLanguage', {
+fetch('<?= base_url('index.php/dashboard/setLanguage') ?>', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',

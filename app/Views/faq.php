@@ -59,7 +59,7 @@
                         <p class="text-blue-100 text-sm">Sistem Statistik Terpadu PMA & PMDN</p>
                     </div>
                 </div>
-                <a href="/dashboard" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200">
+<a href="<?= base_url('index.php/dashboard') ?>" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-200">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Kembali ke Dashboard
                 </a>
