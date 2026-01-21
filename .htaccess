@@ -2,6 +2,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    # FIRST: Handle assets folder - serve from root Assets/ (case-sensitive)
+    # This must come BEFORE the redirect to public
+    RewriteRule ^DataInvest/assets/(.*)$ Assets/$1 [L]
+    
     # Redirect root to public folder
     RewriteRule ^$ public/ [L]
     
