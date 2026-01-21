@@ -37,6 +37,7 @@ namespace {
         require_once $paths->systemDirectory . '/Config/BaseService.php';
         require_once $paths->systemDirectory . '/Config/Services.php';
         require_once APPPATH . 'Config/Services.php';
+        echo "Files loaded<br>";
 
         $autoloader = new \CodeIgniter\Autoloader\Autoloader();
         $autoloader->initialize(new \Config\Autoload(), new \Config\Modules())->register();
@@ -65,7 +66,9 @@ namespace {
 
     } catch (Exception $e) {
         echo "<h2>Error</h2>";
-        echo $e->getMessage();
+        echo $e->getMessage() . "<br>";
+        echo "File: " . $e->getFile() . "<br>";
+        echo "Line: " . $e->getLine() . "<br>";
         echo "<pre>" . $e->getTraceAsString() . "</pre>";
     }
 }
