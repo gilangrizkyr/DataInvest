@@ -19,6 +19,9 @@ Options -Indexes
     RewriteCond %{REQUEST_URI} !^/uploads/
     RewriteCond %{REQUEST_URI} !^/favicon\.ico
 
+    # JANGAN rewrite jika sudah ada index.php di URL (mencegah loop)
+    RewriteCond %{REQUEST_URI} !^/index\.php
+
     # Jika file/folder nyata tidak ditemukan, arahkan ke index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
