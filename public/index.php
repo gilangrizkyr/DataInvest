@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Boot;
+use CodeIgniter\Router\RouteCollection;
 use Config\Paths;
 
 /*
@@ -29,40 +30,41 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
 
 /*
  *---------------------------------------------------------------
- * SETUP PATH INFO - PENTING UNTUK TANPA mod_rewrite
+ * SETUP PATH INFO - UNTUK TANPA mod_rewrite
  *---------------------------------------------------------------
  */
 
-// Default ke dashboard
-$_SERVER['PATH_INFO'] = '/dashboard';
-$_SERVER['REQUEST_URI'] = '/dashboard';
+// Default route
+$route = 'dashboard';
+
+// Ambil dari query string ?r=/dashboard
+if (isset($_GET['r'])) {
+    $route = ltrim($_GET['r'], '/');
+}
+// Atau dari PATH_INFO (jika server support)
+elseif (isset($_SERVER['PATH_INFO']) && !empty($_SERVER['PATH_INFO'])) {
+    $route = ltrim($_SERVER['PATH_INFO'], '/');
+}
+// Dari REQUEST_URI (fallback)
+elseif (isset($_SERVER['REQUEST_URI'])) {
+    $uri = $_SERVER['REQUEST_URI'];
+    // Hapus query string
+    if (($pos = strpos($uri, '?')) !== false) {
+        $uri = substr($uri, 0, $pos);
+    }
+    // Hapus /index.php
+    $uri = str_replace('/index.php', '', $uri);
+    // Hapus path aplikasi
+    $uri = preg_replace('#^/DataInvest/public#', '', $uri);
+    if (!empty($uri) && $uri !== '/') {
+        $route = ltrim($uri, '/');
+    }
+}
+
+// Set server variables
+$_SERVER['PATH_INFO'] = '/' . $route;
+$_SERVER['REQUEST_URI'] = '/' . $route;
 $_SERVER['QUERY_STRING'] = '';
-
-// Coba dari query string ?r=/dashboard
-if (!empty($_GET['r'])) {
-    $_SERVER['PATH_INFO'] = '/' . ltrim($_GET['r'], '/');
-    $_SERVER['REQUEST_URI'] = $_SERVER['PATH_INFO'];
-}
-
-// Atau dari REQUEST_URI (jika index.php tidak di rewrite)
-$requestUri = $_SERVER['REQUEST_URI'] ?? '/dashboard';
-
-// Bersihkan REQUEST_URI dari query string
-if (($pos = strpos($requestUri, '?')) !== false) {
-    $requestUri = substr($requestUri, 0, $pos);
-}
-
-// Hapus /index.php dari path jika ada
-$requestUri = preg_replace('#/index\.php.*$#', '', $requestUri);
-$requestUri = preg_replace('#/DataInvest/public.*$#', '', $requestUri);
-
-// Set ke dashboard jika kosong atau root
-if (empty($requestUri) || $requestUri === '/') {
-    $requestUri = '/dashboard';
-}
-
-$_SERVER['PATH_INFO'] = $requestUri;
-$_SERVER['REQUEST_URI'] = $requestUri;
 
 /*
  *---------------------------------------------------------------
@@ -77,11 +79,6 @@ $paths = new Paths();
 
 // Load framework
 require $paths->systemDirectory . '/Boot.php';
-
-// Debug - uncomment untuk test
-// echo "PATH_INFO: " . $_SERVER['PATH_INFO'] . "<br>";
-// echo "REQUEST_URI: " . $_SERVER['REQUEST_URI'] . "<br>";
-// exit;
 
 exit(Boot::bootWeb($paths));
 
