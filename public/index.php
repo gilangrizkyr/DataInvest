@@ -1,41 +1,22 @@
 <?php
 /**
- * CI4 Minimal Index - Tanpa mod_rewrite
- * Cara akses: index.php/dashboard
+ * CI4 Index - Working Without mod_rewrite
+ * Menggunakan $_GET['r'] untuk route, lalu memodifikasi REQUEST_URI
  */
 
-define('ENVIRONMENT', 'development');
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
     chdir(FCPATH);
 }
 
-// Coba ambil route dari PATH_INFO
-$route = '';
-
-if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO']) {
-    $route = ltrim($_SERVER['PATH_INFO'], '/');
-}
-// Fallback ke QUERY_STRING
-elseif (isset($_GET['r'])) {
+// Setup route sebelum CI4 boot
+if (isset($_GET['r'])) {
     $route = ltrim($_GET['r'], '/');
+    $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $_SERVER['REQUEST_URI'] = $requestUri . '/' . $route;
+    $_SERVER['PATH_INFO'] = '/' . $route;
 }
-// Fallback ke REQUEST_URI
-elseif (isset($_SERVER['REQUEST_URI'])) {
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $uri = preg_replace('#/index\.php.*#', '', $uri);
-    $route = ltrim($uri, '/');
-}
-
-// Default ke dashboard
-if (empty($route)) {
-    $route = 'dashboard';
-}
-
-// Simpan route untuk CI4
-$_SERVER['PATH_INFO'] = '/' . $route;
-$_SERVER['REQUEST_URI'] = '/' . $route;
 
 // Boot CI4
 require dirname(__DIR__) . '/app/Config/Paths.php';
