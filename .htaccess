@@ -2,14 +2,13 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Redirect root to public folder
-    RewriteRule ^$ public/simple.php [L]
-    RewriteRule ^(.*)$ public/simple.php [L]
+    # Redirect all requests to public folder
+    RewriteRule ^$ public/ [L]
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
-# Fallback untuk server TANPA mod_rewrite
-# Langsung akses simple.php
 <IfModule !mod_rewrite.c>
-    RedirectMatch 307 ^/$ /DataInvest/public/simple.php/
+    # If mod_rewrite not available, redirect to public
+    RedirectMatch 307 ^/$ /DataInvest/public/
 </IfModule>
 

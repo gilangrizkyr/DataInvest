@@ -1,31 +1,38 @@
 # Disable directory browsing
 Options -Indexes
 
-# Untuk server TANPA mod_rewrite
-# Arahkan semua request ke simple.php
-
+# ----------------------------------------------------------------------
+# Untuk server DENGAN mod_rewrite
+# ----------------------------------------------------------------------
 <IfModule mod_rewrite.c>
-    # Jika mod_rewrite aktif, gunakan ini
+    Options +FollowSymlinks
     RewriteEngine On
-    RewriteBase /DataInvest/public/
     
-    # Jika ada file/folder nyata, lewati
+    # Redirect root ke public folder (dari root .htaccess)
+    RewriteBase /DataInvest/public/
+
+    # Pengecualian untuk file statis
+    RewriteCond %{REQUEST_URI} !^/public/assets/
+    RewriteCond %{REQUEST_URI} !^/public/uploads/
+    RewriteCond %{REQUEST_URI} !^/public/favicon\.ico
+    RewriteCond %{REQUEST_URI} !^/assets/
+    RewriteCond %{REQUEST_URI} !^/uploads/
+    RewriteCond %{REQUEST_URI} !^/favicon\.ico
+
+    # Jika file/folder nyata tidak ditemukan, arahkan ke index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    
-    # Arahkan ke simple.php dengan path
-    RewriteRule ^(.*)$ simple.php/$1 [L]
+    RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
-# Fallback untuk server TANPA mod_rewrite
-# Langsung akses simple.php di URL
-DirectoryIndex simple.php
-
-# Allow access to assets folder directly
-<IfModule mod_rewrite.c>
-    RewriteRule ^assets/.*$ - [L]
-    RewriteRule ^uploads/.*$ - [L]
-    RewriteRule ^favicon\.ico$ - [L]
+# ----------------------------------------------------------------------
+# Untuk server TANPA mod_rewrite
+# Gunakan query string: index.php?r=/dashboard
+# ----------------------------------------------------------------------
+<IfModule !mod_rewrite.c>
+    # Enable query strings untuk routing
+    # URL: index.php?r=/dashboard
+    RewriteEngine Off
 </IfModule>
 
 # Disable server signature
