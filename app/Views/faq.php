@@ -463,6 +463,30 @@
                 </div>
             </div>
 
+              <div class="faq-item mb-4 border border-gray-200 rounded-lg">
+                <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50">
+                    <span class="font-semibold text-gray-800">
+                        <i class="fas fa-question-circle mr-2 text-purple-600"></i>
+                        Butuh Contoh Template Excel untuk Upload Data?
+                    </span>
+                    <i class="fas fa-chevron-down rotate-icon text-gray-400"></i>
+                </button>
+                <div class="faq-answer px-6 pb-4">
+                    <ol class="text-gray-600 space-y-2 ml-4 list-decimal">
+                       <li>
+                            Anda dapat mengunduh template Excel yang telah disediakan untuk memudahkan proses upload data.
+                        </li>
+                        <li>
+                          <a href="https://docs.google.com/spreadsheets/d/1nQaPKzr-TXzfowL9igDJ4319TkI1klPP/edit?usp=sharing&ouid=104686176898119648389&rtpof=true&sd=true" class="text-blue-600 underline hover:text-blue-800" target="_blank">
+    <i class="fas fa-download mr-2"></i>
+    Klik di sini untuk mengunduh Template Excel
+</a>
+
+                       </li>
+                    </ol>
+                </div>
+            </div>
+
             <div class="faq-item mb-4 border border-gray-200 rounded-lg">
                 <button class="faq-question w-full text-left px-6 py-4 flex justify-between items-center hover:bg-gray-50">
                     <span class="font-semibold text-gray-800">
