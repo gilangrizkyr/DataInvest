@@ -477,11 +477,10 @@
                             Anda dapat mengunduh template Excel yang telah disediakan untuk memudahkan proses upload data.
                         </li>
                         <li>
-                          <a href="https://docs.google.com/spreadsheets/d/1nQaPKzr-TXzfowL9igDJ4319TkI1klPP/edit?usp=sharing&ouid=104686176898119648389&rtpof=true&sd=true" class="text-blue-600 underline hover:text-blue-800" target="_blank">
-    <i class="fas fa-download mr-2"></i>
-    Klik di sini untuk mengunduh Template Excel
-</a>
-
+                          <a href="https://docs.google.com/spreadsheets/d/1BjkZ1Su4fDYfCpqN-yE_yyBDURgGS7Ol/edit?usp=sharing&ouid=104686176898119648389&rtpof=true&sd=true" class="text-blue-600 underline hover:text-blue-800" target="_blank">
+                          <i class="fas fa-download mr-2"></i>
+                                           Klik di sini untuk mengunduh Template Excel
+                                                </a>
                        </li>
                     </ol>
                 </div>
