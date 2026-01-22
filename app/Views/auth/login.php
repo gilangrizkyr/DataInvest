@@ -129,8 +129,8 @@
         <div class="logo-container">
             <!-- <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo"> -->
             <!-- <img src="<?= base_url('logo-dpmptsp.png') ?>" class="floating-logo" alt="Logo"> -->
-            <h2>Sistem Statistik Terpadu</h2>
-            <p>Sistem Informasi Terpadu untuk Analisis Investasi</p>
+            <h2>Sistem Statistik</h2>
+            <p>Sistem Informasi untuk Analisis Realiasasi Investasi</p>
         </div>
 
         <?php if (session()->getFlashdata('error')): ?>
