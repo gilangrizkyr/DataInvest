@@ -128,7 +128,7 @@
     <div class="login-container">
         <div class="logo-container">
             <!-- <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo"> -->
-            <img src="<?= base_url('logo-dpmptsp.png') ?>" class="floating-logo" alt="Logo">
+            <!-- <img src="<?= base_url('logo-dpmptsp.png') ?>" class="floating-logo" alt="Logo"> -->
             <h2>Sistem Statistik Terpadu</h2>
             <p>Sistem Informasi Terpadu untuk Analisis Investasi</p>
         </div>
