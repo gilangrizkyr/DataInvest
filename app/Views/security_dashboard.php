@@ -7,7 +7,7 @@
     <title>Security Monitoring Center</title>
     <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <link rel="stylesheet" href="<?= base_url('assets/css/security.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('Assets/css/security.css') ?>">
     <style>
 
     </style>
