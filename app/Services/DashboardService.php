@@ -288,6 +288,8 @@ class DashboardService
             'total_investment_usd' => ['PMA' => 0, 'PMDN' => 0],
             'additional_investment_by_district' => ['PMA' => [], 'PMDN' => []],
             'projects_by_district' => ['PMA' => [], 'PMDN' => []],
+            'projects_by_district_pma' => [],
+            'projects_by_district_pmdn' => [],
             'investment_by_location' => [],
             'sector_analysis' => [],
             'workforce' => ['PMA' => ['TKI' => 0, 'TKA' => 0], 'PMDN' => ['TKI' => 0, 'TKA' => 0]],
@@ -299,7 +301,7 @@ class DashboardService
             'realization_investment' => ['PMA' => 0, 'PMDN' => 0],
             'quarterly_results' => [],
             'additional_investment_percentages' => ['PMA' => [], 'PMDN' => []],
-            'sector_count_by_company' => [  // ✅ TAMBAHKAN INI
+            'sector_count_by_company' => [
                 'PMA' => ['data' => [], 'total' => 0],
                 'PMDN' => ['data' => [], 'total' => 0]
             ],

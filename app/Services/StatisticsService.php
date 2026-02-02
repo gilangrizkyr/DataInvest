@@ -23,13 +23,26 @@ class StatisticsService
         $sectorCountPMA = $this->projectModel->getSectorCountByCompany(array_merge($filterConditions, ['jenis_investasi' => 'PMA']));
         $sectorCountPMDN = $this->projectModel->getSectorCountByCompany(array_merge($filterConditions, ['jenis_investasi' => 'PMDN']));
 
+        // Get projects by district data
+        $projectsByDistrict = $this->projectModel->getProjectsByDistrict($uploadId, $filterConditions);
+
+        // Sort PMA data descending by value
+        $projectsByDistrictPMA = $projectsByDistrict['PMA'] ?? [];
+        arsort($projectsByDistrictPMA);
+
+        // Sort PMDN data descending by value
+        $projectsByDistrictPMDN = $projectsByDistrict['PMDN'] ?? [];
+        arsort($projectsByDistrictPMDN);
+
         return [
             'total_projects' => $totalProjects,
             'total_investment' => $totalInvestment,
             'total_additional_investment' => $totalAdditionalInvestment,
             'total_investment_usd' => $this->calculateUSDInvestment($totalInvestment, $usdRate),
             'additional_investment_by_district' => $this->projectModel->getAdditionalInvestmentByDistrict($uploadId, $filterConditions),
-            'projects_by_district' => $this->projectModel->getProjectsByDistrict($uploadId, $filterConditions),
+            'projects_by_district' => $projectsByDistrict,
+            'projects_by_district_pma' => $projectsByDistrictPMA,
+            'projects_by_district_pmdn' => $projectsByDistrictPMDN,
             'investment_by_location' => $this->projectModel->getInvestmentByDistrict($uploadId, $filterConditions),
             'sector_analysis' => $this->projectModel->getSectorAnalysis($uploadId, $filterConditions),
             'workforce' => $this->projectModel->getWorkforce($uploadId, $filterConditions),

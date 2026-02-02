@@ -75,6 +75,36 @@ class ChartService
         return compact('labels', 'pma', 'pmdn');
     }
 
+    /**
+     * Generate chart data for PMA projects only, sorted by PMA value descending
+     */
+    public function generateProjectsPmaChart(array $districts): array
+    {
+        // Sort PMA values descending
+        $pmaData = $districts['PMA'] ?? [];
+        arsort($pmaData);
+
+        return [
+            'labels' => array_keys($pmaData),
+            'values' => array_values($pmaData)
+        ];
+    }
+
+    /**
+     * Generate chart data for PMDN projects only, sorted by PMDN value descending
+     */
+    public function generateProjectsPmdnChart(array $districts): array
+    {
+        // Sort PMDN values descending
+        $pmdnData = $districts['PMDN'] ?? [];
+        arsort($pmdnData);
+
+        return [
+            'labels' => array_keys($pmdnData),
+            'values' => array_values($pmdnData)
+        ];
+    }
+
     public function generateLocationChart(array $locations): array
     {
         arsort($locations);

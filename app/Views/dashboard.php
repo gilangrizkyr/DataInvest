@@ -1351,7 +1351,6 @@
                 this.data = data;
                 this.currency = currency;
                 this.usdRate = usdRate;
-
                 this.charts = {
                     pmaPmdn: null,
                     district: null,
@@ -1685,16 +1684,23 @@
             }
 
             createProjectsCharts() {
-                const dist = this.data.charts.district;
+                // Use the sorted PMA and PMDN data separately
+                const pmaData = this.data.projects_by_district_pma || {};
+                const pmdnData = this.data.projects_by_district_pmdn || {};
 
-                // PMA Projects
+                const pmaLabels = Object.keys(pmaData);
+                const pmaValues = Object.values(pmaData);
+                const pmdnLabels = Object.keys(pmdnData);
+                const pmdnValues = Object.values(pmdnData);
+
+                // PMA Projects - sorted by PMA value descending
                 this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
                     type: 'bar',
                     data: {
-                        labels: dist.labels,
+                        labels: pmaLabels,
                         datasets: [{
                             label: 'PMA',
-                            data: dist.pma,
+                            data: pmaValues,
                             backgroundColor: '#3B82F6'
                         }]
                     },
@@ -1714,14 +1720,14 @@
                     }
                 });
 
-                // PMDN Projects
+                // PMDN Projects - sorted by PMDN value descending
                 this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
                     type: 'bar',
                     data: {
-                        labels: dist.labels,
+                        labels: pmdnLabels,
                         datasets: [{
                             label: 'PMDN',
-                            data: dist.pmdn,
+                            data: pmdnValues,
                             backgroundColor: '#F59E0B'
                         }]
                     },
