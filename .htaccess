@@ -3,6 +3,7 @@
     RewriteEngine On
     
     # FIRST: Handle logo-dpmptsp.png - serve from public folder
+    RewriteRule ^DataInvest/logo-dpmptsp\.png$ public/logo-dpmptsp.png [L]
     RewriteRule ^logo-dpmptsp\.png$ public/logo-dpmptsp.png [L]
     
     # FIRST: Handle assets folder - serve from root Assets/ (case-sensitive)
