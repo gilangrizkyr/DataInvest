@@ -46,14 +46,30 @@ class ChartService
             array_keys($districts['PMDN'] ?? [])
         ));
 
+        $districtTotals = [];
+        foreach ($allDistricts as $district) {
+            $total = ($districts['PMA'][$district] ?? 0) + ($districts['PMDN'][$district] ?? 0);
+            $districtTotals[$district] = [
+                'district' => $district,
+                'pma' => $districts['PMA'][$district] ?? 0,
+                'pmdn' => $districts['PMDN'][$district] ?? 0,
+                'total' => $total
+            ];
+        }
+
+        // Sort by total descending (highest to lowest)
+        uasort($districtTotals, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+
         $labels = [];
         $pma = [];
         $pmdn = [];
 
-        foreach ($allDistricts as $district) {
-            $labels[] = $district;
-            $pma[] = $districts['PMA'][$district] ?? 0;
-            $pmdn[] = $districts['PMDN'][$district] ?? 0;
+        foreach ($districtTotals as $data) {
+            $labels[] = $data['district'];
+            $pma[] = $data['pma'];
+            $pmdn[] = $data['pmdn'];
         }
 
         return compact('labels', 'pma', 'pmdn');

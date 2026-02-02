@@ -228,6 +228,12 @@ class ProjectModel extends Model
         foreach ($result as $row) {
             $districts[$row['investment_type']][$row['subdistrict']] = $row['count'];
         }
+
+        // Sort each type by count descending
+        foreach (['PMA', 'PMDN'] as $type) {
+            arsort($districts[$type]);
+        }
+
         return $districts;
     }
 
@@ -252,6 +258,8 @@ class ProjectModel extends Model
         foreach ($result as $row) {
             $investments[$row['subdistrict']] = $row['total'];
         }
+        // Already sorted by DESC, but ensure with arsort
+        arsort($investments);
         return $investments;
     }
 
@@ -271,7 +279,7 @@ class ProjectModel extends Model
                     'percentage' => $stat['percentage']
                 ];
             }
-            // Sort by count descending
+            // Sort by count descending (highest to lowest)
             usort($analysis, function ($a, $b) {
                 return $b['count'] <=> $a['count'];
             });
@@ -296,6 +304,10 @@ class ProjectModel extends Model
                 'percentage' => round(($row['count'] / $total) * 100, 2)
             ];
         }
+        // Already sorted by DESC in query, but ensure with usort
+        usort($analysis, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
         return $analysis;
     }
 
@@ -323,6 +335,16 @@ class ProjectModel extends Model
                 'TKA' => $row['tka']
             ];
         }
+
+        // Sort each district by total workforce (TKI + TKA) descending
+        foreach (['PMA', 'PMDN'] as $type) {
+            uasort($workforce[$type], function ($a, $b) {
+                $totalA = ($a['TKI'] ?? 0) + ($a['TKA'] ?? 0);
+                $totalB = ($b['TKI'] ?? 0) + ($b['TKA'] ?? 0);
+                return $totalB <=> $totalA;
+            });
+        }
+
         return $workforce;
     }
 
@@ -348,6 +370,8 @@ class ProjectModel extends Model
         foreach ($result as $row) {
             $countries[$row['country']] = $row['count'];
         }
+        // Already sorted by DESC, but ensure with arsort
+        arsort($countries);
         return $countries;
     }
 
@@ -368,6 +392,7 @@ class ProjectModel extends Model
 
         $result = $builder->groupBy('subdistrict')->orderBy('total_projects', 'DESC')->findAll();
 
+        // Already sorted by DESC in query, but ensure in array format
         return array_map(function ($row) {
             return [
                 'district' => $row['subdistrict'],
@@ -501,10 +526,18 @@ class ProjectModel extends Model
 
         // PMA
         $resultPMA = $getCompanyData('PMA');
+        // Sort by tambahan_realisasi descending (highest to lowest)
+        usort($resultPMA, function ($a, $b) {
+            return $b['tambahan_realisasi'] <=> $a['tambahan_realisasi'];
+        });
         $totalPMA = array_sum(array_column($resultPMA, 'tambahan_realisasi'));
 
         // PMDN
         $resultPMDN = $getCompanyData('PMDN');
+        // Sort by tambahan_realisasi descending (highest to lowest)
+        usort($resultPMDN, function ($a, $b) {
+            return $b['tambahan_realisasi'] <=> $a['tambahan_realisasi'];
+        });
         $totalPMDN = array_sum(array_column($resultPMDN, 'tambahan_realisasi'));
 
         log_message('debug', '=== getSectorCountByCompany END ===');
