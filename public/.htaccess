@@ -8,6 +8,11 @@ Options -Indexes
     Options +FollowSymlinks
     RewriteEngine On
     
+    # Force HTTPS for all requests
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} !^dpmptsp\.tail8af30b\.ts\.net [NC]
+    RewriteRule ^ https://dpmptsp.tail8af30b.ts.net%{REQUEST_URI} [L,R=301]
+    
     # Redirect root ke public folder (dari root .htaccess)
     RewriteBase /DataInvest/public/
 
@@ -18,6 +23,7 @@ Options -Indexes
     RewriteCond %{REQUEST_URI} !^/assets/
     RewriteCond %{REQUEST_URI} !^/uploads/
     RewriteCond %{REQUEST_URI} !^/favicon\.ico
+    RewriteCond %{REQUEST_URI} !^/logo-dpmptsp\.png
 
     # JANGAN rewrite jika sudah ada index.php di URL (mencegah loop)
     RewriteCond %{REQUEST_URI} !^/index\.php

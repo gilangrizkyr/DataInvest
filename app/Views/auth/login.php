@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Statistik Terpadu DPMPTSP</title>
+    <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -410,7 +411,7 @@
         <div class="login-card">
             <div class="logo-section">
                 <div class="logo-container">
-<img src="<?= base_url('Assets/logo-dpmptsp.png') ?>" alt="Logo DPMPTSP" class="logo-img">
+<img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo DPMPTSP" class="logo-img">
                     <div class="logo-text">
                         <h1>DPMPTSP</h1>
                         <p>Kabupaten Tanah Bumbu</p>
