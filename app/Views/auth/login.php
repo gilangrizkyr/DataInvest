@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0a0f;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,79 +25,36 @@
             overflow: hidden;
         }
 
-        /* Animated gradient background */
-        .gradient-bg {
+        /* Animated background pattern */
+        .bg-pattern {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            opacity: 0.9;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            background-size: 100px 100px;
+            animation: bg-shift 20s ease-in-out infinite alternate;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes bg-shift {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
-        /* Floating orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float-orb 20s ease-in-out infinite;
-        }
-
-        .orb1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.8), transparent);
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .orb2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(240, 147, 251, 0.8), transparent);
-            bottom: -10%;
-            right: -10%;
-            animation-delay: 5s;
-        }
-
-        .orb3 {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(79, 172, 254, 0.8), transparent);
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
-        @keyframes float-orb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -80px) scale(1.1); }
-            66% { transform: translate(-50px, 50px) scale(0.9); }
-        }
-
-        /* Particle system */
+        /* Floating particles */
         .particle {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            opacity: 0;
-            animation: particle-float 10s linear infinite;
+            animation: float-up 15s linear infinite;
         }
 
-        @keyframes particle-float {
+        @keyframes float-up {
             0% {
-                transform: translateY(100vh) translateX(0) scale(0);
+                transform: translateY(100vh) scale(0);
                 opacity: 0;
             }
             10% {
@@ -107,7 +64,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(100px) scale(1);
+                transform: translateY(-100vh) scale(1);
                 opacity: 0;
             }
         }
@@ -115,202 +72,126 @@
         .login-wrapper {
             position: relative;
             width: 100%;
-            max-width: 480px;
+            max-width: 420px;
             z-index: 10;
-            perspective: 1500px;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
             box-shadow: 
-                0 40px 80px rgba(0, 0, 0, 0.4),
+                0 25px 80px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-            padding: 3rem;
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            padding: 2.5rem;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-            animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: card-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        @keyframes cardEntrance {
+        @keyframes card-bounce {
             from {
                 opacity: 0;
-                transform: translateY(50px) rotateX(-15deg) scale(0.9);
+                transform: scale(0.9) translateY(20px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) rotateX(0) scale(1);
+                transform: scale(1) translateY(0);
             }
-        }
-
-        /* Glossy shine effect */
-        .login-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%);
-            border-radius: 32px 32px 0 0;
-            pointer-events: none;
-        }
-
-        /* Dynamic light effect */
-        .light-effect {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 60%);
-            pointer-events: none;
-            transition: transform 0.2s ease;
         }
 
         .logo-section {
             text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
         }
 
         .logo-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
-
-        /* 3D rotating rings around logo */
-        .ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform-style: preserve-3d;
-            animation: rotate3d 10s linear infinite;
-        }
-
-        .ring1 {
-            width: 140px;
-            height: 140px;
-            margin: -70px 0 0 -70px;
-            animation-duration: 8s;
-        }
-
-        .ring2 {
-            width: 160px;
-            height: 160px;
-            margin: -80px 0 0 -80px;
-            animation-duration: 12s;
-            animation-direction: reverse;
-        }
-
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg) rotateX(60deg); }
-            to { transform: rotateY(360deg) rotateX(60deg); }
-        }
-
-        .logo-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto;
-            box-shadow: 
-                0 20px 60px rgba(102, 126, 234, 0.5),
-                0 0 40px rgba(240, 147, 251, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            position: relative;
-            animation: logo-pulse 3s ease-in-out infinite;
-            transform-style: preserve-3d;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
-        @keyframes logo-pulse {
-            0%, 100% {
-                transform: scale(1) translateZ(0);
-                box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5), 0 0 40px rgba(240, 147, 251, 0.3);
-            }
-            50% {
-                transform: scale(1.1) translateZ(20px);
-                box-shadow: 0 30px 80px rgba(102, 126, 234, 0.7), 0 0 60px rgba(240, 147, 251, 0.5);
-            }
+        .logo-img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: logo-sway 3s ease-in-out infinite;
         }
 
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 32px;
-            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4facfe);
-            background-size: 300% 300%;
-            animation: gradient-rotate 3s ease infinite;
-            filter: blur(10px);
-            opacity: 0.7;
-            z-index: -1;
+        @keyframes logo-sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
         }
 
-        @keyframes gradient-rotate {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .logo-text {
+            text-align: left;
         }
 
-        .logo-icon i {
-            font-size: 3rem;
-            color: white;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-            animation: icon-float 3s ease-in-out infinite;
-        }
-
-        @keyframes icon-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .logo-section h1 {
-            font-size: 1.75rem;
+        .logo-text h1 {
+            font-size: 1.25rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 20px rgba(255,255,255,0.3);
+            color: #1e40af;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .logo-section p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9375rem;
+        .logo-text p {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .system-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .system-title h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .system-title p {
+            font-size: 0.875rem;
+            color: #6b7280;
             font-weight: 500;
-            letter-spacing: 0.3px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
         }
 
         .alert {
-            padding: 1rem 1.25rem;
-            border-radius: 16px;
+            padding: 1rem;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 0.75rem;
-            animation: alert-slide 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(10px);
+            animation: alert-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         @keyframes alert-slide {
             from {
                 opacity: 0;
-                transform: translateX(-30px);
+                transform: translateX(-20px);
             }
             to {
                 opacity: 1;
@@ -319,114 +200,92 @@
         }
 
         .alert-danger {
-            background: rgba(254, 226, 226, 0.15);
-            border: 1px solid rgba(248, 113, 113, 0.3);
-            color: #fecaca;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
         }
 
         .alert-success {
-            background: rgba(220, 252, 231, 0.15);
-            border: 1px solid rgba(134, 239, 172, 0.3);
-            color: #bbf7d0;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+
+        .alert i {
+            font-size: 1.25rem;
+            flex-shrink: 0;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .form-group label {
             display: block;
             font-size: 0.875rem;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
+            color: #374151;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.3px;
         }
 
-        .input-wrapper {
+        .input-group {
             position: relative;
-            transform-style: preserve-3d;
         }
 
-        .input-wrapper::before {
-            content: '';
+        .input-group i {
             position: absolute;
-            inset: -2px;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            border-radius: 16px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
-            filter: blur(8px);
-        }
-
-        .input-wrapper:focus-within::before {
-            opacity: 0.6;
-        }
-
-        .input-wrapper i {
-            position: absolute;
-            left: 1.125rem;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1.125rem;
+            color: #9ca3af;
+            font-size: 1rem;
             transition: all 0.3s;
-            z-index: 1;
         }
 
-        .form-control {
+        .input-group input {
             width: 100%;
-            padding: 1rem 1.25rem 1rem 3.25rem;
-            font-size: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.08);
-            color: white;
+            padding: 0.875rem 1rem 0.875rem 2.75rem;
+            font-size: 0.9375rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #f9fafb;
             transition: all 0.3s ease;
             font-family: inherit;
             font-weight: 500;
         }
 
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+        .input-group input::placeholder {
+            color: #9ca3af;
         }
 
-        .form-control:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 
-                0 0 0 4px rgba(102, 126, 234, 0.2),
-                0 8px 32px rgba(102, 126, 234, 0.3);
-            transform: translateY(-2px);
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        .form-control:focus + i {
-            color: white;
-            transform: translateY(-50%) scale(1.1);
+        .input-group input:focus + i {
+            color: #3b82f6;
         }
 
         .btn-login {
             width: 100%;
-            padding: 1.125rem 1.5rem;
-            font-size: 1.0625rem;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
             font-weight: 700;
             color: white;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
             background-size: 200% 200%;
             border: none;
-            border-radius: 16px;
+            border-radius: 12px;
             cursor: pointer;
             font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.625rem;
-            box-shadow: 
-                0 10px 40px rgba(102, 126, 234, 0.6),
-                0 0 20px rgba(240, 147, 251, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -442,38 +301,12 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn-login::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe);
-            background-size: 300% 300%;
-            animation: gradient-border 3s ease infinite;
-            filter: blur(12px);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.3s;
-        }
-
-        .btn-login:hover::after {
-            opacity: 0.8;
-        }
-
-        @keyframes gradient-border {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            transition: left 0.5s;
         }
 
         .btn-login:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 
-                0 20px 60px rgba(102, 126, 234, 0.8),
-                0 0 40px rgba(240, 147, 251, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
             background-position: 100% 0;
         }
 
@@ -482,11 +315,11 @@
         }
 
         .btn-login:active {
-            transform: translateY(-2px) scale(1);
+            transform: translateY(-1px);
         }
 
         .btn-login i {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             transition: transform 0.3s;
         }
 
@@ -494,16 +327,16 @@
             transform: translateX(4px);
         }
 
-        .footer-text {
+        .footer-info {
             text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
         }
 
-        .footer-text p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.875rem;
+        .footer-info p {
+            color: #6b7280;
+            font-size: 0.8125rem;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -511,14 +344,14 @@
             gap: 0.5rem;
         }
 
-        .footer-text i {
+        .footer-info i {
             color: #10b981;
-            animation: gear-spin 3s linear infinite;
         }
 
-        @keyframes gear-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .version {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
         }
 
         /* Loading state */
@@ -528,10 +361,10 @@
         }
 
         .btn-login.loading i {
-            animation: spin-fast 0.8s linear infinite;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes spin-fast {
+        @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
@@ -542,53 +375,32 @@
                 padding: 2rem 1.5rem;
             }
             
-            .logo-icon {
-                width: 80px;
-                height: 80px;
+            .logo-container {
+                flex-direction: column;
+                gap: 0.5rem;
             }
             
-            .logo-icon i {
-                font-size: 2.5rem;
+            .logo-text {
+                text-align: center;
             }
             
-            .ring1 {
-                width: 120px;
-                height: 120px;
-                margin: -60px 0 0 -60px;
+            .logo-img {
+                width: 60px;
+                height: 60px;
             }
-
-            .ring2 {
-                width: 140px;
-                height: 140px;
-                margin: -70px 0 0 -70px;
-            }
-        }
-
-        /* Extra glow on hover */
-        .login-card:hover {
-            box-shadow: 
-                0 50px 100px rgba(0, 0, 0, 0.5),
-                0 0 80px rgba(102, 126, 234, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
 <body>
-    <div class="gradient-bg"></div>
-    
-    <!-- Floating orbs -->
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+    <div class="bg-pattern"></div>
 
-    <!-- Particle system -->
+    <!-- Floating particles -->
     <script>
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDelay = Math.random() * 15 + 's';
             particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
             document.body.appendChild(particle);
         }
@@ -596,31 +408,33 @@
 
     <div class="login-wrapper">
         <div class="login-card">
-            <div class="light-effect"></div>
-            
             <div class="logo-section">
                 <div class="logo-container">
-                    <div class="ring ring1"></div>
-                    <div class="ring ring2"></div>
-                    <div class="logo-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo DPMPTSP" class="logo-img">
+                    <div class="logo-text">
+                        <h1>DPMPTSP</h1>
+                        <p>Kabupaten Tanah Bumbu</p>
                     </div>
                 </div>
-                <h1>Realisasi Investasi</h1>
-                <p>DPMPTSP Kabupaten Tanah Bumbu</p>
+            </div>
+
+            <div class="system-title">
+                <h2><i class="fas fa-shield-alt" style="color: #3b82f6;"></i> Sistem Statistik</h2>
+                <p>Dashboard Realisasi Investasi</p>
+                <!-- <span class="badge">Terintegrasi</span> -->
             </div>
 
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle"></i>
-                    <div><strong>Error!</strong> <?= session()->getFlashdata('error') ?></div>
+                    <div><strong>Gagal!</strong> <?= session()->getFlashdata('error') ?></div>
                 </div>
             <?php endif; ?>
 
             <?php if (session()->getFlashdata('success')): ?>
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle"></i>
-                    <div><strong>Sukses!</strong> <?= session()->getFlashdata('success') ?></div>
+                    <div><strong>Berhasil!</strong> <?= session()->getFlashdata('success') ?></div>
                 </div>
             <?php endif; ?>
 
@@ -629,9 +443,9 @@
                 
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <div class="input-wrapper">
+                    <div class="input-group">
                         <input type="text" class="form-control" id="username" name="username"
-                            required autofocus placeholder="Masukkan username Anda"
+                            required autofocus placeholder="Masukkan username"
                             value="<?= old('username') ?>">
                         <i class="fas fa-user"></i>
                     </div>
@@ -639,81 +453,37 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <div class="input-wrapper">
+                    <div class="input-group">
                         <input type="password" class="form-control" id="password" name="password" 
-                            required placeholder="Masukkan password Anda">
+                            required placeholder="Masukkan password">
                         <i class="fas fa-lock"></i>
                     </div>
                 </div>
 
                 <button type="submit" class="btn-login" id="submitBtn">
                     <i class="fas fa-sign-in-alt"></i>
-                    <span>Masuk Dashboard</span>
+                    <span>Masuk Sistem</span>
                 </button>
             </form>
 
-            <div class="footer-text">
+            <div class="footer-info">
                 <p>
-                    <i class="fas fa-cogs"></i>
-                    Sistem terintegrasi untuk kemudahan pengelolaan
+                    <i class="fas fa-check-circle"></i>
+                    Sistem Terintegrasi DPMPTSP
                 </p>
+                <div class="version">2026</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Form submit animation - biarkan form terkirim ke server
+        // Form submit animation
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             const btn = document.getElementById('submitBtn');
             btn.classList.add('loading');
             btn.innerHTML = '<i class="fas fa-spinner"></i><span>Memproses...</span>';
-            // Biarkan form terkirim ke server (tidak ada e.preventDefault())
-        });
-
-        // Advanced 3D tilt effect
-        const card = document.querySelector('.login-card');
-        const wrapper = document.querySelector('.login-wrapper');
-        const lightEffect = document.querySelector('.light-effect');
-
-        wrapper.addEventListener('mousemove', function(e) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `
-                perspective(1500px) 
-                rotateX(${rotateX}deg) 
-                rotateY(${rotateY}deg) 
-                translateZ(10px)
-                scale3d(1.02, 1.02, 1.02)
-            `;
-            
-            // Move light effect
-            lightEffect.style.transform = `translate(${(x - centerX) / 5}px, ${(y - centerY) / 5}px)`;
-        });
-
-        wrapper.addEventListener('mouseleave', function() {
-            card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale3d(1, 1, 1)';
-            lightEffect.style.transform = 'translate(0, 0)';
-        });
-
-        // Input focus animations
-        const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateZ(10px)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateZ(0)';
-            });
         });
     </script>
 </body>
 </html>
+
