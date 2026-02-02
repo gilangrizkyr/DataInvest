@@ -411,7 +411,7 @@
         <div class="login-card">
             <div class="logo-section">
                 <div class="logo-container">
-                    <img src="logo-dpmptsp.png" alt="Logo DPMPTSP" class="logo-img">
+                    <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo DPMPTSP" class="logo-img">
                     <div class="logo-text">
                         <h1>DPMPTSP</h1>
                         <p>Kabupaten Tanah Bumbu</p>

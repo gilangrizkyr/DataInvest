@@ -15,6 +15,7 @@ Options -Indexes
     RewriteCond %{REQUEST_URI} !^/public/assets/
     RewriteCond %{REQUEST_URI} !^/public/uploads/
     RewriteCond %{REQUEST_URI} !^/public/favicon\.ico
+    RewriteCond %{REQUEST_URI} !^/public/logo-dpmptsp\.png
     RewriteCond %{REQUEST_URI} !^/assets/
     RewriteCond %{REQUEST_URI} !^/uploads/
     RewriteCond %{REQUEST_URI} !^/favicon\.ico

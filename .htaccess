@@ -2,6 +2,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    # FIRST: Handle logo-dpmptsp.png - serve from public folder
+    RewriteRule ^logo-dpmptsp\.png$ public/logo-dpmptsp.png [L]
+    
     # FIRST: Handle assets folder - serve from root Assets/ (case-sensitive)
     # This must come BEFORE the redirect to public
     RewriteRule ^DataInvest/assets/(.*)$ Assets/$1 [L]
