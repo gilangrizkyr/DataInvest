@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: DataInvest
+    ports:
+      - "8080:80"    # PHP
+      # - "3000:3000" # Node
+    env_file:
+      - .env
+    restart: always
