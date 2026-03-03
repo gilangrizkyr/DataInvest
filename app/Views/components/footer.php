@@ -5,7 +5,7 @@
     </div>
 
     <div class="container mx-auto px-8 lg:px-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-slate-800">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pb-12 border-b border-slate-800">
             <!-- Brand Column -->
             <div class="lg:col-span-1">
                 <div class="flex items-center space-x-3 mb-6">
@@ -65,26 +65,7 @@
                 </ul>
             </div>
 
-            <!-- Services -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-6 flex items-center">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2"></span> Layanan Kami
-                </h4>
-                <ul class="space-y-4 text-sm text-slate-400">
-                    <li class="flex items-center">
-                        <i class="fas fa-check-circle text-emerald-500 mr-2.5"></i> Pemetaan Sektor
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-check-circle text-emerald-500 mr-2.5"></i> Analisis Wilayah
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-check-circle text-emerald-500 mr-2.5"></i> Pelaporan LKPM
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-check-circle text-emerald-500 mr-2.5"></i> Monitoring Investasi
-                    </li>
-                </ul>
-            </div>
+
 
             <!-- Contact & Help -->
             <div>

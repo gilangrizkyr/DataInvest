@@ -116,6 +116,8 @@ class DashboardService
             'uploads' => $allUploads,
             'filters' => $filters,
             'usd_rate' => $upload['usd_value'],
+            'upload_name' => $upload['upload_name'],
+            'quarter' => $upload['quarter'],
             'additional_investment_percentages' => $additionalInvestmentPercentages,
             'sector_count_by_company' => $sectorCountByCompany,
             'ranking_pma' => $statistics['projects_by_district']['PMA'] ?? [],

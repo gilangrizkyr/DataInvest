@@ -163,8 +163,12 @@
                     </div>
                     <div>
                         <h4 class="text-white font-black text-xl tracking-tight">Lampu Sorot Data</h4>
-                        <p class="text-slate-300 text-sm font-medium opacity-80">Insight cerdas berdasarkan data
-                            investasi terbaru.</p>
+                        <p class="text-slate-300 text-sm font-medium opacity-80">
+                            Insight cerdas berdasarkan data <span
+                                class="text-blue-400 font-bold"><?= esc($data['upload_name'] ?? 'Investasi') ?></span>
+                            (Periode <span class="text-white font-bold"><?= esc($data['quarter'] ?? '-') ?></span> Tahun
+                            <span class="text-white font-bold"><?= esc($data['current_year'] ?? '-') ?></span>)
+                        </p>
                     </div>
                 </div>
                 <div class="flex-1 md:max-w-2xl">
@@ -204,14 +208,15 @@
                     <i class="fas fa-money-bill-trend-up"></i>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div class="flex flex-col">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
+            <div class="space-y-3 pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
                         <?= number_format($data['total_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
-                <div class="flex flex-col text-right">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
+                <div
+                    class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
                         <?= number_format($data['total_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
@@ -233,14 +238,15 @@
                     <i class="fas fa-plus-circle"></i>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div class="flex flex-col">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
+            <div class="space-y-3 pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
                         <?= number_format($data['total_additional_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
-                <div class="flex flex-col text-right">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
+                <div
+                    class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
                         <?= number_format($data['total_additional_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
@@ -262,16 +268,19 @@
                     <i class="fas fa-diagram-project"></i>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div class="flex flex-col">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
+            <div class="space-y-3 pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['total_projects']['PMA'] ?? 0) ?></span>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['total_projects']['PMA'] ?? 0) ?>
+                        Unit</span>
                 </div>
-                <div class="flex flex-col text-right">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
+                <div
+                    class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['total_projects']['PMDN'] ?? 0) ?></span>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['total_projects']['PMDN'] ?? 0) ?>
+                        Unit</span>
                 </div>
             </div>
         </div>
@@ -291,16 +300,19 @@
                     <i class="fas fa-users-viewfinder"></i>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div class="flex flex-col">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
+            <div class="space-y-3 pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKI'] ?? 0) ?></span>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKI'] ?? 0) ?>
+                        Jiwa</span>
                 </div>
-                <div class="flex flex-col text-right">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
+                <div
+                    class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKI'] ?? 0) ?></span>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKI'] ?? 0) ?>
+                        Jiwa</span>
                 </div>
             </div>
         </div>
@@ -320,16 +332,19 @@
                     <i class="fas fa-passport"></i>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-                <div class="flex flex-col">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
+            <div class="space-y-3 pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKA'] ?? 0) ?></span>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKA'] ?? 0) ?>
+                        Jiwa</span>
                 </div>
-                <div class="flex flex-col text-right">
-                    <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
+                <div
+                    class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
+                    <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKA'] ?? 0) ?></span>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKA'] ?? 0) ?>
+                        Jiwa</span>
                 </div>
             </div>
         </div>
