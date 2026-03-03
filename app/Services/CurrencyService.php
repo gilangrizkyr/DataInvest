@@ -44,18 +44,6 @@ class CurrencyService
                 $amount = round($amount / $usdRate, 2);
             }
         }
-
-        // Convert district chart datasets
-        if (isset($charts['district']['pma'])) {
-            foreach ($charts['district']['pma'] as &$amount) {
-                $amount = round($amount / $usdRate, 2);
-            }
-        }
-        if (isset($charts['district']['pmdn'])) {
-            foreach ($charts['district']['pmdn'] as &$amount) {
-                $amount = round($amount / $usdRate, 2);
-            }
-        }
     }
 
     private function convertInvestments(array &$investments, float $usdRate): void
