@@ -47,7 +47,8 @@ $routes->group('user-management', ['filter' => 'roleFilter:superadmin'], functio
     $routes->post('store', 'UserManagement::store');
     $routes->get('edit/(:num)', 'UserManagement::edit/$1');
     $routes->post('update/(:num)', 'UserManagement::update/$1');
-    $routes->get('delete/(:num)', 'UserManagement::delete/$1');
+    $routes->delete('delete/(:num)', 'UserManagement::delete/$1');
+    $routes->get('delete/(:num)', 'UserManagement::delete/$1'); // Keep GET for direct link support
 });
 
 // FAQ ROUTE - Public

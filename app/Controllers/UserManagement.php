@@ -107,7 +107,13 @@ class UserManagement extends BaseController
         }
 
         $rules = $this->userModel->getValidationRulesUpdate();
-        $rules['id'] = "required|is_in[{$id}]";
+
+        // Replace {id} placeholder with actual ID for unique validation
+        foreach ($rules as $field => &$rule) {
+            if (is_string($rule)) {
+                $rule = str_replace('{id}', $id, $rule);
+            }
+        }
 
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -125,7 +131,7 @@ class UserManagement extends BaseController
             $data['password'] = $this->userModel->hashPassword($this->request->getPost('password'));
         }
 
-        if ($this->userModel->update($id, $data)) {
+        if ($this->userModel->skipValidation(true)->update($id, $data)) {
             return redirect()->to('user-management')->with('success', 'User berhasil diperbarui');
         } else {
             return redirect()->back()->with('error', 'Gagal memperbarui user');
