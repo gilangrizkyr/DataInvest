@@ -28,22 +28,28 @@ $paths = new Paths();
 
 if (isset($_GET['r']) && $_GET['r']) {
     $route = $_GET['r'];
-    
+
     // Remove r from GET to avoid CI4 seeing the "=" character
     unset($_GET['r']);
-    
+
     // Rebuild query string without 'r'
     $queryString = http_build_query($_GET);
     if ($queryString) {
         $route .= '?' . $queryString;
     }
-    
+
     // Set PATH_INFO and REQUEST_URI so CodeIgniter recognizes the route
     $_SERVER['PATH_INFO'] = $route;
     $_SERVER['REQUEST_URI'] = '/index.php' . $route;
     $_SERVER['QUERY_STRING'] = $queryString;
-    
-    // Also handle ORIG_PATH_INFO if available
+
+    // Also // Increase limits for large Excel processing
+    ini_set('memory_limit', '512M');
+    ini_set('upload_max_filesize', '20M');
+    ini_set('post_max_size', '20M');
+    set_time_limit(300);
+
+    // Check for ADDPATH constant availabilitye
     if (isset($_SERVER['ORIG_PATH_INFO'])) {
         $_SERVER['ORIG_PATH_INFO'] = '/index.php' . $route;
     }

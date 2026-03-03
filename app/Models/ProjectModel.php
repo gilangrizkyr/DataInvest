@@ -368,7 +368,7 @@ class ProjectModel extends Model
 
         $countries = [];
         foreach ($result as $row) {
-            $countries[$row['country']] = $row['count'];
+            $countries[$row['country']] = (int) $row['count'];
         }
         // Already sorted by DESC, but ensure with arsort
         arsort($countries);
@@ -395,8 +395,8 @@ class ProjectModel extends Model
         // Already sorted by DESC in query, but ensure in array format
         return array_map(function ($row) {
             return [
-                'district' => $row['subdistrict'],
-                'total_projects' => $row['total_projects']
+                'kecamatan' => $row['subdistrict'],
+                'jumlah_proyek' => $row['total_projects']
             ];
         }, $result);
     }
@@ -513,10 +513,10 @@ class ProjectModel extends Model
 
             // Pastikan semua field numerik dikonversi ke float/int agar view bisa number_format
             foreach ($result as &$row) {
-                $row['tambahan_realisasi'] = (float)$row['tambahan_realisasi'];
-                $row['jumlah_tki'] = (int)$row['jumlah_tki'];
-                $row['jumlah_tka'] = (int)$row['jumlah_tka'];
-                $row['jumlah_proyek'] = (int)$row['jumlah_proyek'];
+                $row['tambahan_realisasi'] = (float) $row['tambahan_realisasi'];
+                $row['jumlah_tki'] = (int) $row['jumlah_tki'];
+                $row['jumlah_tka'] = (int) $row['jumlah_tka'];
+                $row['jumlah_proyek'] = (int) $row['jumlah_proyek'];
             }
 
             log_message('debug', $investmentType . ' records found: ' . count($result));

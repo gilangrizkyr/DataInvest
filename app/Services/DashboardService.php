@@ -13,12 +13,14 @@ class DashboardService
     protected $chartService;
     protected $statisticsService;
     protected $currencyService;
+    protected $userModel;
     protected $filterBuilder;
 
     public function __construct()
     {
         $this->projectModel = new ProjectModel();
         $this->uploadModel = new UploadModel();
+        $this->userModel = new \App\Models\UserModel();
         $this->chartService = new ChartService();
         $this->statisticsService = new StatisticsService();
         $this->currencyService = new CurrencyService();
@@ -55,7 +57,7 @@ class DashboardService
 
         // Pastikan selalu ada key PMA & PMDN meskipun kosong
         $sectorCountByCompany = [
-            'PMA'  => $sectorCountByCompany['PMA']  ?? ['data' => [], 'total' => 0],
+            'PMA' => $sectorCountByCompany['PMA'] ?? ['data' => [], 'total' => 0],
             'PMDN' => $sectorCountByCompany['PMDN'] ?? ['data' => [], 'total' => 0],
         ];
         log_message('debug', 'Sector count in DashboardService: ' . json_encode($sectorCountByCompany));
@@ -76,7 +78,31 @@ class DashboardService
         // Convert ke USD jika filter currency = USD
         if (($filters['currency'] ?? 'IDR') === 'USD') {
             $this->currencyService->convertToUSD($statistics, $upload['usd_value']);
+
+            // Juga konversi data ranking perusahaan
+            foreach (['PMA', 'PMDN'] as $type) {
+                if (isset($sectorCountByCompany[$type]['data'])) {
+                    foreach ($sectorCountByCompany[$type]['data'] as &$company) {
+                        $company['tambahan_realisasi'] = round($company['tambahan_realisasi'] / $upload['usd_value'], 2);
+                    }
+                }
+            }
         }
+
+        // Ambil data untuk KPI cards
+        $totalUploads = count($allUploads);
+        $totalUsers = $this->userModel->countAll();
+
+        // Ambil recent uploads (5 terakhir)
+        $recentUploads = array_slice($allUploads, 0, 5);
+        $recentUploadsFormatted = array_map(function ($u) {
+            return [
+                'file_name' => $u['upload_name'] ?? $u['filename'],
+                'uploaded_at' => $u['upload_date'] ?? 'now',
+                'rows_count' => $u['total_records'] ?? 0,
+                'status' => $u['status'] ?? 'completed'
+            ];
+        }, $recentUploads);
 
         // Merge semua data untuk dikirim ke view
         return array_merge($statistics, [
@@ -87,8 +113,15 @@ class DashboardService
             'usd_rate' => $upload['usd_value'],
             'additional_investment_percentages' => $additionalInvestmentPercentages,
             'sector_count_by_company' => $sectorCountByCompany,
-            'ranking_pma'  => $statistics['projects_by_district']['PMA']  ?? [],
+            'ranking_pma' => $statistics['projects_by_district']['PMA'] ?? [],
             'ranking_pmdn' => $statistics['projects_by_district']['PMDN'] ?? [],
+            // Key tambahan untuk dashboard_modern.php
+            'total' => $totalUploads,
+            'current_year' => $upload['year'] ?? date('Y'),
+            'users' => $totalUsers,
+            'validation_rate' => 100, // Placeholder
+            'recent_uploads' => $recentUploadsFormatted,
+            'trend' => ['total' => '+10%'] // Placeholder
         ]);
     }
 
@@ -306,7 +339,14 @@ class DashboardService
                 'PMDN' => ['data' => [], 'total' => 0]
             ],
             'charts' => $this->chartService->getEmptyCharts(),
-            'usd_rate' => $upload['usd_value'] ?? 16653
+            'usd_rate' => $upload['usd_value'] ?? 16653,
+            // Tambahan untuk dashboard_modern.php agar tidak error saat data kosong
+            'total' => count($allUploads),
+            'current_year' => $upload['year'] ?? date('Y'),
+            'users' => $this->userModel->countAll(),
+            'validation_rate' => 0,
+            'recent_uploads' => [],
+            'trend' => ['total' => '0%']
         ];
     }
 }

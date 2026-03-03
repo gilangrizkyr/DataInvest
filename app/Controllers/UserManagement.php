@@ -13,7 +13,8 @@ class UserManagement extends BaseController
         $this->userModel = new UserModel();
 
         // Hanya superadmin yang bisa akses
-        if (session()->get('role') !== 'superadmin') {
+        $user = session()->get('user');
+        if (!$user || ($user['role'] ?? '') !== 'superadmin') {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
     }
@@ -25,13 +26,13 @@ class UserManagement extends BaseController
         $search = $this->request->getVar('search') ?? '';
 
         $data = [
-            'title' => 'Manajemen User',
+            'title' => 'User Management',
             'users' => $search ? $this->userModel->searchUsers($search, $page) : $this->userModel->getAllUsers($page),
             'search' => $search,
             'pager' => $this->userModel->pager,
         ];
 
-        return view('user_management/index', $data);
+        return view('user_management_modern', $data);
     }
 
     // CREATE USER PAGE

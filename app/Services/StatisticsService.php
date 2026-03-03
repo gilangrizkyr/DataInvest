@@ -92,6 +92,14 @@ class StatisticsService
             ];
         }
 
+        // Sort both by amount descending
+        uasort($percentages['PMA'], function ($a, $b) {
+            return $b['amount'] <=> $a['amount'];
+        });
+        uasort($percentages['PMDN'], function ($a, $b) {
+            return $b['amount'] <=> $a['amount'];
+        });
+
         return $percentages;
     }
 

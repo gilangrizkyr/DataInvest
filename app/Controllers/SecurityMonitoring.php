@@ -6,7 +6,7 @@ class SecurityMonitoring extends BaseController
 {
     public function index()
     {
-        return view('security_dashboard');
+        return view('security_dashboard_modern', ['title' => 'Security Monitoring']);
     }
 
     public function getThreats()

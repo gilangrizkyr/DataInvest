@@ -19,14 +19,16 @@ class ChartService
     {
         $projectsByDistrict = $this->projectModel->getProjectsByDistrict($uploadId, $filterConditions);
         $investmentByLocation = $this->projectModel->getInvestmentByDistrict($uploadId, $filterConditions);
-        $sectorAnalysis = $this->projectModel->getSectorAnalysis($uploadId, $filterConditions);
+        $sectorAnalysis = $this->projectModel->getSectorAnalysis($uploadId);
         $projectsByCountry = $this->projectModel->getProjectsByCountry($uploadId, $filterConditions);
+        $workforceByDistrict = $this->projectModel->getWorkforceByDistrict($uploadId, $filterConditions);
 
         return [
             'district' => $this->generateDistrictChart($projectsByDistrict),
             'locations' => $this->generateLocationChart($investmentByLocation),
             'sectors' => $this->generateSectorChart($sectorAnalysis),
             'countries' => $this->generateCountryChart($projectsByCountry),
+            'workforce' => $this->generateWorkforceChart($workforceByDistrict),
             'quarterly_additional_investment' => $this->quarterlyChartService->generate(
                 'all',
                 $usdRate,
@@ -142,6 +144,45 @@ class ChartService
         return compact('labels', 'counts');
     }
 
+    public function generateWorkforceChart(array $workforce): array
+    {
+        $allDistricts = array_unique(array_merge(
+            array_keys($workforce['PMA'] ?? []),
+            array_keys($workforce['PMDN'] ?? [])
+        ));
+
+        $districtTotals = [];
+        foreach ($allDistricts as $district) {
+            $tki = ($workforce['PMA'][$district]['TKI'] ?? 0) + ($workforce['PMDN'][$district]['TKI'] ?? 0);
+            $tka = ($workforce['PMA'][$district]['TKA'] ?? 0) + ($workforce['PMDN'][$district]['TKA'] ?? 0);
+            $total = $tki + $tka;
+
+            $districtTotals[$district] = [
+                'district' => $district,
+                'tki' => $tki,
+                'tka' => $tka,
+                'total' => $total
+            ];
+        }
+
+        // Sort by total workforce descending
+        uasort($districtTotals, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+
+        $labels = [];
+        $tki = [];
+        $tka = [];
+
+        foreach ($districtTotals as $data) {
+            $labels[] = $data['district'];
+            $tki[] = $data['tki'];
+            $tka[] = $data['tka'];
+        }
+
+        return compact('labels', 'tki', 'tka');
+    }
+
     public function getEmptyCharts(): array
     {
         return [
@@ -149,6 +190,7 @@ class ChartService
             'locations' => ['labels' => [], 'values' => []],
             'sectors' => ['labels' => [], 'counts' => []],
             'countries' => ['labels' => [], 'counts' => []],
+            'workforce' => ['labels' => [], 'tki' => [], 'tka' => []],
             'quarterly_additional_investment' => [
                 'labels' => ['Q1', 'Q2', 'Q3', 'Q4'],
                 'values' => [0, 0, 0, 0],

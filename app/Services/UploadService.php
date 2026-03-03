@@ -21,17 +21,20 @@ class UploadService
 
     public function handleUpload($file): array
     {
+        $startTime = microtime(true);
         if (!$file || !$file->isValid()) {
             return ['success' => false, 'message' => 'File tidak valid atau tidak ditemukan.'];
         }
 
         $ext = strtolower($file->getClientExtension() ?: $file->getExtension());
-        if (!in_array($ext, ['xlsx', 'xls'])) {
-            return ['success' => false, 'message' => 'Hanya file .xlsx/.xls yang diperbolehkan.'];
+        if (!in_array($ext, ['xlsx', 'xls', 'csv'])) {
+            return ['success' => false, 'message' => 'Hanya file .xlsx/.xls/.csv yang diperbolehkan.'];
         }
 
+        log_message('info', 'Starting file move...');
         $filePath = WRITEPATH . 'uploads/' . $file->getRandomName();
         $file->move(WRITEPATH . 'uploads/', basename($filePath));
+        log_message('info', 'File move completed in ' . round(microtime(true) - $startTime, 4) . 's');
 
         // Create upload record
         $uploadId = $this->uploadModel->createUpload([
@@ -42,19 +45,25 @@ class UploadService
         ]);
 
         // Validate columns
+        log_message('info', 'Starting column validation...');
+        $validationStartTime = microtime(true);
         $validation = $this->excelModel->validateColumns($filePath);
+        log_message('info', 'Column validation completed in ' . round(microtime(true) - $validationStartTime, 4) . 's');
 
         if (!$validation['valid']) {
             $this->uploadModel->updateStatus($uploadId, 'failed', [
                 'error_message' => 'Kolom tidak lengkap: ' . implode(', ', $validation['missing'])
             ]);
-            unlink($filePath);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
             return [
                 'success' => false,
                 'message' => 'Data gagal diproses, kolom tidak lengkap: ' . implode(', ', $validation['missing'])
             ];
         }
 
+        log_message('info', 'Total handleUpload time: ' . round(microtime(true) - $startTime, 4) . 's');
         return [
             'success' => true,
             'uploadId' => $uploadId,
@@ -66,6 +75,12 @@ class UploadService
     {
         if (!$this->validateMetadataFields($metadata)) {
             return ['success' => false, 'message' => 'Semua field metadata harus diisi.'];
+        }
+
+        // Normalize quarter to Q1, Q2, etc.
+        $metadata['quarter'] = strtoupper(trim($metadata['quarter']));
+        if (!empty($metadata['quarter']) && !str_starts_with($metadata['quarter'], 'Q')) {
+            $metadata['quarter'] = 'Q' . $metadata['quarter'];
         }
 
         $upload = $this->uploadModel->getUploadById($metadata['upload_id']);
@@ -106,7 +121,9 @@ class UploadService
                 'processed_records' => $totalRecords
             ]);
 
-            unlink($upload['file_path']);
+            if (file_exists($upload['file_path'])) {
+                unlink($upload['file_path']);
+            }
 
             return [
                 'success' => true,
@@ -130,6 +147,12 @@ class UploadService
     {
         if (!$this->validateMetadataFields($metadata)) {
             return ['success' => false, 'message' => 'Semua field metadata harus diisi.'];
+        }
+
+        // Normalize quarter to Q1, Q2, etc.
+        $metadata['quarter'] = strtoupper(trim($metadata['quarter']));
+        if (!empty($metadata['quarter']) && !str_starts_with($metadata['quarter'], 'Q')) {
+            $metadata['quarter'] = 'Q' . $metadata['quarter'];
         }
 
         $upload = $this->uploadModel->getUploadById($metadata['upload_id']);
@@ -226,10 +249,10 @@ class UploadService
     private function validateMetadataFields(array $metadata): bool
     {
         return !empty($metadata['upload_id']) &&
-               !empty($metadata['upload_name']) &&
-               !empty($metadata['quarter']) &&
-               !empty($metadata['year']) &&
-               !empty($metadata['usd_value']);
+            !empty($metadata['upload_name']) &&
+            !empty($metadata['quarter']) &&
+            !empty($metadata['year']) &&
+            !empty($metadata['usd_value']);
     }
 
     private function buildDuplicateErrorMessage(array $validation): string
@@ -251,10 +274,15 @@ class UploadService
 
     private function verifyMetadataUpdate(?array $updatedUpload, array $metadata): bool
     {
-        return $updatedUpload &&
-               $updatedUpload['upload_name'] === $metadata['upload_name'] &&
-               $updatedUpload['quarter'] === $metadata['quarter'] &&
-               $updatedUpload['year'] == $metadata['year'] &&
-               $updatedUpload['usd_value'] == $metadata['usd_value'];
+        if (!$updatedUpload)
+            return false;
+
+        // Normalize comparing values (ensure year and usd_value are compared numerically/loosely)
+        $qMatch = $updatedUpload['quarter'] === $metadata['quarter'];
+        $nMatch = $updatedUpload['upload_name'] === $metadata['upload_name'];
+        $yMatch = (int) $updatedUpload['year'] === (int) $metadata['year'];
+        $uMatch = abs((float) $updatedUpload['usd_value'] - (float) $metadata['usd_value']) < 0.01;
+
+        return $qMatch && $nMatch && $yMatch && $uMatch;
     }
 }

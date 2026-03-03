@@ -79,7 +79,26 @@ class ExcelModel extends Model
      */
     public function validateColumns($filePath)
     {
-        $spreadsheet = IOFactory::load($filePath);
+        log_message('info', 'validateColumns: Loading file ' . $filePath);
+        $readerTime = microtime(true);
+        $reader = IOFactory::createReaderForFile($filePath);
+        $reader->setReadDataOnly(true);
+
+        // Optimasi: Hanya baca baris pertama (header) untuk validasi kolom
+        $chunkFilter = new class implements \PhpOffice\PhpSpreadsheet\Reader\IReadFilter {
+            public function readCell(string $columnAddress, int $row, string $worksheetName = ''): bool
+            {
+                return $row == 1;
+            }
+        };
+        $reader->setReadFilter($chunkFilter);
+
+        log_message('info', 'Reader initialized in ' . round(microtime(true) - $readerTime, 4) . 's');
+
+        $loadTime = microtime(true);
+        $spreadsheet = $reader->load($filePath);
+        log_message('info', 'Spreadsheet loaded in ' . round(microtime(true) - $loadTime, 4) . 's');
+
         $sheetNames = $spreadsheet->getSheetNames();
 
         // Cek apakah ada minimal satu sheet
@@ -95,7 +114,7 @@ class ExcelModel extends Model
         // Jika ada sheet PMA dan PMDN, gunakan itu. Jika tidak, gunakan sheet pertama
         $sheetsToCheck = [];
         $sheetNamesLower = array_map('strtolower', $sheetNames);
-        
+
         if (in_array('pma', $sheetNamesLower) && in_array('pmdn', $sheetNamesLower)) {
             $pmaIndex = array_search('pma', $sheetNamesLower);
             $pmdnIndex = array_search('pmdn', $sheetNamesLower);
@@ -109,7 +128,8 @@ class ExcelModel extends Model
 
         foreach ($sheetsToCheck as $sheetName) {
             $sheet = $spreadsheet->getSheetByName($sheetName);
-            if (!$sheet) continue;
+            if (!$sheet)
+                continue;
 
             $highestColumn = $sheet->getHighestColumn();
             $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
@@ -175,7 +195,7 @@ class ExcelModel extends Model
         try {
             log_message('info', '=== processData START ===');
             log_message('info', 'File: ' . $filePath . ', Upload ID: ' . $uploadId);
-            
+
             // Tambah memory limit secara dinamis jika diperlukan
             $currentMemory = memory_get_usage(true);
             log_message('info', 'Current memory usage: ' . round($currentMemory / 1024 / 1024, 2) . ' MB');
@@ -185,8 +205,12 @@ class ExcelModel extends Model
                 log_message('error', 'File tidak ditemukan: ' . $filePath);
                 throw new \Exception('File Excel tidak ditemukan. Silakan upload ulang file.');
             }
-            
-            $spreadsheet = IOFactory::load($filePath);
+
+            // Optimasi: Gunakan reader dengan setReadDataOnly(true)
+            $reader = IOFactory::createReaderForFile($filePath);
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($filePath);
+
             $sheetNames = $spreadsheet->getSheetNames();
             $totalRecords = 0;
             $missingColumnsReport = [];
@@ -200,7 +224,7 @@ class ExcelModel extends Model
             // Tentukan sheet yang akan diproses - case insensitive
             $sheetsToProcess = [];
             $sheetNamesLower = array_map('strtolower', $sheetNames);
-            
+
             if (in_array('pma', $sheetNamesLower) && in_array('pmdn', $sheetNamesLower)) {
                 $pmaIndex = array_search('pma', $sheetNamesLower);
                 $pmdnIndex = array_search('pmdn', $sheetNamesLower);
@@ -213,204 +237,136 @@ class ExcelModel extends Model
 
             foreach ($sheetsToProcess as $sheetName) {
                 $sheet = $spreadsheet->getSheetByName($sheetName);
-                if (!$sheet) {
-                    log_message('debug', "Sheet '$sheetName' not found");
+                if (!$sheet)
                     continue;
-                }
 
                 $highestRow = $sheet->getHighestRow();
                 $highestColumn = $sheet->getHighestColumn();
-                
-                // Validasi jika sheet kosong
-                if ($highestRow < 2) {
-                    log_message('debug', "Sheet '$sheetName' is empty (no data rows)");
+
+                if ($highestRow < 2)
                     continue;
-                }
-                
+
                 $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
-                log_message('debug', "Processing sheet: $sheetName, Rows: $highestRow, Columns: $highestColumnIndex");
+                // Optimasi: Gunakan rangeToArray untuk mengambil seluruh data sheet sekaligus
+                // Ini jauh lebih cepat daripada memanggil getCell() di dalam loop
+                $dataArray = $sheet->rangeToArray(
+                    'A1:' . $highestColumn . $highestRow,
+                    null,
+                    true,
+                    false,
+                    false
+                );
 
-                // Get actual columns from header row
-                $actualColumns = [];
-                for ($col = 1; $col <= $highestColumnIndex; $col++) {
-                    $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . '1')->getValue();
-                    $actualColumns[] = (string) $cellValue;
-                }
-
-                // Validasi header row
-                if (empty(array_filter($actualColumns))) {
-                    log_message('warning', "Sheet '$sheetName' has empty headers, skipping");
-                    continue;
-                }
-
-                // Create map from column name to index (0-based) - case insensitive
+                $headers = $dataArray[0];
                 $columnMap = [];
-                foreach ($actualColumns as $index => $colName) {
+                foreach ($headers as $index => $colName) {
                     $cleanColName = strtolower(trim($colName));
                     $cleanColName = preg_replace('/\s+/', ' ', $cleanColName);
                     $columnMap[$cleanColName] = $index;
                 }
 
-                // Identifikasi kolom yang tidak ada
-                $expectedNormalized = array_map(function ($col) {
-                    return strtolower(trim($col));
-                }, $this->expectedColumns);
-                $missingInSheet = array_diff($expectedNormalized, array_keys($columnMap));
-
-                if (!empty($missingInSheet)) {
-                    $missingColumnsReport[$sheetName] = array_map(function ($col) {
-                        return ucwords($col);
-                    }, $missingInSheet);
-                }
-
+                // Identifikasi kolom (lanjutkan logika yang sudah ada namun menggunakan dataArray)
                 $expectedColumns = $this->expectedColumns;
                 $projectsData = [];
                 $rowsProcessed = 0;
 
-                for ($row = 2; $row <= $highestRow; $row++) {
-                    // Skip empty rows
-                    $firstCellValue = $sheet->getCell('A' . $row)->getValue();
-                    if (empty($firstCellValue) && $highestColumnIndex <= 1) {
-                        continue;
-                    }
+                for ($i = 1; $i < count($dataArray); $i++) {
+                    $row = $dataArray[$i];
 
-                    $rowData = [];
+                    // Skip empty rows (cek kolom pertama)
+                    if (empty($row[0]) && count($row) <= 1)
+                        continue;
+
+                    $mappedRow = [];
                     foreach ($expectedColumns as $colName) {
                         $cleanColName = strtolower(trim($colName));
                         $cleanColName = preg_replace('/\s+/', ' ', $cleanColName);
-                        $index = $this->findAlternativeColumn($cleanColName, $columnMap);
-                        if ($index !== null) {
-                            $cellValue = $sheet->getCell(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($index + 1) . $row)->getValue();
-                            $rowData[$colName] = $cellValue;
-                        } else {
-                            $rowData[$colName] = null;
-                        }
+
+                        $colIndex = $this->findAlternativeColumn($cleanColName, $columnMap);
+                        $mappedRow[$colName] = ($colIndex !== null) ? $row[$colIndex] : null;
                     }
 
-                    // Skip projects without subdistrict name
-                    $subdistrict = trim($rowData['Kecamatan'] ?? '');
-                    if (empty($subdistrict)) {
-                        continue; // Skip this project
-                    }
+                    $subdistrict = trim($mappedRow['Kecamatan'] ?? '');
+                    if (empty($subdistrict))
+                        continue;
 
-                    // Tentukan tipe investasi: dari KOLOM PMA/PMDN dulu, kalau kosong gunakan NAMA SHEET
-                    $investmentType = strtoupper(trim($rowData['PMA/PMDN'] ?? ''));
-                    
+                    $investmentType = strtoupper(trim($mappedRow['PMA/PMDN'] ?? ''));
                     if (empty($investmentType)) {
-                        // Kolom PMA/PMDN kosong - gunakan nama sheet
                         $sheetNameUpper = strtoupper(trim($sheetName));
-                        if ($sheetNameUpper === 'PMA') {
-                            $investmentType = 'PMA';
-                        } elseif ($sheetNameUpper === 'PMDN') {
-                            $investmentType = 'PMDN';
-                        } else {
-                            $investmentType = 'PMA'; // Default ke PMA
-                        }
+                        $investmentType = ($sheetNameUpper === 'PMDN') ? 'PMDN' : 'PMA';
                     }
 
-                    // Validasi akhir
-                    if (!in_array($investmentType, ['PMA', 'PMDN'])) {
-                        $investmentType = 'PMA';
-                    }
-
-                    $rowsProcessed++;
-
-                    // Prepare project data for database - Field tidak ada = "[Field Tidak Ada]"
-                    $projectData = [
+                    $projectsData[] = [
                         'upload_id' => $uploadId,
-                        'report_id' => $rowData['ID Laporan'] ?? '[Field Tidak Ada]',
-                        'project_id' => $rowData['ID Proyek'] ?? '[Field Tidak Ada]',
-                        'project_name' => $rowData['Nama Perusahaan'] ?? '[Field Tidak Ada]',
+                        'report_id' => $mappedRow['ID Laporan'] ?? '[Tidak Ada]',
+                        'project_id' => $mappedRow['ID Proyek'] ?? '[Tidak Ada]',
+                        'project_name' => $mappedRow['Nama Perusahaan'] ?? '[Tidak Ada]',
                         'investment_type' => $investmentType,
-                        'period_stage' => $rowData['Periode Tahap'] ?? '[Field Tidak Ada]',
-                        'main_sector' => $rowData['Sektor Utama'] ?? '[Field Tidak Ada]',
-                        'sector_23' => $rowData['23 Sektor'] ?? '[Field Tidak Ada]',
-                        'business_type' => $rowData['Jenis Badan Usaha'] ?? '[Field Tidak Ada]',
-                        'company_name' => $rowData['Nama Perusahaan'] ?? '[Field Tidak Ada]',
-                        'email' => $rowData['Email'] ?? '[Field Tidak Ada]',
-                        'address' => $rowData['Alamat'] ?? '[Field Tidak Ada]',
-                        'location_print' => $rowData['Cetak Lokasi'] ?? '[Field Tidak Ada]',
-                        'sector_detail' => $rowData['Sektor'] ?? '[Field Tidak Ada]',
-                        'kbli_description' => $rowData['Deskripsi KBLI'] ?? '[Field Tidak Ada]',
-                        'province' => $rowData['Provinsi'] ?? '[Field Tidak Ada]',
-                        'district' => $rowData['Kabkot'] ?? '[Field Tidak Ada]',
+                        'period_stage' => $mappedRow['Periode Tahap'] ?? '[Tidak Ada]',
+                        'main_sector' => $mappedRow['Sektor Utama'] ?? '[Tidak Ada]',
+                        'sector_23' => $mappedRow['23 Sektor'] ?? '[Tidak Ada]',
+                        'business_type' => $mappedRow['Jenis Badan Usaha'] ?? '[Tidak Ada]',
+                        'company_name' => $mappedRow['Nama Perusahaan'] ?? '[Tidak Ada]',
+                        'email' => $mappedRow['Email'] ?? '[Tidak Ada]',
+                        'address' => $mappedRow['Alamat'] ?? '[Tidak Ada]',
+                        'location_print' => $mappedRow['Cetak Lokasi'] ?? '[Tidak Ada]',
+                        'sector_detail' => $mappedRow['Sektor'] ?? '[Tidak Ada]',
+                        'kbli_description' => $mappedRow['Deskripsi KBLI'] ?? '[Tidak Ada]',
+                        'province' => $mappedRow['Provinsi'] ?? '[Tidak Ada]',
+                        'district' => $mappedRow['Kabkot'] ?? '[Tidak Ada]',
                         'subdistrict' => $subdistrict,
-                        'license_number' => $rowData['No Izin'] ?? '[Field Tidak Ada]',
-                        'additional_investment' => $this->cleanNumericValue($rowData['Tambahan Investasi'] ?? 0),
-                        'total_investment' => $this->cleanNumericValue($rowData['Total Investasi'] ?? 0),
-                        'planned_total_investment' => $this->cleanNumericValue($rowData['Rencana Total Investasi'] ?? 0),
-                        'fixed_capital_planned' => $this->cleanNumericValue($rowData['Rencana Modal Tetap'] ?? 0),
-                        'tki' => (int) ($rowData['TKI'] ?? 0),
-                        'tka' => (int) ($rowData['TKA'] ?? 0),
-                        'officer_name' => $rowData['Nama Petugas'] ?? '[Field Tidak Ada]',
-                        'problem_description' => $rowData['Keterangan Masalah'] ?? '[Field Tidak Ada]',
-                        'fixed_capital_explanation' => $rowData['Penjelasan Modal Tetap'] ?? '[Field Tidak Ada]',
-                        'phone_number' => $rowData['No Telp'] ?? '[Field Tidak Ada]',
-                        'country' => $rowData['Negara'] ?? '[Field Tidak Ada]'
+                        'additional_investment' => $this->cleanNumericValue($mappedRow['Tambahan Investasi'] ?? 0),
+                        'total_investment' => $this->cleanNumericValue($mappedRow['Total Investasi'] ?? 0),
+                        'planned_total_investment' => $this->cleanNumericValue($mappedRow['Rencana Total Investasi'] ?? 0),
+                        'fixed_capital_planned' => $this->cleanNumericValue($mappedRow['Rencana Modal Tetap'] ?? 0),
+                        'tki' => (int) ($mappedRow['TKI'] ?? 0),
+                        'tka' => (int) ($mappedRow['TKA'] ?? 0),
+                        'officer_name' => $mappedRow['Nama Petugas'] ?? '[Tidak Ada]',
+                        'problem_description' => $mappedRow['Keterangan Masalah'] ?? '[Tidak Ada]',
+                        'fixed_capital_explanation' => $mappedRow['Penjelasan Modal Tetap'] ?? '[Tidak Ada]',
+                        'phone_number' => $mappedRow['No Telp'] ?? '[Tidak Ada]',
+                        'country' => $mappedRow['Negara'] ?? '[Tidak Ada]'
                     ];
 
-                    $projectsData[] = $projectData;
+                    $rowsProcessed++;
                     $totalRecords++;
+
+                    // Batch insert every 500 rows to save memory
+                    if (count($projectsData) >= 500) {
+                        $this->projectModel->insertBatch($projectsData);
+                        $projectsData = [];
+                    }
                 }
 
-                $processedSheets[$sheetName] = [
-                    'total_rows' => $highestRow - 1,
-                    'processed' => $rowsProcessed
-                ];
-                
-                log_message('debug', "Sheet $sheetName: Total rows: " . ($highestRow - 1) . ", Processed: $rowsProcessed");
-
-                // Insert projects in batches
                 if (!empty($projectsData)) {
                     $this->projectModel->insertBatch($projectsData);
-                    log_message('debug', "Inserted " . count($projectsData) . " records for sheet $sheetName");
                 }
+
+                $processedSheets[$sheetName] = ['total' => $highestRow - 1, 'processed' => $rowsProcessed];
             }
 
-            // Final summary log
-            log_message('info', "Excel Processing Summary - Upload ID: $uploadId, Total Records: $totalRecords, Sheets: " . json_encode($processedSheets));
-            log_message('info', 'Missing columns report: ' . json_encode($missingColumnsReport));
-
-            // Update upload record with total records and missing columns info
             $additionalInfo = [
                 'total_records' => $totalRecords,
                 'processed_records' => $totalRecords,
-                'missing_columns_report' => !empty($missingColumnsReport) ? json_encode($missingColumnsReport) : null,
                 'processed_sheets' => json_encode($processedSheets)
             ];
             $this->uploadModel->updateStatus($uploadId, 'completed', $additionalInfo);
-
-            // Calculate statistics using stored procedures (with fallback)
             $this->calculateStatistics($uploadId);
 
-            // Log informasi kolom yang tidak ada
-            if (!empty($missingColumnsReport)) {
-                log_message('info', 'Kolom yang tidak ada dalam file Excel: ' . json_encode($missingColumnsReport));
+            if (file_exists($filePath)) {
+                unlink($filePath);
             }
 
-            log_message('info', '=== processData END ===');
-            
+            log_message('info', '=== processData END - Total: ' . $totalRecords . ' ===');
             return $totalRecords;
-            
-        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
-            log_message('error', 'PhpSpreadsheet Error in processData: ' . $e->getMessage());
-            // Cleanup on error
-            if (isset($spreadsheet)) {
-                $spreadsheet->disconnectWorksheets();
-                unset($spreadsheet);
-            }
-            throw new \Exception('Gagal membaca file Excel. Pastikan format file benar: ' . $e->getMessage());
+
         } catch (\Exception $e) {
             log_message('error', 'Error in processData: ' . $e->getMessage());
-            // Cleanup on error
-            if (isset($spreadsheet)) {
-                $spreadsheet->disconnectWorksheets();
-                unset($spreadsheet);
-            }
-            throw $e; // Re-throw untuk ditangani oleh caller
+            throw $e;
         }
     }
+
 
     /**
      * Clean numeric value from Excel (remove Rp, dots, commas)
@@ -432,21 +388,21 @@ class ExcelModel extends Model
     {
         log_message('info', '=== calculateStatistics START ===');
         log_message('info', 'Upload ID: ' . $uploadId);
-        
+
         // Always use fallback calculations - skip stored procedures entirely
         log_message('info', 'Using fallback calculations for upload ID: ' . $uploadId);
         $this->fallbackCalculateStatistics($uploadId);
-        
+
         log_message('info', '=== calculateStatistics END ===');
     }
-    
+
     /**
      * Fallback calculation using direct SQL queries
      */
     private function fallbackCalculateStatistics($uploadId)
     {
         log_message('info', 'Performing fallback calculations for upload ID: ' . $uploadId);
-        
+
         try {
             // Calculate upload statistics
             $stats = $this->db->table('projects')
@@ -467,17 +423,17 @@ class ExcelModel extends Model
                 ->where('upload_id', $uploadId)
                 ->get()
                 ->getRowArray();
-            
+
             if ($stats) {
                 // Delete existing stats
                 $this->db->table('upload_statistics')->where('upload_id', $uploadId)->delete();
-                
+
                 // Insert new stats
                 $stats['upload_id'] = $uploadId;
                 $this->db->table('upload_statistics')->insert($stats);
                 log_message('info', 'Fallback upload statistics calculated successfully');
             }
-            
+
             // Calculate district statistics
             $districtStats = $this->db->table('projects')
                 ->select("
@@ -500,7 +456,7 @@ class ExcelModel extends Model
                 ->groupBy('subdistrict')
                 ->get()
                 ->getResultArray();
-            
+
             if (!empty($districtStats)) {
                 $this->db->table('district_statistics')->where('upload_id', $uploadId)->delete();
                 foreach ($districtStats as $stat) {
@@ -509,14 +465,14 @@ class ExcelModel extends Model
                 }
                 log_message('info', 'Fallback district statistics calculated for ' . count($districtStats) . ' districts');
             }
-            
+
             // Calculate sector statistics
             $totalProjects = $this->db->table('projects')
                 ->where('upload_id', $uploadId)
                 ->where('sector_detail IS NOT NULL')
                 ->where('sector_detail !=', '')
                 ->countAllResults();
-            
+
             if ($totalProjects > 0) {
                 // Use binding to avoid SQL injection and with issues variable interpolation
                 $sectorStats = $this->db->table('projects')
@@ -533,7 +489,7 @@ class ExcelModel extends Model
                     ->orderBy('project_count', 'DESC')
                     ->get()
                     ->getResultArray();
-                
+
                 if (!empty($sectorStats)) {
                     $this->db->table('sector_statistics')->where('upload_id', $uploadId)->delete();
                     foreach ($sectorStats as $stat) {
@@ -543,9 +499,9 @@ class ExcelModel extends Model
                     log_message('info', 'Fallback sector statistics calculated for ' . count($sectorStats) . ' sectors');
                 }
             }
-            
+
             log_message('info', 'Fallback calculations completed successfully');
-            
+
         } catch (\Exception $e) {
             log_message('error', 'Fallback calculation failed: ' . $e->getMessage());
             // Don't re-throw - just log the error and continue

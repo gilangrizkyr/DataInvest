@@ -25,13 +25,17 @@ class Dashboard extends BaseController
         $filters = $this->getFilters();
         $data = $this->dashboardService->getDashboardData($filters);
 
-        return view('dashboard', ['data' => $data]);
+        return view('dashboard_modern', ['data' => $data, 'title' => 'Dashboard Statistik']);
     }
 
     public function upload()
     {
         $file = $this->request->getFile('excel_file');
         $result = $this->uploadService->handleUpload($file);
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($result);
+        }
 
         if ($result['success']) {
             return redirect()->to('/dashboard/metadata/' . $result['uploadId'])
@@ -297,13 +301,36 @@ class Dashboard extends BaseController
         exit;
     }
 
+    public function profile()
+    {
+        $user = session()->get('user');
+        if (!$user) {
+            return redirect()->to('auth/login');
+        }
+
+        $data = [
+            'title' => 'Profil Saya',
+            'user' => $user
+        ];
+
+        return view('profile', $data);
+    }
+
     public function logs()
     {
-        return view('errors/html/error_404', ['message' => 'Halaman Logs sedang dalam pengembangan.']);
+        $data = [
+            'title' => 'Audit Logs',
+            'logs' => [] // TODO: Ambil dari LogModel jika ada
+        ];
+        return view('logs', $data);
     }
 
     public function settings()
     {
-        return view('errors/html/error_404', ['message' => 'Halaman Settings sedang dalam pengembangan.']);
+        $data = [
+            'title' => 'Settings',
+            'config' => [] // TODO: Ambil konfigurasi aplikasi
+        ];
+        return view('settings', $data);
     }
 }

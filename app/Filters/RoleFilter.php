@@ -15,7 +15,7 @@ class RoleFilter implements FilterInterface
         }
 
         if ($arguments) {
-            $userRole = session()->get('role');
+            $userRole = session()->get('user')['role'] ?? null;
             $allowedRoles = $arguments;
 
             if (!in_array($userRole, $allowedRoles)) {

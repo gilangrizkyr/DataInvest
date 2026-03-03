@@ -1,91 +1,150 @@
-<?= $this->extend('layouts/main') ?>
+<?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content') ?>
 <?php $errors = session()->getFlashdata('errors'); ?>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h2 class="mb-4"><?= $title ?></h2>
 
-            <div class="card">
-                <div class="card-body">
-                    <?php if (session()->getFlashdata('error')): ?>
-                        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+<!-- Section Header -->
+<?= view('components/section_header', [
+    'title' => 'Edit Pengguna',
+    'description' => 'Perbarui informasi akun, role, atau status akses pengguna di bawah ini.',
+    'icon' => 'fas fa-user-edit'
+]) ?>
+
+<div class="max-w-2xl mx-auto">
+    <div class="card p-8">
+        <form action="<?= base_url("user-management/update/{$user['id']}") ?>" method="POST">
+            <?= csrf_field() ?>
+
+            <div class="space-y-6">
+                <!-- Nama Lengkap -->
+                <div class="group">
+                    <label for="name"
+                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Nama
+                        Lengkap</label>
+                    <div class="relative">
+                        <i
+                            class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                        <input type="text" name="name" id="name" value="<?= old('name', $user['name']) ?>" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['name']) ? 'border-red-500 bg-red-50' : '' ?>"
+                            placeholder="Masukkan nama lengkap...">
+                    </div>
+                    <?php if (isset($errors['name'])): ?>
+                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter"><?= $errors['name'] ?>
+                        </p>
                     <?php endif; ?>
+                </div>
 
-                    <form action="<?= base_url("user-management/update/{$user['id']}") ?>" method="POST">
-                        <?= csrf_field() ?>
+                <!-- Username -->
+                <div class="group">
+                    <label for="username"
+                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Username</label>
+                    <div class="relative">
+                        <i
+                            class="fas fa-at absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                        <input type="text" name="username" id="username"
+                            value="<?= old('username', $user['username']) ?>" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['username']) ? 'border-red-500 bg-red-50' : '' ?>"
+                            placeholder="username123">
+                    </div>
+                    <?php if (isset($errors['username'])): ?>
+                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
+                            <?= $errors['username'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>"
-                                id="name" name="name" value="<?= old('name', $user['name']) ?>" required>
-                            <?php if (isset($errors['name'])): ?>
-                                <div class="invalid-feedback"><?= $errors['name'] ?></div>
-                            <?php endif; ?>
-                        </div>
+                <!-- Email -->
+                <div class="group">
+                    <label for="email"
+                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Email
+                        Address</label>
+                    <div class="relative">
+                        <i
+                            class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                        <input type="email" name="email" id="email" value="<?= old('email', $user['email']) ?>" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['email']) ? 'border-red-500 bg-red-50' : '' ?>"
+                            placeholder="email@contoh.com">
+                    </div>
+                    <?php if (isset($errors['email'])): ?>
+                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
+                            <?= $errors['email'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text"
-                                class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" id="username"
-                                name="username" value="<?= old('username', $user['username']) ?>">
-                            <?php if (isset($errors['username'])): ?>
-                                <div class="invalid-feedback"><?= $errors['username'] ?></div>
-                            <?php endif; ?>
-                        </div>
+                <!-- Password -->
+                <div class="group">
+                    <label for="password"
+                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Password
+                        Baru (Opsional)</label>
+                    <div class="relative">
+                        <i
+                            class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                        <input type="password" name="password" id="password"
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['password']) ? 'border-red-500 bg-red-50' : '' ?>"
+                            placeholder="Kosongkan jika tidak ingin diubah">
+                    </div>
+                    <?php if (isset($errors['password'])): ?>
+                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
+                            <?= $errors['password'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
-                                id="email" name="email" value="<?= old('email', $user['email']) ?>">
-                            <?php if (isset($errors['email'])): ?>
-                                <div class="invalid-feedback"><?= $errors['email'] ?></div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password (kosongkan jika tidak ingin
-                                diubah)</label>
-                            <input type="password"
-                                class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" id="password"
-                                name="password">
-                            <?php if (isset($errors['password'])): ?>
-                                <div class="invalid-feedback"><?= $errors['password'] ?></div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Role</label>
-                            <select class="form-select <?= isset($errors['role']) ? 'is-invalid' : '' ?>" id="role"
-                                name="role">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Role -->
+                    <div class="group">
+                        <label for="role"
+                            class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Role</label>
+                        <div class="relative">
+                            <i
+                                class="fas fa-user-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                            <select name="role" id="role" required
+                                class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all appearance-none cursor-pointer">
                                 <option value="admin" <?= (old('role') ?? $user['role']) === 'admin' ? 'selected' : '' ?>>
                                     Admin</option>
                                 <option value="user" <?= (old('role') ?? $user['role']) === 'user' ? 'selected' : '' ?>>
                                     User Biasa</option>
                                 <option value="superadmin" <?= (old('role') ?? $user['role']) === 'superadmin' ? 'selected' : '' ?>>Superadmin</option>
                             </select>
-                            <?php if (isset($errors['role'])): ?>
-                                <div class="invalid-feedback"><?= $errors['role'] ?></div>
-                            <?php endif; ?>
+                            <i
+                                class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status">
-                                <option value="active" <?= (old('status') ?? $user['status']) === 'active' ? 'selected' : '' ?>>Active</option>
-                                <option value="inactive" <?= (old('status') ?? $user['status']) === 'inactive' ? 'selected' : '' ?>>Inactive</option>
+                    <!-- Status -->
+                    <div class="group">
+                        <label for="status"
+                            class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Status
+                            Akun</label>
+                        <div class="relative">
+                            <i
+                                class="fas fa-toggle-on absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
+                            <select name="status" id="status" required
+                                class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all appearance-none cursor-pointer">
+                                <option value="active" <?= (old('status') ?? $user['status']) === 'active' ? 'selected' : '' ?>>Aktif</option>
+                                <option value="inactive" <?= (old('status') ?? $user['status']) === 'inactive' ? 'selected' : '' ?>>Nonaktif</option>
                             </select>
+                            <i
+                                class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary flex-grow-1">Simpan Perubahan</button>
-                            <a href="<?= base_url('user-management') ?>" class="btn btn-secondary">Batal</a>
-                        </div>
-                    </form>
+                <!-- Action Buttons -->
+                <div class="flex gap-4 pt-4">
+                    <a href="<?= base_url('user-management') ?>"
+                        class="flex-1 px-6 py-4 rounded-2xl bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all text-center leading-none flex items-center justify-center">
+                        Batal
+                    </a>
+                    <button type="submit"
+                        class="flex-[2] px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-black uppercase tracking-widest hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-200 active:scale-95">
+                        <i class="fas fa-save mr-2"></i>Simpan Perubahan
+                    </button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+
 <?= $this->endSection() ?>

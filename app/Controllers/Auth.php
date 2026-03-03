@@ -22,7 +22,12 @@ class Auth extends BaseController
             return redirect()->to('/');
         }
 
-        return view('auth/login');
+        $data = [
+            'title' => 'Login',
+            'errors' => $this->session->getFlashdata('errors') ?? []
+        ];
+
+        return view('auth/login_modern', $data);
     }
 
     // PROCESS LOGIN
@@ -61,12 +66,16 @@ class Auth extends BaseController
         // Update last login
         $this->userModel->updateLastLogin($user['id']);
 
-        // Set session
+        // Set session - store user data as 'user' array
         $this->session->set([
             'user_id' => $user['id'],
-            'username' => $user['username'],
-            'email' => $user['email'],
-            'role' => $user['role'],
+            'user' => [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'name' => $user['name'] ?? $user['username'],
+                'role' => $user['role'],
+            ],
             'isLoggedIn' => true,
         ]);
 
