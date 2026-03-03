@@ -29,13 +29,13 @@ app.baseURL = 'http://localhost:8081'
 # DATABASE
 #--------------------------------------------------------------------
 
-database.default.hostname = host.docker.internal
-database.default.database = datainvest
-database.default.username = root
-database.default.password = GilangRizky
-database.default.DBDriver = MySQLi
-database.default.DBPrefix =
-database.default.port = 3306
+# database.default.hostname = localhost
+# database.default.database = datainvest
+# database.default.username = 
+# database.default.password = 
+# database.default.DBDriver = MySQLi
+# database.default.DBPrefix =
+# database.default.port = 3306
 
 #--------------------------------------------------------------------
 # DATABASE LOCAL
