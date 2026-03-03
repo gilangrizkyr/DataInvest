@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 RUN a2enmod rewrite
 
@@ -8,12 +8,14 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     libxml2-dev \
+    libzip-dev \
+    libonig-dev \
     zip \
     unzip \
     git \
     curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install mysqli pdo pdo_mysql intl gd dom \
+    && docker-php-ext-install mysqli pdo pdo_mysql intl gd dom zip mbstring \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 

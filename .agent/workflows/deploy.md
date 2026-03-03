@@ -13,7 +13,7 @@ cp .env.example .env
 // turbo
 3. Bangun dan jalankan Docker
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 // turbo
