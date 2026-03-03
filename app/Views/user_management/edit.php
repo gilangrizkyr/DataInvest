@@ -1,6 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
+<?php $errors = session()->getFlashdata('errors'); ?>
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -8,13 +9,27 @@
 
             <div class="card">
                 <div class="card-body">
+                    <?php if (session()->getFlashdata('error')): ?>
+                        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+                    <?php endif; ?>
+
                     <form action="<?= base_url("user-management/update/{$user['id']}") ?>" method="POST">
                         <?= csrf_field() ?>
 
                         <div class="mb-3">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control <?= isset($errors['name']) ? 'is-invalid' : '' ?>"
+                                id="name" name="name" value="<?= old('name', $user['name']) ?>" required>
+                            <?php if (isset($errors['name'])): ?>
+                                <div class="invalid-feedback"><?= $errors['name'] ?></div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" 
-                                   id="username" name="username" value="<?= old('username', $user['username']) ?>">
+                            <input type="text"
+                                class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" id="username"
+                                name="username" value="<?= old('username', $user['username']) ?>">
                             <?php if (isset($errors['username'])): ?>
                                 <div class="invalid-feedback"><?= $errors['username'] ?></div>
                             <?php endif; ?>
@@ -22,17 +37,19 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" 
-                                   id="email" name="email" value="<?= old('email', $user['email']) ?>">
+                            <input type="email" class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
+                                id="email" name="email" value="<?= old('email', $user['email']) ?>">
                             <?php if (isset($errors['email'])): ?>
                                 <div class="invalid-feedback"><?= $errors['email'] ?></div>
                             <?php endif; ?>
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password (kosongkan jika tidak ingin diubah)</label>
-                            <input type="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" 
-                                   id="password" name="password">
+                            <label for="password" class="form-label">Password (kosongkan jika tidak ingin
+                                diubah)</label>
+                            <input type="password"
+                                class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>" id="password"
+                                name="password">
                             <?php if (isset($errors['password'])): ?>
                                 <div class="invalid-feedback"><?= $errors['password'] ?></div>
                             <?php endif; ?>
@@ -40,10 +57,12 @@
 
                         <div class="mb-3">
                             <label for="role" class="form-label">Role</label>
-                            <select class="form-select <?= isset($errors['role']) ? 'is-invalid' : '' ?>" 
-                                    id="role" name="role">
-                                <option value="admin" <?= (old('role') ?? $user['role']) === 'admin' ? 'selected' : '' ?>>Admin</option>
-                                <option value="user" <?= (old('role') ?? $user['role']) === 'user' ? 'selected' : '' ?>>User Biasa</option>
+                            <select class="form-select <?= isset($errors['role']) ? 'is-invalid' : '' ?>" id="role"
+                                name="role">
+                                <option value="admin" <?= (old('role') ?? $user['role']) === 'admin' ? 'selected' : '' ?>>
+                                    Admin</option>
+                                <option value="user" <?= (old('role') ?? $user['role']) === 'user' ? 'selected' : '' ?>>
+                                    User Biasa</option>
                                 <option value="superadmin" <?= (old('role') ?? $user['role']) === 'superadmin' ? 'selected' : '' ?>>Superadmin</option>
                             </select>
                             <?php if (isset($errors['role'])): ?>

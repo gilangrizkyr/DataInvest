@@ -16,10 +16,11 @@ class UserModel extends Model
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
 
-    protected $allowedFields = ['username', 'email', 'password', 'role', 'status', 'last_login'];
+    protected $allowedFields = ['username', 'name', 'email', 'password', 'role', 'status', 'last_login'];
 
     protected $validationRules = [
         'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,{id}]|alpha_numeric',
+        'name' => 'required|min_length[3]|max_length[100]',
         'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
         'password' => 'required|min_length[8]',
         'role' => 'required|in_list[superadmin,admin,user]',
@@ -32,6 +33,10 @@ class UserModel extends Model
             'min_length' => 'Username minimal 3 karakter',
             'is_unique' => 'Username sudah terdaftar',
             'alpha_numeric' => 'Username hanya boleh alfanumerik',
+        ],
+        'name' => [
+            'required' => 'Nama lengkap harus diisi',
+            'min_length' => 'Nama minimal 3 karakter',
         ],
         'email' => [
             'required' => 'Email harus diisi',
@@ -53,6 +58,7 @@ class UserModel extends Model
     {
         return [
             'username' => 'min_length[3]|max_length[100]|is_unique[users.username,id,{id}]|alpha_numeric',
+            'name' => 'min_length[3]|max_length[100]',
             'email' => 'valid_email|is_unique[users.email,id,{id}]',
             'role' => 'in_list[superadmin,admin,user]',
             'status' => 'in_list[active,inactive]',

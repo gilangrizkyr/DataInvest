@@ -49,9 +49,10 @@ class UserManagement extends BaseController
     {
         $rules = [
             'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username]|alpha_numeric',
+            'name' => 'required|min_length[3]|max_length[100]',
             'email' => 'required|valid_email|is_unique[users.email]',
             'password' => 'required|min_length[8]',
-            'role' => 'required|in_list[admin,user]', // Superadmin tidak bisa dibuat dari sini
+            'role' => 'required|in_list[admin,user]',
         ];
 
         if (!$this->validate($rules)) {
@@ -60,6 +61,7 @@ class UserManagement extends BaseController
 
         $data = [
             'username' => $this->request->getPost('username'),
+            'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
             'password' => $this->userModel->hashPassword($this->request->getPost('password')),
             'role' => $this->request->getPost('role'),
@@ -68,8 +70,10 @@ class UserManagement extends BaseController
 
         if ($this->userModel->insert($data)) {
             $generatedPassword = $this->request->getPost('password');
-            return redirect()->to('user-management')->with('success', 
-                "User berhasil dibuat!\n\nUsername: {$data['username']}\nPassword: {$generatedPassword}\n\nBagikan informasi ini kepada user");
+            return redirect()->to('user-management')->with(
+                'success',
+                "User berhasil dibuat!\n\nUsername: {$data['username']}\nPassword: {$generatedPassword}\n\nBagikan informasi ini kepada user"
+            );
         } else {
             return redirect()->back()->withInput()->with('error', 'Gagal membuat user');
         }
@@ -110,6 +114,7 @@ class UserManagement extends BaseController
 
         $data = [
             'username' => $this->request->getPost('username') ?? $user['username'],
+            'name' => $this->request->getPost('name') ?? $user['name'],
             'email' => $this->request->getPost('email') ?? $user['email'],
             'role' => $this->request->getPost('role') ?? $user['role'],
             'status' => $this->request->getPost('status') ?? $user['status'],
