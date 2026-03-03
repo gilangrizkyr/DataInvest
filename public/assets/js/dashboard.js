@@ -68,7 +68,7 @@ class DashboardApp {
             this.createStatCard('Total Investasi PMA', formatNumber(this.invPMA), 'Investasi PMA', 'indigo', 'fa-money-bill-wave'),
             this.createStatCard('Total Investasi PMDN', formatNumber(this.invPMDN), 'Investasi PMDN', 'cyan', 'fa-money-bill-wave'),
             this.createStatCard('Tambahan Investasi PMA', formatNumber(this.addInvPMA), 'Tambahan Investasi PMA', 'pink', 'fa-plus-circle'),
-            this.createStatCard('Tambahan Investasi PMDN', formatNumber(this.addInvPMDN), 'Tambahan Investasi PMDN', 'lime', 'fa-plus-circle')
+            this.createStatCard('Tambahan Investasi PMDN', formatNumber(this.addInvPMDN), 'Tambahan Investasi PMDN', 'lime', 'fa-plus-circle')  
         ];
         
         statsContainer.innerHTML = cards.join('');
@@ -121,12 +121,14 @@ class DashboardApp {
         if (currentUpload !== 'all') params.append('upload', currentUpload);
         if (selectedCurrency !== 'IDR') params.append('currency', selectedCurrency);
         
-        const url = '/dashboard' + (params.toString() ? '?' + params.toString() : '');
+        const baseUrl = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.baseUrl) ? APP_CONFIG.baseUrl : '';
+        const url = baseUrl + '/dashboard' + (params.toString() ? '?' + params.toString() : '');
         window.location.href = url;
     }
     
     changeLanguage(language) {
-        fetch('/dashboard/setLanguage', {
+        const baseUrl = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.baseUrl) ? APP_CONFIG.baseUrl : '';
+        fetch(baseUrl + '/dashboard/setLanguage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

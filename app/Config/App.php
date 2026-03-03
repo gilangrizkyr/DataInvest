@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/DataInvest/';   
+    public string $baseURL = 'https://dpmptsp.tail8af30b.ts.net/DataInvest/';
     public array $allowedHostnames = [];
     public string $indexPage = '';
     public string $uriProtocol = 'REQUEST_URI';
@@ -16,7 +16,7 @@ class App extends BaseConfig
     public array $supportedLocales = ['id', 'en'];
     public string $appTimezone = 'asia/Makassar';
     public string $charset = 'UTF-8';
-    public bool $forceGlobalSecureRequests = true;
+    public bool $forceGlobalSecureRequests = false;
     public array $proxyIPs = [];
     public bool $CSPEnabled = false;
 }

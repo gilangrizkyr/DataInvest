@@ -8,11 +8,14 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
+        $this->db->table('users')->truncate();
+
         $data = [
             [
-                'username' => 'superadmin',
-                'email' => 'superadmin@sst.local',
-                'password' => password_hash('SuperAdmin@123', PASSWORD_BCRYPT, ['cost' => 12]),
+                'username' => 'admin',
+                'name' => 'Administrator',
+                'email' => 'admin@sst.local',
+                'password' => password_hash('RealisasiInvestasi@ptsp', PASSWORD_BCRYPT, ['cost' => 12]),
                 'role' => 'superadmin',
                 'status' => 'active',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -22,9 +25,9 @@ class UserSeeder extends Seeder
 
         $this->db->table('users')->insertBatch($data);
 
-        echo "Superadmin user berhasil dibuat!\n";
-        echo "Username: superadmin\n";
-        echo "Password: SuperAdmin@123\n";
-        echo "Email: superadmin@sst.local\n";
+        echo "Admin user berhasil dibuat!\n";
+        echo "Username: admin\n";
+        echo "Password: RealisasiInvestasi@ptsp\n";
+        echo "Email: admin@sst.local\n";
     }
 }

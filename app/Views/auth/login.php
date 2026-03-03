@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Statistik Terpadu DPMPTSP</title>
     <link rel="icon" type="image/x-icon" href="<?= base_url('favicon.ico') ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -31,16 +33,21 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
             background-size: 100px 100px;
             animation: bg-shift 20s ease-in-out infinite alternate;
         }
 
         @keyframes bg-shift {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         /* Floating particles */
@@ -58,12 +65,15 @@
                 transform: translateY(100vh) scale(0);
                 opacity: 0;
             }
+
             10% {
                 opacity: 1;
             }
+
             90% {
                 opacity: 1;
             }
+
             100% {
                 transform: translateY(-100vh) scale(1);
                 opacity: 0;
@@ -80,7 +90,7 @@
         .login-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 24px;
-            box-shadow: 
+            box-shadow:
                 0 25px 80px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -94,6 +104,7 @@
                 opacity: 0;
                 transform: scale(0.9) translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -124,8 +135,15 @@
         }
 
         @keyframes logo-sway {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
+
+            0%,
+            100% {
+                transform: rotate(-2deg);
+            }
+
+            50% {
+                transform: rotate(2deg);
+            }
         }
 
         .logo-text {
@@ -194,6 +212,7 @@
                 opacity: 0;
                 transform: translateX(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -266,7 +285,7 @@
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        .input-group input:focus + i {
+        .input-group input:focus+i {
             color: #3b82f6;
         }
 
@@ -301,7 +320,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s;
         }
 
@@ -366,8 +385,13 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive */
@@ -375,16 +399,16 @@
             .login-card {
                 padding: 2rem 1.5rem;
             }
-            
+
             .logo-container {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
+
             .logo-text {
                 text-align: center;
             }
-            
+
             .logo-img {
                 width: 60px;
                 height: 60px;
@@ -392,6 +416,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="bg-pattern"></div>
 
@@ -411,7 +436,7 @@
         <div class="login-card">
             <div class="logo-section">
                 <div class="logo-container">
-<img src="/DataInvest/public/logo-dpmptsp.png" alt="Logo DPMPTSP" class="logo-img">
+                    <img src="<?= base_url('logo-dpmptsp.png') ?>" alt="Logo DPMPTSP" class="logo-img">
                     <div class="logo-text">
                         <h1>DPMPTSP</h1>
                         <p>Kabupaten Tanah Bumbu</p>
@@ -441,13 +466,12 @@
 
             <form action="<?= base_url('auth/process-login') ?>" method="POST" id="loginForm">
                 <?= csrf_field() ?>
-                
+
                 <div class="form-group">
                     <label for="username">Username</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="username" name="username"
-                            required autofocus placeholder="Masukkan username"
-                            value="<?= old('username') ?>">
+                        <input type="text" class="form-control" id="username" name="username" required autofocus
+                            placeholder="Masukkan username" value="<?= old('username') ?>">
                         <i class="fas fa-user"></i>
                     </div>
                 </div>
@@ -455,8 +479,8 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="password" name="password" 
-                            required placeholder="Masukkan password">
+                        <input type="password" class="form-control" id="password" name="password" required
+                            placeholder="Masukkan password">
                         <i class="fas fa-lock"></i>
                     </div>
                 </div>
@@ -479,12 +503,12 @@
 
     <script>
         // Form submit animation
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             const btn = document.getElementById('submitBtn');
             btn.classList.add('loading');
             btn.innerHTML = '<i class="fas fa-spinner"></i><span>Memproses...</span>';
         });
     </script>
 </body>
-</html>
 
+</html>

@@ -121,12 +121,14 @@ class DashboardApp {
         if (currentUpload !== 'all') params.append('upload', currentUpload);
         if (selectedCurrency !== 'IDR') params.append('currency', selectedCurrency);
         
-        const url = '/dashboard' + (params.toString() ? '?' + params.toString() : '');
+        const baseUrl = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.baseUrl) ? APP_CONFIG.baseUrl : '';
+        const url = baseUrl + '/dashboard' + (params.toString() ? '?' + params.toString() : '');
         window.location.href = url;
     }
     
     changeLanguage(language) {
-        fetch('/dashboard/setLanguage', {
+        const baseUrl = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.baseUrl) ? APP_CONFIG.baseUrl : '';
+        fetch(baseUrl + '/dashboard/setLanguage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

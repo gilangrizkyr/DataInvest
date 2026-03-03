@@ -26,6 +26,10 @@ $routes->post('/dashboard/updateMetadata', 'Dashboard::updateMetadata', ['filter
 $routes->post('/dashboard/deleteUpload', 'Dashboard::deleteUpload', ['filter' => 'roleFilter']);
 $routes->get('/dashboard/download', 'Dashboard::download', ['filter' => 'roleFilter']);
 $routes->post('/dashboard/setLanguage', 'Dashboard::setLanguage', ['filter' => 'roleFilter']);
+$routes->get('/dashboard/logs', 'Dashboard::logs', ['filter' => 'roleFilter']);
+$routes->get('/dashboard/settings', 'Dashboard::settings', ['filter' => 'roleFilter']);
+$routes->get('/logs', 'Dashboard::logs', ['filter' => 'roleFilter']);
+$routes->get('/settings', 'Dashboard::settings', ['filter' => 'roleFilter']);
 
 // SECURITY MONITORING ROUTES
 $routes->get('security-monitoring', 'SecurityMonitoring::index', ['filter' => 'roleFilter']);
@@ -46,4 +50,4 @@ $routes->group('user-management', ['filter' => 'roleFilter:superadmin'], functio
 $routes->get('/faq', 'Faq::index');
 $routes->get('/faq', 'Faq::index', ['filter' => 'roleFilter']);
 
-$routes->get('dashboard/download-sector-lkpm', 'Dashboard::downloadSectorLKPM');    
+$routes->get('dashboard/download-sector-lkpm', 'Dashboard::downloadSectorLKPM');

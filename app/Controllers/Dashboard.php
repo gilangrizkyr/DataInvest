@@ -296,4 +296,14 @@ class Dashboard extends BaseController
         $pdf->Output($filename, 'D');
         exit;
     }
+
+    public function logs()
+    {
+        return view('errors/html/error_404', ['message' => 'Halaman Logs sedang dalam pengembangan.']);
+    }
+
+    public function settings()
+    {
+        return view('errors/html/error_404', ['message' => 'Halaman Settings sedang dalam pengembangan.']);
+    }
 }

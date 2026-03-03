@@ -8,9 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-pl5ugin-datalabels"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
-        integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
+        integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard.css') ?>">
@@ -19,801 +20,953 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-   /* ============================================================
+        /* ============================================================
    DPMPTSP Tanah Bumbu — Dashboard Statistik
    Modern Dashboard CSS  v3.0
    Aesthetic: Refined Gov-Tech — clean authority meets soft depth
    ============================================================ */
 
-/* ─── Google Fonts ─────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap');
-
-/* ─── CSS Variables ────────────────────────────────────────── */
-:root {
-  /* Primary palette */
-  --clr-primary:      #2563eb;
-  --clr-primary-light:#3b82f6;
-  --clr-primary-dark: #1d4ed8;
-  --clr-primary-50:   #eff6ff;
-  --clr-primary-100:  #dbeafe;
-
-  /* Accent / status */
-  --clr-success:      #10b981;
-  --clr-success-bg:   #d1fae5;
-  --clr-warning:      #f59e0b;
-  --clr-warning-bg:   #fef3c7;
-  --clr-danger:       #ef4444;
-  --clr-danger-bg:    #fee2e2;
-  --clr-info:         #6366f1;
-  --clr-info-bg:      #eef2ff;
-  --clr-orange:       #f97316;
-  --clr-orange-bg:    #ffedd5;
-  --clr-purple:       #8b5cf6;
-  --clr-purple-bg:    #ede9fe;
-
-  /* Neutrals */
-  --clr-gray-50:      #f8fafc;
-  --clr-gray-100:     #f1f5f9;
-  --clr-gray-200:     #e2e8f0;
-  --clr-gray-300:     #cbd5e1;
-  --clr-gray-400:     #94a3b8;
-  --clr-gray-500:     #64748b;
-  --clr-gray-600:     #475569;
-  --clr-gray-700:     #334155;
-  --clr-gray-800:     #1e293b;
-  --clr-gray-900:     #0f172a;
-
-  /* Backgrounds */
-  --bg-page:          #eef2f7;
-  --bg-card:          #ffffff;
-  --bg-card-hover:    #fafbff;
-
-  /* Shadows */
-  --shadow-sm:        0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:        0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.05);
-  --shadow-lg:        0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.05);
-  --shadow-xl:        0 20px 25px -5px rgba(0,0,0,.08), 0 8px 10px -6px rgba(0,0,0,.04);
-  --shadow-card:      0 2px 12px rgba(30,41,59,.08);
-  --shadow-card-hover:0 6px 24px rgba(30,41,59,.13);
-  --shadow-navbar:    0 4px 24px rgba(37,99,235,.25);
-
-  /* Radii */
-  --radius-sm:        6px;
-  --radius-md:        10px;
-  --radius-lg:        14px;
-  --radius-xl:        18px;
-  --radius-2xl:       24px;
-
-  /* Typography */
-  --font-body:        'DM Sans', system-ui, sans-serif;
-  --font-display:     'Playfair Display', Georgia, serif;
-
-  /* Transitions */
-  --ease:             cubic-bezier(.4,0,.2,1);
-  --dur-fast:         150ms;
-  --dur-md:           250ms;
-  --dur-slow:         400ms;
-}
-
-/* ─── Reset & Base ─────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing:      border-box;
-  margin:          0;
-  padding:         0;
-}
-
-html {
-  font-size:       16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family:     var(--font-body);
-  background:      var(--bg-page);
-  color:           var(--clr-gray-700);
-  line-height:     1.6;
-  min-height:      100vh;
-  /* subtle grain overlay */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
-}
-
-a {
-  color:           inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width:       100%;
-  display:         block;
-}
-
-/* ─── Page-level gradient background ──────────────────────── */
-.gradient-bg {
-  background:      linear-gradient(135deg, #eef2f7 0%, #e0e7f3 50%, #ece5f5 100%);
-  min-height:      100vh;
-  position:        relative;
-}
-
-/* large decorative blobs — purely decorative, pointer-events off */
-.gradient-bg::before,
-.gradient-bg::after {
-  content:         '';
-  position:        fixed;
-  border-radius:   50%;
-  filter:          blur(120px);
-  opacity:         .18;
-  pointer-events:  none;
-  z-index:         0;
-}
-.gradient-bg::before {
-  width:           520px;
-  height:          520px;
-  background:      radial-gradient(circle, #3b82f6, transparent 70%);
-  top:            -180px;
-  right:          -140px;
-}
-.gradient-bg::after {
-  width:           420px;
-  height:          420px;
-  background:      radial-gradient(circle, #8b5cf6, transparent 70%);
-  bottom:         -120px;
-  left:           -100px;
-}
-
-/* keep content above blobs */
-.min-h-screen > * {
-  position:        relative;
-  z-index:         1;
-}
-
-/* ─── Navbar ───────────────────────────────────────────────── */
-nav.bg-gradient-to-r {
-  background:      linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%) !important;
-  box-shadow:      var(--shadow-navbar);
-  border-radius:   var(--radius-xl);
-  border:          1px solid rgba(255,255,255,.12);
-  backdrop-filter: saturate(1.4);
-  position:        relative;
-  overflow:        hidden;
-}
-
-/* subtle shimmer bar across navbar */
-nav.bg-gradient-to-r::after {
-  content:         '';
-  position:        absolute;
-  top:             0;
-  left:            -100%;
-  width:           60%;
-  height:          100%;
-  background:      linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
-  animation:       shimmer 6s ease-in-out infinite;
-  pointer-events:  none;
-}
-@keyframes shimmer {
-  0%   { left: -60%; }
-  100% { left: 140%; }
-}
-
-/* nav icon accent */
-nav .fa-chart-pie {
-  drop-shadow: 0 0 8px rgba(147,197,253,.5);
-}
-
-/* nav title font */
-nav h1 {
-  font-family:     var(--font-display);
-  letter-spacing:  -.5px;
-}
-
-nav p {
-  opacity:         .82;
-  letter-spacing:  .3px;
-}
-
-/* ─── Navbar Buttons ───────────────────────────────────────── */
-nav button,
-nav a.px-5 {
-  font-family:     var(--font-body);
-  font-weight:     600;
-  letter-spacing:  .3px;
-  border:          none;
-  cursor:          pointer;
-  transition:      transform var(--dur-fast) var(--ease),
-                   box-shadow var(--dur-fast) var(--ease),
-                   filter var(--dur-fast) var(--ease);
-  position:        relative;
-  overflow:        hidden;
-}
-nav button:hover {
-  transform:       translateY(-1px);
-  box-shadow:      0 4px 14px rgba(0,0,0,.22);
-  filter:          brightness(1.08);
-}
-nav button:active {
-  transform:       translateY(0);
-}
-
-/* language select */
-nav select#language-switcher {
-  background:      linear-gradient(135deg, rgba(59,130,246,.7), rgba(37,99,235,.9));
-  border:          1px solid rgba(255,255,255,.25);
-  color:           #fff;
-  font-family:     var(--font-body);
-  font-weight:     600;
-  cursor:          pointer;
-  transition:      background var(--dur-fast) var(--ease);
-}
-nav select#language-switcher:hover {
-  background:      linear-gradient(135deg, rgba(59,130,246,.85), rgba(37,99,235,1));
-}
-
-/* ─── Glass Card ───────────────────────────────────────────── */
-.glass-card {
-  background:      rgba(255,255,255,.88);
-  backdrop-filter: blur(12px) saturate(1.3);
-  -webkit-backdrop-filter: blur(12px) saturate(1.3);
-  border:          1px solid rgba(255,255,255,.7);
-  box-shadow:      var(--shadow-card);
-  border-radius:   var(--radius-xl);
-  transition:      box-shadow var(--dur-md) var(--ease),
-                   transform  var(--dur-md) var(--ease),
-                   border-color var(--dur-md) var(--ease);
-}
-.glass-card:hover {
-  box-shadow:      var(--shadow-card-hover);
-  border-color:    rgba(37,99,235,.18);
-  transform:       translateY(-1px);
-}
-
-/* card headings */
-.glass-card h2,
-.glass-card h3 {
-  font-family:     var(--font-body);
-  color:           var(--clr-gray-800);
-  letter-spacing:  -.3px;
-}
-
-/* ─── Chart Container (canvas wrapper) ─────────────────────── */
-.chart-container {
-  position:        relative;
-}
-.chart-container canvas {
-  max-width:       100%;
-  transition:      opacity var(--dur-md) var(--ease);
-}
-
-/* ─── Stat Cards ───────────────────────────────────────────── */
-.modern-card {
-  border-radius:   var(--radius-xl);
-  position:        relative;
-  overflow:        hidden;
-  transition:      box-shadow var(--dur-md) var(--ease),
-                   transform  var(--dur-md) var(--ease);
-}
-.modern-card:hover {
-  box-shadow:      var(--shadow-lg);
-  transform:       translateY(-3px);
-}
-
-/* animated fade-in for stat cards */
-@keyframes fadeInUp {
-  from {
-    opacity:       0;
-    transform:     translateY(24px);
-  }
-  to {
-    opacity:       1;
-    transform:     translateY(0);
-  }
-}
-.animate-fade-in {
-  animation:       fadeInUp var(--dur-slow) var(--ease) both;
-}
-
-/* staggered delay helpers */
-.animate-fade-in:nth-child(1) { animation-delay: 0ms; }
-.animate-fade-in:nth-child(2) { animation-delay: 60ms; }
-.animate-fade-in:nth-child(3) { animation-delay: 120ms; }
-.animate-fade-in:nth-child(4) { animation-delay: 180ms; }
-.animate-fade-in:nth-child(5) { animation-delay: 240ms; }
-.animate-fade-in:nth-child(6) { animation-delay: 300ms; }
-.animate-fade-in:nth-child(7) { animation-delay: 360ms; }
-.animate-fade-in:nth-child(8) { animation-delay: 420ms; }
-.animate-fade-in:nth-child(9) { animation-delay: 480ms; }
-
-/* left border glow on hover */
-.modern-card::before {
-  content:         '';
-  position:        absolute;
-  top:             0;
-  left:            0;
-  width:           4px;
-  height:          100%;
-  background:      currentColor;
-  border-radius:   var(--radius-xl) 0 0 var(--radius-xl);
-  transition:      opacity var(--dur-md) var(--ease);
-}
-
-/* stat card icon circle */
-.modern-card .bg-blue-100,
-.modern-card .bg-green-100,
-.modern-card .bg-teal-100,
-.modern-card .bg-purple-100,
-.modern-card .bg-orange-100,
-.modern-card .bg-indigo-100,
-.modern-card .bg-cyan-100,
-.modern-card .bg-pink-100,
-.modern-card .bg-lime-100 {
-  transition:      transform var(--dur-md) var(--ease);
-}
-.modern-card:hover .bg-blue-100,
-.modern-card:hover .bg-green-100,
-.modern-card:hover .bg-teal-100,
-.modern-card:hover .bg-purple-100,
-.modern-card:hover .bg-orange-100,
-.modern-card:hover .bg-indigo-100,
-.modern-card:hover .bg-cyan-100,
-.modern-card:hover .bg-pink-100,
-.modern-card:hover .bg-lime-100 {
-  transform:       scale(1.1) rotate(3deg);
-}
-
-/* ─── Upload Box — Drag & Drop Zone ────────────────────────── */
-#drop-zone {
-  border-radius:   var(--radius-lg);
-  border:          2px dashed var(--clr-primary-light) !important;
-  background:      linear-gradient(135deg, var(--clr-primary-50), rgba(255,255,255,.9));
-  transition:      border-color var(--dur-md) var(--ease),
-                   background  var(--dur-md) var(--ease),
-                   box-shadow  var(--dur-md) var(--ease);
-}
-#drop-zone:hover,
-#drop-zone.border-blue-600 {
-  border-color:    var(--clr-primary-dark) !important;
-  background:      linear-gradient(135deg, var(--clr-primary-100), rgba(219,234,254,.95));
-  box-shadow:      0 0 0 4px rgba(37,99,235,.1);
-}
-#drop-zone .fa-cloud-upload-alt {
-  transition:      transform var(--dur-md) var(--ease);
-}
-#drop-zone:hover .fa-cloud-upload-alt {
-  transform:       translateY(-4px);
-}
-
-/* upload button */
-form button[type="submit"] {
-  font-family:     var(--font-body);
-  font-weight:     700;
-  letter-spacing:  .4px;
-  border:          none;
-  border-radius:   var(--radius-lg);
-  transition:      transform var(--dur-fast) var(--ease),
-                   box-shadow var(--dur-fast) var(--ease),
-                   filter var(--dur-fast) var(--ease);
-}
-form button[type="submit"]:hover {
-  transform:       translateY(-2px);
-  box-shadow:      0 6px 20px rgba(37,99,235,.35);
-  filter:          brightness(1.06);
-}
-
-/* ─── Upload Management Table ──────────────────────────────── */
-.glass-card table {
-  border-collapse: collapse;
-  width:           100%;
-}
-
-.glass-card thead tr {
-  background:      var(--clr-gray-50);
-  border-bottom:   2px solid var(--clr-gray-200);
-}
-.glass-card thead th {
-  font-family:     var(--font-body);
-  font-weight:     600;
-  color:           var(--clr-gray-500);
-  text-transform:  uppercase;
-  font-size:       .72rem;
-  letter-spacing:  .8px;
-  padding:         12px 16px;
-  text-align:      left;
-  white-space:     nowrap;
-}
-
-.glass-card tbody tr {
-  border-bottom:   1px solid var(--clr-gray-100);
-  transition:      background var(--dur-fast) var(--ease);
-}
-.glass-card tbody tr:last-child {
-  border-bottom:   none;
-}
-.glass-card tbody tr:hover {
-  background:      var(--clr-primary-50);
-}
-
-.glass-card tbody td {
-  padding:         14px 16px;
-  font-size:       .875rem;
-  color:           var(--clr-gray-600);
-  vertical-align:  middle;
-}
-.glass-card tbody td:first-child {
-  font-weight:     600;
-  color:           var(--clr-gray-800);
-}
-
-/* status badges */
-.glass-card .inline-flex.rounded-full {
-  font-size:       .75rem;
-  font-weight:     600;
-  letter-spacing:  .3px;
-  padding:         3px 10px;
-  border-radius:   999px;
-}
-
-/* action icons */
-.glass-card .fa-eye,
-.glass-card .fa-edit,
-.glass-card .fa-trash {
-  font-size:       1rem;
-  transition:      transform var(--dur-fast) var(--ease),
-                   color      var(--dur-fast) var(--ease);
-}
-.glass-card .fa-eye:hover   { transform: scale(1.2); }
-.glass-card .fa-edit:hover  { transform: scale(1.2); }
-.glass-card .fa-trash:hover { transform: scale(1.2); }
-
-/* currency select in upload management */
-#filter-currency {
-  font-family:     var(--font-body);
-  font-weight:     500;
-  border:          1px solid var(--clr-gray-200);
-  border-radius:   var(--radius-md);
-  padding:         6px 12px;
-  background:      #fff;
-  color:           var(--clr-gray-700);
-  cursor:          pointer;
-  transition:      border-color var(--dur-fast) var(--ease),
-                   box-shadow  var(--dur-fast) var(--ease);
-}
-#filter-currency:focus {
-  outline:         none;
-  border-color:    var(--clr-primary);
-  box-shadow:      0 0 0 3px rgba(37,99,235,.15);
-}
-
-/* ─── Chart Options Panel ──────────────────────────────────── */
-#search-charts {
-  font-family:     var(--font-body);
-  border:          1px solid var(--clr-gray-200);
-  border-radius:   var(--radius-md);
-  padding:         10px 14px;
-  background:      var(--clr-gray-50);
-  color:           var(--clr-gray-700);
-  transition:      border-color var(--dur-fast) var(--ease),
-                   box-shadow  var(--dur-fast) var(--ease),
-                   background  var(--dur-fast) var(--ease);
-  width:           100%;
-}
-#search-charts:focus {
-  outline:         none;
-  border-color:    var(--clr-primary);
-  box-shadow:      0 0 0 3px rgba(37,99,235,.15);
-  background:      #fff;
-}
-
-/* chart-item rows */
-.chart-item {
-  display:         flex;
-  align-items:     center;
-  justify-content: space-between;
-  padding:         10px 12px;
-  border-radius:   var(--radius-md);
-  background:      var(--clr-gray-50);
-  border:          1px solid transparent;
-  transition:      background var(--dur-fast) var(--ease),
-                   border-color var(--dur-fast) var(--ease);
-  cursor:          pointer;
-}
-.chart-item:hover {
-  background:      var(--clr-primary-50);
-  border-color:    var(--clr-primary-100);
-}
-.chart-item span {
-  font-weight:     500;
-  color:           var(--clr-gray-700);
-  font-size:       .88rem;
-}
-
-/* ─── Toggle Switch ────────────────────────────────────────── */
-input.toggle {
-  appearance:      none;
-  -webkit-appearance: none;
-  width:           42px;
-  height:          24px;
-  border-radius:   12px;
-  background:      var(--clr-gray-300);
-  position:        relative;
-  cursor:          pointer;
-  transition:      background var(--dur-md) var(--ease);
-  flex-shrink:     0;
-}
-input.toggle::after {
-  content:         '';
-  position:        absolute;
-  top:             3px;
-  left:            3px;
-  width:           18px;
-  height:          18px;
-  border-radius:   50%;
-  background:      #fff;
-  box-shadow:      0 1px 3px rgba(0,0,0,.25);
-  transition:      left var(--dur-md) var(--ease),
-                   box-shadow var(--dur-md) var(--ease);
-}
-input.toggle:checked::after {
-  left:            21px;
-  box-shadow:      0 2px 6px rgba(0,0,0,.2);
-}
-
-/* colour variants */
-input.toggle.toggle-blue:checked    { background: var(--clr-primary); }
-input.toggle.toggle-green:checked   { background: var(--clr-success); }
-input.toggle.toggle-yellow:checked  { background: var(--clr-warning); }
-input.toggle.toggle-purple:checked  { background: var(--clr-purple); }
-
-/* ─── Chart Type Selects (inside each chart card) ──────────── */
-.glass-card select {
-  font-family:     var(--font-body);
-  font-size:       .82rem;
-  font-weight:     500;
-  border:          1px solid var(--clr-gray-200);
-  border-radius:   var(--radius-sm);
-  padding:         5px 10px;
-  background:      #fff;
-  color:           var(--clr-gray-600);
-  cursor:          pointer;
-  transition:      border-color var(--dur-fast) var(--ease),
-                   box-shadow  var(--dur-fast) var(--ease);
-}
-.glass-card select:focus {
-  outline:         none;
-  border-color:    var(--clr-primary);
-  box-shadow:      0 0 0 3px rgba(37,99,235,.12);
-}
-
-/* ─── PMA / PMDN Company Tables ────────────────────────────── */
-#sector-count-tables .glass-card {
-  transition:      box-shadow var(--dur-md) var(--ease),
-                   transform  var(--dur-md) var(--ease);
-}
-
-/* download buttons */
-#sector-count-tables button {
-  font-family:     var(--font-body);
-  font-weight:     600;
-  letter-spacing:  .3px;
-  border:          none;
-  border-radius:   var(--radius-md);
-  cursor:          pointer;
-  transition:      transform var(--dur-fast) var(--ease),
-                   box-shadow var(--dur-fast) var(--ease),
-                   filter var(--dur-fast) var(--ease);
-}
-#sector-count-tables button:hover {
-  transform:       translateY(-1px);
-  box-shadow:      0 4px 12px rgba(0,0,0,.2);
-  filter:          brightness(1.08);
-}
-
-/* search inputs */
-#search-pma,
-#search-pmdn {
-  font-family:     var(--font-body);
-  border:          1px solid var(--clr-gray-200);
-  border-radius:   var(--radius-md);
-  padding:         10px 14px;
-  background:      var(--clr-gray-50);
-  transition:      border-color var(--dur-fast) var(--ease),
-                   box-shadow  var(--dur-fast) var(--ease),
-                   background  var(--dur-fast) var(--ease);
-}
-#search-pma:focus,
-#search-pmdn:focus {
-  outline:         none;
-  background:      #fff;
-}
-#search-pma:focus  { border-color: var(--clr-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
-#search-pmdn:focus { border-color: var(--clr-orange); box-shadow: 0 0 0 3px rgba(249,115,22,.15); }
-
-/* scrollable table wrapper */
-#sector-count-tables .overflow-x-auto {
-  border-radius:   var(--radius-md);
-  border:          1px solid var(--clr-gray-200);
-  overflow:        hidden;
-}
-
-/* sticky header — PMA blue / PMDN orange */
-#sector-count-tables thead.bg-blue-50  { background: linear-gradient(180deg, #eff6ff, #dbeafe); }
-#sector-count-tables thead.bg-orange-50{ background: linear-gradient(180deg, #fff7ed, #ffedd5); }
-
-#sector-count-tables thead th {
-  font-size:       .73rem;
-  font-weight:     700;
-  letter-spacing:  .6px;
-  text-transform:  uppercase;
-  color:           var(--clr-gray-600);
-  padding:         12px 16px;
-  border-bottom:   2px solid var(--clr-gray-200);
-  white-space:     nowrap;
-  position:        sticky;
-  top:             0;
-  background:      inherit;
-  z-index:         10;
-}
-
-#sector-count-tables tbody tr {
-  border-bottom:   1px solid var(--clr-gray-100);
-  transition:      background var(--dur-fast) var(--ease);
-}
-#sector-count-tables tbody tr:last-child { border-bottom: none; }
-
-.pma-row:hover  { background: #eff6ff; }
-.pmdn-row:hover { background: #fff7ed; }
-
-#sector-count-tables tbody td {
-  padding:         11px 16px;
-  font-size:       .87rem;
-  color:           var(--clr-gray-600);
-}
-#sector-count-tables tbody td:first-child {
-  font-weight:     600;
-  color:           var(--clr-gray-800);
-}
-
-/* summary bar */
-#sector-count-tables .bg-blue-50  { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; }
-#sector-count-tables .bg-orange-50{ background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 1px solid #fed7aa; }
-
-/* ─── Custom Scrollbar ─────────────────────────────────────── */
-#sector-count-tables .overflow-x-auto::-webkit-scrollbar {
-  width:           7px;
-  height:          7px;
-}
-#sector-count-tables .overflow-x-auto::-webkit-scrollbar-track {
-  background:      var(--clr-gray-100);
-  border-radius:   999px;
-}
-#sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb {
-  background:      var(--clr-gray-300);
-  border-radius:   999px;
-  transition:      background var(--dur-fast) var(--ease);
-}
-#sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-  background:      var(--clr-gray-400);
-}
-
-/* ─── Additional Investment % Tables ───────────────────────── */
-.glass-card .bg-gray-50 thead tr {
-  border-bottom: 2px solid var(--clr-gray-200);
-}
-
-.glass-card .bg-gray-100.font-bold td {
-  font-weight:     700;
-  color:           var(--clr-gray-800);
-  background:      var(--clr-gray-100);
-}
-
-/* ─── Ranking List ─────────────────────────────────────────── */
-#ranking-list li {
-  border:          1px solid var(--clr-gray-200);
-  border-radius:   var(--radius-md);
-  background:      #fff;
-  box-shadow:      var(--shadow-sm);
-  padding:         10px 14px;
-  transition:      box-shadow var(--dur-fast) var(--ease),
-                   transform  var(--dur-fast) var(--ease);
-}
-#ranking-list li:hover {
-  box-shadow:      var(--shadow-md);
-  transform:       translateX(4px);
-}
-#ranking-list li:first-child {
-  border-color:    #fbbf24;
-  background:      linear-gradient(135deg, #fffbeb, #fff);
-}
-#ranking-list li:nth-child(2) {
-  border-color:    #d1d5db;
-  background:      linear-gradient(135deg, #f9fafb, #fff);
-}
-#ranking-list li:nth-child(3) {
-  border-color:    #d97706;
-  background:      linear-gradient(135deg, #fffbeb, #fff);
-}
-
-/* ─── Sweetalert2 Tweaks ───────────────────────────────────── */
-.swal2-popup {
-  border-radius:   var(--radius-xl) !important;
-  font-family:     var(--font-body) !important;
-  box-shadow:      var(--shadow-xl) !important;
-}
-.swal2-confirm {
-  border-radius:   var(--radius-md) !important;
-  font-weight:     600 !important;
-}
-.swal2-cancel {
-  border-radius:   var(--radius-md) !important;
-  font-weight:     600 !important;
-}
-
-/* ─── Footer ───────────────────────────────────────────────── */
-footer {
-  background:      linear-gradient(135deg, var(--clr-gray-800), var(--clr-gray-900));
-  border-top:      1px solid rgba(255,255,255,.06);
-  position:        relative;
-  z-index:         1;
-}
-footer span,
-footer div {
-  color:           rgba(255,255,255,.7);
-  font-size:       .82rem;
-  letter-spacing:  .3px;
-}
-
-/* ─── Responsive Helpers ───────────────────────────────────── */
-@media (max-width: 1024px) {
-  .glass-card { border-radius: var(--radius-lg); }
-}
-
-@media (max-width: 768px) {
-  nav .flex.justify-between {
-    flex-direction: column;
-    gap:            16px;
-  }
-  nav .flex.items-center.space-x-3 {
-    flex-wrap:      wrap;
-    justify-content:center;
-    gap:            8px;
-  }
-  nav h1 { font-size: 1.35rem; }
-
-  .glass-card { border-radius: var(--radius-lg); padding: 16px !important; }
-
-  #sector-count-tables {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-@media (max-width: 480px) {
-  nav h1 { font-size: 1.15rem; }
-  nav p  { font-size: .78rem; }
-
-  .modern-card { border-radius: var(--radius-lg); }
-
-  .glass-card h2,
-  .glass-card h3 { font-size: 1rem !important; }
-}
-
-/* ─── Print Styles ─────────────────────────────────────────── */
-@media print {
-  .gradient-bg::before,
-  .gradient-bg::after { display: none; }
-
-  nav, #drop-zone, form button, #search-charts,
-  .chart-item input, #filter-currency,
-  #search-pma, #search-pmdn,
-  #sector-count-tables button,
-  footer { display: none !important; }
-
-  .glass-card {
-    background:    #fff;
-    box-shadow:    none;
-    border:        1px solid #e2e8f0;
-    break-inside:  avoid;
-    margin-bottom: 24px;
-  }
-  body { background: #fff; }
-}
+        /* ─── Google Fonts ─────────────────────────────────────────── */
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap');
+
+        /* ─── CSS Variables ────────────────────────────────────────── */
+        :root {
+            /* Primary palette */
+            --clr-primary: #2563eb;
+            --clr-primary-light: #3b82f6;
+            --clr-primary-dark: #1d4ed8;
+            --clr-primary-50: #eff6ff;
+            --clr-primary-100: #dbeafe;
+
+            /* Accent / status */
+            --clr-success: #10b981;
+            --clr-success-bg: #d1fae5;
+            --clr-warning: #f59e0b;
+            --clr-warning-bg: #fef3c7;
+            --clr-danger: #ef4444;
+            --clr-danger-bg: #fee2e2;
+            --clr-info: #6366f1;
+            --clr-info-bg: #eef2ff;
+            --clr-orange: #f97316;
+            --clr-orange-bg: #ffedd5;
+            --clr-purple: #8b5cf6;
+            --clr-purple-bg: #ede9fe;
+
+            /* Neutrals */
+            --clr-gray-50: #f8fafc;
+            --clr-gray-100: #f1f5f9;
+            --clr-gray-200: #e2e8f0;
+            --clr-gray-300: #cbd5e1;
+            --clr-gray-400: #94a3b8;
+            --clr-gray-500: #64748b;
+            --clr-gray-600: #475569;
+            --clr-gray-700: #334155;
+            --clr-gray-800: #1e293b;
+            --clr-gray-900: #0f172a;
+
+            /* Backgrounds */
+            --bg-page: #eef2f7;
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafbff;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .07), 0 2px 4px -2px rgba(0, 0, 0, .05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, .08), 0 4px 6px -4px rgba(0, 0, 0, .05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, .08), 0 8px 10px -6px rgba(0, 0, 0, .04);
+            --shadow-card: 0 2px 12px rgba(30, 41, 59, .08);
+            --shadow-card-hover: 0 6px 24px rgba(30, 41, 59, .13);
+            --shadow-navbar: 0 4px 24px rgba(37, 99, 235, .25);
+
+            /* Radii */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 18px;
+            --radius-2xl: 24px;
+
+            /* Typography */
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+
+            /* Transitions */
+            --ease: cubic-bezier(.4, 0, .2, 1);
+            --dur-fast: 150ms;
+            --dur-md: 250ms;
+            --dur-slow: 400ms;
+        }
+
+        /* ─── Reset & Base ─────────────────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-page);
+            color: var(--clr-gray-700);
+            line-height: 1.6;
+            min-height: 100vh;
+            /* subtle grain overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ─── Page-level gradient background ──────────────────────── */
+        .gradient-bg {
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e7f3 50%, #ece5f5 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* large decorative blobs — purely decorative, pointer-events off */
+        .gradient-bg::before,
+        .gradient-bg::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: .18;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .gradient-bg::before {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, #3b82f6, transparent 70%);
+            top: -180px;
+            right: -140px;
+        }
+
+        .gradient-bg::after {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, #8b5cf6, transparent 70%);
+            bottom: -120px;
+            left: -100px;
+        }
+
+        /* keep content above blobs */
+        .min-h-screen>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── Navbar ───────────────────────────────────────────────── */
+        nav.bg-gradient-to-r {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%) !important;
+            box-shadow: var(--shadow-navbar);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, .12);
+            backdrop-filter: saturate(1.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle shimmer bar across navbar */
+        nav.bg-gradient-to-r::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .08), transparent);
+            animation: shimmer 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -60%;
+            }
+
+            100% {
+                left: 140%;
+            }
+        }
+
+        /* nav icon accent */
+        nav .fa-chart-pie {
+            drop-shadow: 0 0 8px rgba(147, 197, 253, .5);
+        }
+
+        /* nav title font */
+        nav h1 {
+            font-family: var(--font-display);
+            letter-spacing: -.5px;
+        }
+
+        nav p {
+            opacity: .82;
+            letter-spacing: .3px;
+        }
+
+        /* ─── Navbar Buttons ───────────────────────────────────────── */
+        nav button,
+        nav a.px-5 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            letter-spacing: .3px;
+            border: none;
+            cursor: pointer;
+            transition: transform var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease),
+                filter var(--dur-fast) var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+            filter: brightness(1.08);
+        }
+
+        nav button:active {
+            transform: translateY(0);
+        }
+
+        /* language select */
+        nav select#language-switcher {
+            background: linear-gradient(135deg, rgba(59, 130, 246, .7), rgba(37, 99, 235, .9));
+            border: 1px solid rgba(255, 255, 255, .25);
+            color: #fff;
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--dur-fast) var(--ease);
+        }
+
+        nav select#language-switcher:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, .85), rgba(37, 99, 235, 1));
+        }
+
+        /* ─── Glass Card ───────────────────────────────────────────── */
+        .glass-card {
+            background: rgba(255, 255, 255, .88);
+            backdrop-filter: blur(12px) saturate(1.3);
+            -webkit-backdrop-filter: blur(12px) saturate(1.3);
+            border: 1px solid rgba(255, 255, 255, .7);
+            box-shadow: var(--shadow-card);
+            border-radius: var(--radius-xl);
+            transition: box-shadow var(--dur-md) var(--ease),
+                transform var(--dur-md) var(--ease),
+                border-color var(--dur-md) var(--ease);
+        }
+
+        .glass-card:hover {
+            box-shadow: var(--shadow-card-hover);
+            border-color: rgba(37, 99, 235, .18);
+            transform: translateY(-1px);
+        }
+
+        /* card headings */
+        .glass-card h2,
+        .glass-card h3 {
+            font-family: var(--font-body);
+            color: var(--clr-gray-800);
+            letter-spacing: -.3px;
+        }
+
+        /* ─── Chart Container (canvas wrapper) ─────────────────────── */
+        .chart-container {
+            position: relative;
+        }
+
+        .chart-container canvas {
+            max-width: 100%;
+            transition: opacity var(--dur-md) var(--ease);
+        }
+
+        /* ─── Stat Cards ───────────────────────────────────────────── */
+        .modern-card {
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow var(--dur-md) var(--ease),
+                transform var(--dur-md) var(--ease);
+        }
+
+        .modern-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        /* animated fade-in for stat cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp var(--dur-slow) var(--ease) both;
+        }
+
+        /* staggered delay helpers */
+        .animate-fade-in:nth-child(1) {
+            animation-delay: 0ms;
+        }
+
+        .animate-fade-in:nth-child(2) {
+            animation-delay: 60ms;
+        }
+
+        .animate-fade-in:nth-child(3) {
+            animation-delay: 120ms;
+        }
+
+        .animate-fade-in:nth-child(4) {
+            animation-delay: 180ms;
+        }
+
+        .animate-fade-in:nth-child(5) {
+            animation-delay: 240ms;
+        }
+
+        .animate-fade-in:nth-child(6) {
+            animation-delay: 300ms;
+        }
+
+        .animate-fade-in:nth-child(7) {
+            animation-delay: 360ms;
+        }
+
+        .animate-fade-in:nth-child(8) {
+            animation-delay: 420ms;
+        }
+
+        .animate-fade-in:nth-child(9) {
+            animation-delay: 480ms;
+        }
+
+        /* left border glow on hover */
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: currentColor;
+            border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+            transition: opacity var(--dur-md) var(--ease);
+        }
+
+        /* stat card icon circle */
+        .modern-card .bg-blue-100,
+        .modern-card .bg-green-100,
+        .modern-card .bg-teal-100,
+        .modern-card .bg-purple-100,
+        .modern-card .bg-orange-100,
+        .modern-card .bg-indigo-100,
+        .modern-card .bg-cyan-100,
+        .modern-card .bg-pink-100,
+        .modern-card .bg-lime-100 {
+            transition: transform var(--dur-md) var(--ease);
+        }
+
+        .modern-card:hover .bg-blue-100,
+        .modern-card:hover .bg-green-100,
+        .modern-card:hover .bg-teal-100,
+        .modern-card:hover .bg-purple-100,
+        .modern-card:hover .bg-orange-100,
+        .modern-card:hover .bg-indigo-100,
+        .modern-card:hover .bg-cyan-100,
+        .modern-card:hover .bg-pink-100,
+        .modern-card:hover .bg-lime-100 {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        /* ─── Upload Box — Drag & Drop Zone ────────────────────────── */
+        #drop-zone {
+            border-radius: var(--radius-lg);
+            border: 2px dashed var(--clr-primary-light) !important;
+            background: linear-gradient(135deg, var(--clr-primary-50), rgba(255, 255, 255, .9));
+            transition: border-color var(--dur-md) var(--ease),
+                background var(--dur-md) var(--ease),
+                box-shadow var(--dur-md) var(--ease);
+        }
+
+        #drop-zone:hover,
+        #drop-zone.border-blue-600 {
+            border-color: var(--clr-primary-dark) !important;
+            background: linear-gradient(135deg, var(--clr-primary-100), rgba(219, 234, 254, .95));
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .1);
+        }
+
+        #drop-zone .fa-cloud-upload-alt {
+            transition: transform var(--dur-md) var(--ease);
+        }
+
+        #drop-zone:hover .fa-cloud-upload-alt {
+            transform: translateY(-4px);
+        }
+
+        /* upload button */
+        form button[type="submit"] {
+            font-family: var(--font-body);
+            font-weight: 700;
+            letter-spacing: .4px;
+            border: none;
+            border-radius: var(--radius-lg);
+            transition: transform var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease),
+                filter var(--dur-fast) var(--ease);
+        }
+
+        form button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, .35);
+            filter: brightness(1.06);
+        }
+
+        /* ─── Upload Management Table ──────────────────────────────── */
+        .glass-card table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .glass-card thead tr {
+            background: var(--clr-gray-50);
+            border-bottom: 2px solid var(--clr-gray-200);
+        }
+
+        .glass-card thead th {
+            font-family: var(--font-body);
+            font-weight: 600;
+            color: var(--clr-gray-500);
+            text-transform: uppercase;
+            font-size: .72rem;
+            letter-spacing: .8px;
+            padding: 12px 16px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .glass-card tbody tr {
+            border-bottom: 1px solid var(--clr-gray-100);
+            transition: background var(--dur-fast) var(--ease);
+        }
+
+        .glass-card tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .glass-card tbody tr:hover {
+            background: var(--clr-primary-50);
+        }
+
+        .glass-card tbody td {
+            padding: 14px 16px;
+            font-size: .875rem;
+            color: var(--clr-gray-600);
+            vertical-align: middle;
+        }
+
+        .glass-card tbody td:first-child {
+            font-weight: 600;
+            color: var(--clr-gray-800);
+        }
+
+        /* status badges */
+        .glass-card .inline-flex.rounded-full {
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .3px;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        /* action icons */
+        .glass-card .fa-eye,
+        .glass-card .fa-edit,
+        .glass-card .fa-trash {
+            font-size: 1rem;
+            transition: transform var(--dur-fast) var(--ease),
+                color var(--dur-fast) var(--ease);
+        }
+
+        .glass-card .fa-eye:hover {
+            transform: scale(1.2);
+        }
+
+        .glass-card .fa-edit:hover {
+            transform: scale(1.2);
+        }
+
+        .glass-card .fa-trash:hover {
+            transform: scale(1.2);
+        }
+
+        /* currency select in upload management */
+        #filter-currency {
+            font-family: var(--font-body);
+            font-weight: 500;
+            border: 1px solid var(--clr-gray-200);
+            border-radius: var(--radius-md);
+            padding: 6px 12px;
+            background: #fff;
+            color: var(--clr-gray-700);
+            cursor: pointer;
+            transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease);
+        }
+
+        #filter-currency:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+        }
+
+        /* ─── Chart Options Panel ──────────────────────────────────── */
+        #search-charts {
+            font-family: var(--font-body);
+            border: 1px solid var(--clr-gray-200);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            background: var(--clr-gray-50);
+            color: var(--clr-gray-700);
+            transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease);
+            width: 100%;
+        }
+
+        #search-charts:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+            background: #fff;
+        }
+
+        /* chart-item rows */
+        .chart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            background: var(--clr-gray-50);
+            border: 1px solid transparent;
+            transition: background var(--dur-fast) var(--ease),
+                border-color var(--dur-fast) var(--ease);
+            cursor: pointer;
+        }
+
+        .chart-item:hover {
+            background: var(--clr-primary-50);
+            border-color: var(--clr-primary-100);
+        }
+
+        .chart-item span {
+            font-weight: 500;
+            color: var(--clr-gray-700);
+            font-size: .88rem;
+        }
+
+        /* ─── Toggle Switch ────────────────────────────────────────── */
+        input.toggle {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 42px;
+            height: 24px;
+            border-radius: 12px;
+            background: var(--clr-gray-300);
+            position: relative;
+            cursor: pointer;
+            transition: background var(--dur-md) var(--ease);
+            flex-shrink: 0;
+        }
+
+        input.toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+            transition: left var(--dur-md) var(--ease),
+                box-shadow var(--dur-md) var(--ease);
+        }
+
+        input.toggle:checked::after {
+            left: 21px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+        }
+
+        /* colour variants */
+        input.toggle.toggle-blue:checked {
+            background: var(--clr-primary);
+        }
+
+        input.toggle.toggle-green:checked {
+            background: var(--clr-success);
+        }
+
+        input.toggle.toggle-yellow:checked {
+            background: var(--clr-warning);
+        }
+
+        input.toggle.toggle-purple:checked {
+            background: var(--clr-purple);
+        }
+
+        /* ─── Chart Type Selects (inside each chart card) ──────────── */
+        .glass-card select {
+            font-family: var(--font-body);
+            font-size: .82rem;
+            font-weight: 500;
+            border: 1px solid var(--clr-gray-200);
+            border-radius: var(--radius-sm);
+            padding: 5px 10px;
+            background: #fff;
+            color: var(--clr-gray-600);
+            cursor: pointer;
+            transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease);
+        }
+
+        .glass-card select:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+        }
+
+        /* ─── PMA / PMDN Company Tables ────────────────────────────── */
+        #sector-count-tables .glass-card {
+            transition: box-shadow var(--dur-md) var(--ease),
+                transform var(--dur-md) var(--ease);
+        }
+
+        /* download buttons */
+        #sector-count-tables button {
+            font-family: var(--font-body);
+            font-weight: 600;
+            letter-spacing: .3px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: transform var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease),
+                filter var(--dur-fast) var(--ease);
+        }
+
+        #sector-count-tables button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            filter: brightness(1.08);
+        }
+
+        /* search inputs */
+        #search-pma,
+        #search-pmdn {
+            font-family: var(--font-body);
+            border: 1px solid var(--clr-gray-200);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            background: var(--clr-gray-50);
+            transition: border-color var(--dur-fast) var(--ease),
+                box-shadow var(--dur-fast) var(--ease),
+                background var(--dur-fast) var(--ease);
+        }
+
+        #search-pma:focus,
+        #search-pmdn:focus {
+            outline: none;
+            background: #fff;
+        }
+
+        #search-pma:focus {
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+        }
+
+        #search-pmdn:focus {
+            border-color: var(--clr-orange);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, .15);
+        }
+
+        /* scrollable table wrapper */
+        #sector-count-tables .overflow-x-auto {
+            border-radius: var(--radius-md);
+            border: 1px solid var(--clr-gray-200);
+            overflow: hidden;
+        }
+
+        /* sticky header — PMA blue / PMDN orange */
+        #sector-count-tables thead.bg-blue-50 {
+            background: linear-gradient(180deg, #eff6ff, #dbeafe);
+        }
+
+        #sector-count-tables thead.bg-orange-50 {
+            background: linear-gradient(180deg, #fff7ed, #ffedd5);
+        }
+
+        #sector-count-tables thead th {
+            font-size: .73rem;
+            font-weight: 700;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            color: var(--clr-gray-600);
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--clr-gray-200);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: inherit;
+            z-index: 10;
+        }
+
+        #sector-count-tables tbody tr {
+            border-bottom: 1px solid var(--clr-gray-100);
+            transition: background var(--dur-fast) var(--ease);
+        }
+
+        #sector-count-tables tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .pma-row:hover {
+            background: #eff6ff;
+        }
+
+        .pmdn-row:hover {
+            background: #fff7ed;
+        }
+
+        #sector-count-tables tbody td {
+            padding: 11px 16px;
+            font-size: .87rem;
+            color: var(--clr-gray-600);
+        }
+
+        #sector-count-tables tbody td:first-child {
+            font-weight: 600;
+            color: var(--clr-gray-800);
+        }
+
+        /* summary bar */
+        #sector-count-tables .bg-blue-50 {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 1px solid #bfdbfe;
+        }
+
+        #sector-count-tables .bg-orange-50 {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border: 1px solid #fed7aa;
+        }
+
+        /* ─── Custom Scrollbar ─────────────────────────────────────── */
+        #sector-count-tables .overflow-x-auto::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        #sector-count-tables .overflow-x-auto::-webkit-scrollbar-track {
+            background: var(--clr-gray-100);
+            border-radius: 999px;
+        }
+
+        #sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: var(--clr-gray-300);
+            border-radius: 999px;
+            transition: background var(--dur-fast) var(--ease);
+        }
+
+        #sector-count-tables .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: var(--clr-gray-400);
+        }
+
+        /* ─── Additional Investment % Tables ───────────────────────── */
+        .glass-card .bg-gray-50 thead tr {
+            border-bottom: 2px solid var(--clr-gray-200);
+        }
+
+        .glass-card .bg-gray-100.font-bold td {
+            font-weight: 700;
+            color: var(--clr-gray-800);
+            background: var(--clr-gray-100);
+        }
+
+        /* ─── Ranking List ─────────────────────────────────────────── */
+        #ranking-list li {
+            border: 1px solid var(--clr-gray-200);
+            border-radius: var(--radius-md);
+            background: #fff;
+            box-shadow: var(--shadow-sm);
+            padding: 10px 14px;
+            transition: box-shadow var(--dur-fast) var(--ease),
+                transform var(--dur-fast) var(--ease);
+        }
+
+        #ranking-list li:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(4px);
+        }
+
+        #ranking-list li:first-child {
+            border-color: #fbbf24;
+            background: linear-gradient(135deg, #fffbeb, #fff);
+        }
+
+        #ranking-list li:nth-child(2) {
+            border-color: #d1d5db;
+            background: linear-gradient(135deg, #f9fafb, #fff);
+        }
+
+        #ranking-list li:nth-child(3) {
+            border-color: #d97706;
+            background: linear-gradient(135deg, #fffbeb, #fff);
+        }
+
+        /* ─── Sweetalert2 Tweaks ───────────────────────────────────── */
+        .swal2-popup {
+            border-radius: var(--radius-xl) !important;
+            font-family: var(--font-body) !important;
+            box-shadow: var(--shadow-xl) !important;
+        }
+
+        .swal2-confirm {
+            border-radius: var(--radius-md) !important;
+            font-weight: 600 !important;
+        }
+
+        .swal2-cancel {
+            border-radius: var(--radius-md) !important;
+            font-weight: 600 !important;
+        }
+
+        /* ─── Footer ───────────────────────────────────────────────── */
+        footer {
+            background: linear-gradient(135deg, var(--clr-gray-800), var(--clr-gray-900));
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer span,
+        footer div {
+            color: rgba(255, 255, 255, .7);
+            font-size: .82rem;
+            letter-spacing: .3px;
+        }
+
+        /* ─── Responsive Helpers ───────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .glass-card {
+                border-radius: var(--radius-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav .flex.justify-between {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            nav .flex.items-center.space-x-3 {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            nav h1 {
+                font-size: 1.35rem;
+            }
+
+            .glass-card {
+                border-radius: var(--radius-lg);
+                padding: 16px !important;
+            }
+
+            #sector-count-tables {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav h1 {
+                font-size: 1.15rem;
+            }
+
+            nav p {
+                font-size: .78rem;
+            }
+
+            .modern-card {
+                border-radius: var(--radius-lg);
+            }
+
+            .glass-card h2,
+            .glass-card h3 {
+                font-size: 1rem !important;
+            }
+        }
+
+        /* ─── Print Styles ─────────────────────────────────────────── */
+        @media print {
+
+            .gradient-bg::before,
+            .gradient-bg::after {
+                display: none;
+            }
+
+            nav,
+            #drop-zone,
+            form button,
+            #search-charts,
+            .chart-item input,
+            #filter-currency,
+            #search-pma,
+            #search-pmdn,
+            #sector-count-tables button,
+            footer {
+                display: none !important;
+            }
+
+            .glass-card {
+                background: #fff;
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+                break-inside: avoid;
+                margin-bottom: 24px;
+            }
+
+            body {
+                background: #fff;
+            }
+        }
     </style>
 </head>
 
@@ -823,7 +976,8 @@ footer div {
         <div class="p-4 md:p-6">
             <div class="container mx-auto max-w-7xl">
                 <!-- Navbar -->
-                <nav class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg mb-8  border border-blue-700/40 rounded-xl">
+                <nav
+                    class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg mb-8  border border-blue-700/40 rounded-xl">
                     <div class="container mx-auto px-6 py-4">
                         <div class="flex justify-between items-center">
                             <!-- Logo & Title Section -->
@@ -848,19 +1002,17 @@ footer div {
                                         class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
                                  rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
                                      transform transition duration-300 focus:ring-2 focus:ring-blue-300 cursor-pointer">
-                                        <option class="bg-white text-black"
-                                            value="id" <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
+                                        <option class="bg-white text-black" value="id"
+                                            <?= service('request')->getLocale() === 'id' ? 'selected' : '' ?>>
                                             <?= lang('Dashboard.indonesian') ?>
                                         </option>
-                                        <option class="bg-white text-black"
-                                            value="en" <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
+                                        <option class="bg-white text-black" value="en"
+                                            <?= service('request')->getLocale() === 'en' ? 'selected' : '' ?>>
                                             <?= lang('Dashboard.english') ?>
                                         </option>
                                     </select>
                                 </div>
-                                <button type="button"
-                                    onclick="window.location.href='<?= base_url('/faq') ?>'"
-                                    class="px-5 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold 
+                                <button type="button" onclick="window.location.href='<?= base_url('/faq') ?>'" class="px-5 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold 
                                              rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-700 hover:scale-105 
                                        transform transition duration-300">
                                     <i class="fas fa-question-circle mr-2"></i>
@@ -871,8 +1023,7 @@ footer div {
                                     <!-- Security Check Button -->
 
                                     <button type="button"
-                                        onclick="window.location.href='<?= base_url('security-monitoring') ?>'"
-                                        class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
+                                        onclick="window.location.href='<?= base_url('security-monitoring') ?>'" class="px-5 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold 
                                           rounded-lg shadow-md hover:from-blue-500 hover:to-blue-700 hover:scale-105 
                                               transform transition duration-300">
                                         <i class="fas fa-shield-alt mr-2"></i>
@@ -881,8 +1032,7 @@ footer div {
 
                                     <!-- User Management Button -->
                                     <button type="button"
-                                        onclick="window.location.href='<?= base_url('/user-management') ?>'"
-                                        class="px-5 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold 
+                                        onclick="window.location.href='<?= base_url('/user-management') ?>'" class="px-5 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold 
                            rounded-lg shadow hover:from-green-600 hover:to-green-700 
                            transition duration-200">
                                         <i class="fas fa-users mr-2"></i>
@@ -893,8 +1043,7 @@ footer div {
 
                                 <?php endif; ?>
                                 <!-- Logout Button -->
-                                <button type="button"
-                                    onclick="window.location.href='<?= base_url('auth/logout') ?>'"
+                                <button type="button" onclick="window.location.href='<?= base_url('auth/logout') ?>'"
                                     class="px-5 py-2 bg-red-600 text-white font-semibold 
                            rounded-lg shadow hover:bg-red-700 
                            transition duration-200">
@@ -914,15 +1063,20 @@ footer div {
                         <div class="glass-card shadow-2xl rounded-xl p-6 chart-container lg:col-span-1">
                             <div class="flex items-center mb-4">
                                 <i class="fas fa-upload text-blue-600 mr-3 text-xl"></i>
-                                <h2 class="text-xl font-semibold text-gray-800"><?= lang('Dashboard.upload_file_excel') ?></h2>
+                                <h2 class="text-xl font-semibold text-gray-800"><?= lang('Dashboard.upload_file_excel') ?>
+                                </h2>
                             </div>
-<form action="<?= base_url('dashboard/upload') ?>" method="post" enctype="multipart/form-data" class="space-y-4">
+                            <form action="<?= base_url('dashboard/upload') ?>" method="post" enctype="multipart/form-data"
+                                class="space-y-4">
                                 <div class="relative">
                                     <input type="file" name="excel_file" accept=".xlsx,.xls" id="excel-file-input"
                                         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                                    <div id="drop-zone" class="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors cursor-pointer">
+                                    <div id="drop-zone"
+                                        class="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors cursor-pointer">
                                         <i class="fas fa-cloud-upload-alt text-4xl text-blue-400 mb-2"></i>
-                                        <p id="upload-text" class="text-gray-600 mb-1"><?= lang('Dashboard.drag_drop_file') ?></p>
+                                        <p id="upload-text" class="text-gray-600 mb-1">
+                                            <?= lang('Dashboard.drag_drop_file') ?>
+                                        </p>
                                         <p class="text-sm text-gray-500"><?= lang('Dashboard.supported_formats') ?></p>
                                         <p id="file-name" class="text-sm text-blue-600 font-medium mt-2 hidden"></p>
                                     </div>
@@ -940,12 +1094,16 @@ footer div {
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center">
                                 <i class="fas fa-folder-open text-blue-600 mr-3 text-xl"></i>
-                                <h2 class="text-xl font-semibold text-gray-800"><?= lang('Dashboard.upload_management') ?></h2>
+                                <h2 class="text-xl font-semibold text-gray-800">
+                                    <?= lang('Dashboard.upload_management') ?>
+                                </h2>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <i class="fas fa-dollar-sign mr-1 text-yellow-600"></i><?= lang('Dashboard.currency') ?></label>
-                                <select id="filter-currency" class="rounded-lg border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                                    <i
+                                        class="fas fa-dollar-sign mr-1 text-yellow-600"></i><?= lang('Dashboard.currency') ?></label>
+                                <select id="filter-currency"
+                                    class="rounded-lg border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
                                     <option value="IDR">IDR (Rp)</option>
                                     <option value="USD">$ USD</option>
                                 </select>
@@ -957,14 +1115,31 @@ footer div {
                                 <table class="min-w-full table-auto">
                                     <thead>
                                         <tr class="bg-gray-50">
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.upload_name') ?></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.quarter') ?></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.year') ?></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.status') ?></th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <?= lang('Dashboard.upload_name') ?>
+                                            </th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <?= lang('Dashboard.quarter') ?>
+                                            </th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <?= lang('Dashboard.year') ?>
+                                            </th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <?= lang('Dashboard.status') ?>
+                                            </th>
                                             <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.total_records') ?></th> -->
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nilai USD</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Nilai USD</th>
                                             <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.upload_date') ?></th> -->
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.actions') ?></th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <?= lang('Dashboard.actions') ?>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
@@ -995,7 +1170,8 @@ footer div {
                                                         'uploaded' => lang('Dashboard.status_uploaded')
                                                     ];
                                                     ?>
-                                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full <?php echo $statusClasses[$status] ?? 'bg-gray-100 text-gray-800'; ?>">
+                                                    <span
+                                                        class="inline-flex px-2 py-1 text-xs font-semibold rounded-full <?php echo $statusClasses[$status] ?? 'bg-gray-100 text-gray-800'; ?>">
                                                         <?php echo $statusLabels[$status] ?? ucfirst($status); ?>
                                                     </span>
                                                 </td>
@@ -1010,22 +1186,27 @@ footer div {
                                                 </td> -->
                                                 <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                                     <div class="flex space-x-2">
-<a href="<?= base_url('dashboard?upload=' . $upload['id']) ?>"
+                                                        <a href="<?= base_url('dashboard?upload=' . $upload['id']) ?>"
                                                             class="text-green-600 hover:text-green-900 transition-colors"
                                                             title="View Chart">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                         <?php if (session()->get('role') !== 'user'): ?>
                                                             <?php if ($upload['status'] === 'completed'): ?>
-<a href="<?= base_url('dashboard/edit-metadata/' . $upload['id']) ?>"
+                                                                <a href="<?= base_url('dashboard/edit-metadata/' . $upload['id']) ?>"
                                                                     class="text-blue-600 hover:text-blue-900 transition-colors"
                                                                     title="Edit Metadata">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a>
                                                             <?php endif; ?>
-<form action="<?= base_url('dashboard/deleteUpload') ?>" method="post" class="inline-block" id="delete-form-<?php echo $upload['id']; ?>">
-                                                                <input type="hidden" name="upload_id" value="<?php echo $upload['id']; ?>">
-                                                                <button type="button" onclick="confirmDelete(<?php echo $upload['id']; ?>)" class="text-red-600 hover:text-red-900 transition-colors" title="<?= lang('Dashboard.delete') ?>">
+                                                            <form action="<?= base_url('dashboard/deleteUpload') ?>" method="post"
+                                                                class="inline-block" id="delete-form-<?php echo $upload['id']; ?>">
+                                                                <input type="hidden" name="upload_id"
+                                                                    value="<?php echo $upload['id']; ?>">
+                                                                <button type="button"
+                                                                    onclick="confirmDelete(<?php echo $upload['id']; ?>)"
+                                                                    class="text-red-600 hover:text-red-900 transition-colors"
+                                                                    title="<?= lang('Dashboard.delete') ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                 </button>
                                                             </form>
@@ -1048,15 +1229,15 @@ footer div {
 
                     <!-- Chart Options -->
                 </div>
+                <!-- 
                 <div class="glass-card shadow-xl rounded-xl p-6 mb-12 chart-container lg:col-span-1">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-chart-bar mr-2 text-green-600"></i><?= lang('Dashboard.chart_options') ?>
                     </h3>
 
-                    <!-- Search input -->
-                    <input type="text" id="search-charts" placeholder="Search charts..." class="w-full mb-4 px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" id="search-charts" placeholder="Search charts..."
+                        class="w-full mb-4 px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
 
-                    <!-- Checkbox list -->
                     <div class="space-y-3" id="chart-list">
                         <label class="flex items-center justify-between chart-item">
                             <span><?= lang('Dashboard.pma_vs_pmdn') ?></span>
@@ -1100,10 +1281,12 @@ footer div {
                         </label>
                         <label class="flex items-center justify-between chart-item">
                             <span>Quarterly Additional Investment <?= lang('') ?></span>
-                            <input type="checkbox" id="show-quarterly-additional-investment" checked class="toggle toggle-yellow">
+                            <input type="checkbox" id="show-quarterly-additional-investment" checked
+                                class="toggle toggle-yellow">
                         </label>
                     </div>
                 </div>
+                -->
 
                 <!-- STAT CARDS -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" id="stats-cards"></div>
@@ -1114,7 +1297,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="pma-pmdn-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-chart-pie mr-3 text-blue-600"></i><?= lang('Dashboard.pma_pmdn_ratio') ?>
+                                    <i
+                                        class="fas fa-chart-pie mr-3 text-blue-600"></i><?= lang('Dashboard.pma_pmdn_ratio') ?>
                                 </h3>
                                 <select id="pma-pmdn-type" class="text-sm border rounded px-2 py-1">
                                     <option value="pie">Pie</option>
@@ -1128,7 +1312,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="district-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-map-marker-alt mr-3 text-green-600"></i><?= lang('Dashboard.projects_per_district') ?>
+                                    <i
+                                        class="fas fa-map-marker-alt mr-3 text-green-600"></i><?= lang('Dashboard.projects_per_district') ?>
                                 </h3>
                                 <select id="district-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1145,7 +1330,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="investment-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-money-bill-wave mr-3 text-emerald-600"></i><?= lang('Dashboard.investment_per_district_top10') ?>
+                                    <i
+                                        class="fas fa-money-bill-wave mr-3 text-emerald-600"></i><?= lang('Dashboard.investment_per_district_top10') ?>
                                 </h3>
                                 <select id="investment-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1160,7 +1346,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="sector-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-industry mr-3 text-purple-600"></i><?= lang('Dashboard.projects_per_sector') ?>
+                                    <i
+                                        class="fas fa-industry mr-3 text-purple-600"></i><?= lang('Dashboard.projects_per_sector') ?>
                                 </h3>
                                 <select id="sector-type" class="text-sm border rounded px-2 py-1">
                                     <option value="horizontalBar">Horizontal Bar</option>
@@ -1176,7 +1363,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="workforce-pma-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-users mr-3 text-red-600"></i><?= lang('Dashboard.workforce_pma_district') ?>
+                                    <i
+                                        class="fas fa-users mr-3 text-red-600"></i><?= lang('Dashboard.workforce_pma_district') ?>
                                 </h3>
                                 <select id="workforce-pma-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1192,7 +1380,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="workforce-pmdn-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-user-friends mr-3 text-orange-600"></i><?= lang('Dashboard.workforce_pmdn_district') ?>
+                                    <i
+                                        class="fas fa-user-friends mr-3 text-orange-600"></i><?= lang('Dashboard.workforce_pmdn_district') ?>
                                 </h3>
                                 <select id="workforce-pmdn-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1207,10 +1396,12 @@ footer div {
                     </div>
 
                     <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-4">
-                        <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="ranking-district-container">
+                        <div class="glass-card shadow-xl rounded-xl p-4 chart-container"
+                            id="ranking-district-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-trophy mr-3 text-yellow-600"></i><?= lang('Dashboard.ranking_projects_district_full') ?>
+                                    <i
+                                        class="fas fa-trophy mr-3 text-yellow-600"></i><?= lang('Dashboard.ranking_projects_district_full') ?>
                                 </h3>
                                 <select id="ranking-district-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1224,7 +1415,8 @@ footer div {
                                 </div>
                                 <div class="lg:w-80 bg-gray-50 rounded-lg p-4 border">
                                     <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                                        <i class="fas fa-medal mr-2 text-yellow-500"></i><?= lang('Dashboard.ranking_per_district') ?>
+                                        <i
+                                            class="fas fa-medal mr-2 text-yellow-500"></i><?= lang('Dashboard.ranking_per_district') ?>
                                     </h4>
                                     <div id="ranking-list" class="space-y-2"></div>
                                 </div>
@@ -1236,7 +1428,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="projects-pma-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-building mr-3 text-blue-600"></i><?= lang('Dashboard.projects_pma_district') ?>
+                                    <i
+                                        class="fas fa-building mr-3 text-blue-600"></i><?= lang('Dashboard.projects_pma_district') ?>
                                 </h3>
                                 <select id="projects-pma-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1251,7 +1444,8 @@ footer div {
                         <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="projects-pmdn-container">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-home mr-3 text-orange-600"></i><?= lang('Dashboard.projects_pmdn_district') ?>
+                                    <i
+                                        class="fas fa-home mr-3 text-orange-600"></i><?= lang('Dashboard.projects_pmdn_district') ?>
                                 </h3>
                                 <select id="projects-pmdn-type" class="text-sm border rounded px-2 py-1">
                                     <option value="bar">Bar</option>
@@ -1269,7 +1463,8 @@ footer div {
                             <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="country-container">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                        <i class="fas fa-globe mr-3 text-emerald-600"></i><?= lang('Dashboard.projects_per_country') ?>
+                                        <i
+                                            class="fas fa-globe mr-3 text-emerald-600"></i><?= lang('Dashboard.projects_per_country') ?>
                                     </h3>
                                     <select id="country-type" class="text-sm border rounded px-2 py-1">
                                         <option value="bar">Bar</option>
@@ -1283,16 +1478,20 @@ footer div {
                         </div>
 
                         <div class="grid grid-cols-1 gap-4 mb-4" id="chart-row-7">
-                            <div class="glass-card shadow-xl rounded-xl p-4 chart-container" id="quarterly-additional-investment-container" style="display: block;">
+                            <div class="glass-card shadow-xl rounded-xl p-4 chart-container"
+                                id="quarterly-additional-investment-container" style="display: block;">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                        <i class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
+                                        <i
+                                            class="fas fa-calendar-alt mr-3 text-indigo-600"></i><?= lang('Dashboard.quarterly_additional_investment') ?>
                                     </h3>
                                     <div class="flex items-center space-x-4">
 
                                         <div class="flex items-center space-x-2">
-                                            <label class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
-                                            <select id="quarterly-additional-investment-year" class="text-sm border rounded px-2 py-1">
+                                            <label
+                                                class="text-sm font-medium text-gray-700"><?= lang('Dashboard.year') ?></label>
+                                            <select id="quarterly-additional-investment-year"
+                                                class="text-sm border rounded px-2 py-1">
                                                 <option value="all"><?= lang('Dashboard.all_years') ?></option>
                                                 <?php
                                                 $availableYears = array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []);
@@ -1305,7 +1504,8 @@ footer div {
                                             </select>
                                         </div>
 
-                                        <select id="quarterly-additional-investment-type" class="text-sm border rounded px-2 py-1">
+                                        <select id="quarterly-additional-investment-type"
+                                            class="text-sm border rounded px-2 py-1">
                                             <option value="bar">Bar</option>
                                             <option value="line">Line</option>
                                             <option value="area">Area</option>
@@ -1329,10 +1529,12 @@ footer div {
                                 Perusahaan PMA (Lapor LKPM)
                             </h3>
                             <div class="flex items-center space-x-2">
-                                <button onclick="downloadSectorPDF('PMA')" class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg flex items-center transition">
+                                <button onclick="downloadSectorPDF('PMA')"
+                                    class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg flex items-center transition">
                                     <i class="fas fa-file-pdf mr-2"></i>PDF
                                 </button>
-                                <button onclick="downloadSectorExcel('PMA')" class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg flex items-center transition">
+                                <button onclick="downloadSectorExcel('PMA')"
+                                    class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg flex items-center transition">
                                     <i class="fas fa-file-excel mr-2"></i>Excel
                                 </button>
                             </div>
@@ -1340,7 +1542,8 @@ footer div {
 
                         <!-- Search -->
                         <div class="mb-4">
-                            <input type="text" id="search-pma" placeholder="Cari perusahaan PMA..." class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <input type="text" id="search-pma" placeholder="Cari perusahaan PMA..."
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
                         </div>
 
                         <!-- Table -->
@@ -1348,27 +1551,43 @@ footer div {
                             <table class="min-w-full bg-white border rounded-lg">
                                 <thead class="bg-blue-50 sticky top-0 z-10">
                                     <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b">Nama Perusahaan</th>
-                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-700 border-b">Tambahan Realisasi</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah TKA</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah TKI</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah Proyek</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b">
+                                            Nama Perusahaan</th>
+                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-700 border-b">
+                                            Tambahan Realisasi</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah TKA</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah TKI</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah Proyek</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200" id="pma-table-body">
                                     <?php if (!empty($data['sector_count_by_company']['PMA']['data'])): ?>
                                         <?php foreach ($data['sector_count_by_company']['PMA']['data'] as $row): ?>
                                             <tr class="hover:bg-blue-50 transition-colors pma-row">
-                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium"><?= esc($row['nama_perusahaan']) ?></td>
-                                                <td class="px-4 py-3 text-sm text-right font-bold text-blue-600"><?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_tka'] ?? 0) ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_tki'] ?? 0) ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_proyek'] ?? 0) ?></td>
+                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium">
+                                                    <?= esc($row['nama_perusahaan']) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-right font-bold text-blue-600">
+                                                    <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_tka'] ?? 0) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_tki'] ?? 0) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_proyek'] ?? 0) ?>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">Tidak ada data PMA yang tersedia</td>
+                                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">Tidak ada data PMA
+                                                yang tersedia</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -1379,7 +1598,8 @@ footer div {
                         <div class="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-700">Total Record:</span>
-                                <span class="text-lg font-bold text-blue-600" id="pma-count"><?= count($data['sector_count_by_company']['PMA']['data'] ?? []) ?></span>
+                                <span class="text-lg font-bold text-blue-600"
+                                    id="pma-count"><?= count($data['sector_count_by_company']['PMA']['data'] ?? []) ?></span>
                             </div>
                         </div>
                     </div>
@@ -1392,44 +1612,63 @@ footer div {
                                 Perusahaan PMDN (Lapor LKPM)
                             </h3>
                             <div class="flex items-center space-x-2">
-                                <button onclick="downloadSectorPDF('PMDN')" class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg flex items-center transition">
+                                <button onclick="downloadSectorPDF('PMDN')"
+                                    class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg flex items-center transition">
                                     <i class="fas fa-file-pdf mr-2"></i>PDF
                                 </button>
-                                <button onclick="downloadSectorExcel('PMDN')" class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg flex items-center transition">
+                                <button onclick="downloadSectorExcel('PMDN')"
+                                    class="px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg flex items-center transition">
                                     <i class="fas fa-file-excel mr-2"></i>Excel
                                 </button>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <input type="text" id="search-pmdn" placeholder="Cari perusahaan PMDN..." class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500">
+                            <input type="text" id="search-pmdn" placeholder="Cari perusahaan PMDN..."
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500">
                         </div>
 
                         <div class="overflow-x-auto" style="max-height: 600px; overflow-y: auto;">
                             <table class="min-w-full bg-white border rounded-lg">
                                 <thead class="bg-orange-50 sticky top-0 z-10">
                                     <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b">Nama Perusahaan</th>
-                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-700 border-b">Tambahan Realisasi</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah TKA</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah TKI</th>
-                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">Jumlah Proyek</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b">
+                                            Nama Perusahaan</th>
+                                        <th class="px-4 py-3 text-right text-xs font-semibold text-gray-700 border-b">
+                                            Tambahan Realisasi</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah TKA</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah TKI</th>
+                                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-700 border-b">
+                                            Jumlah Proyek</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200" id="pmdn-table-body">
                                     <?php if (!empty($data['sector_count_by_company']['PMDN']['data'])): ?>
                                         <?php foreach ($data['sector_count_by_company']['PMDN']['data'] as $row): ?>
                                             <tr class="hover:bg-orange-50 transition-colors pmdn-row">
-                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium"><?= esc($row['nama_perusahaan']) ?></td>
-                                                <td class="px-4 py-3 text-sm text-right font-bold text-orange-600"><?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_tka'] ?? 0) ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_tki'] ?? 0) ?></td>
-                                                <td class="px-4 py-3 text-sm text-center"><?= number_format($row['jumlah_proyek'] ?? 0) ?></td>
+                                                <td class="px-4 py-3 text-sm text-gray-800 font-medium">
+                                                    <?= esc($row['nama_perusahaan']) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-right font-bold text-orange-600">
+                                                    <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_tka'] ?? 0) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_tki'] ?? 0) ?>
+                                                </td>
+                                                <td class="px-4 py-3 text-sm text-center">
+                                                    <?= number_format($row['jumlah_proyek'] ?? 0) ?>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">Tidak ada data PMDN yang tersedia</td>
+                                            <td colspan="5" class="px-4 py-8 text-center text-gray-500">Tidak ada data PMDN
+                                                yang tersedia</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -1439,7 +1678,8 @@ footer div {
                         <div class="mt-4 bg-orange-50 rounded-lg p-4 border border-orange-200">
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-700">Total Record:</span>
-                                <span class="text-lg font-bold text-orange-600" id="pmdn-count"><?= count($data['sector_count_by_company']['PMDN']['data'] ?? []) ?></span>
+                                <span class="text-lg font-bold text-orange-600"
+                                    id="pmdn-count"><?= count($data['sector_count_by_company']['PMDN']['data'] ?? []) ?></span>
                             </div>
                         </div>
                     </div>
@@ -1447,7 +1687,7 @@ footer div {
 
                 <!-- Search JS -->
                 <script>
-                    document.getElementById('search-pma').addEventListener('keyup', function() {
+                    document.getElementById('search-pma').addEventListener('keyup', function () {
                         const searchValue = this.value.toLowerCase();
                         const rows = document.querySelectorAll('.pma-row');
                         let visibleCount = 0;
@@ -1459,7 +1699,7 @@ footer div {
                         document.getElementById('pma-count').textContent = visibleCount;
                     });
 
-                    document.getElementById('search-pmdn').addEventListener('keyup', function() {
+                    document.getElementById('search-pmdn').addEventListener('keyup', function () {
                         const searchValue = this.value.toLowerCase();
                         const rows = document.querySelectorAll('.pmdn-row');
                         let visibleCount = 0;
@@ -1479,16 +1719,26 @@ footer div {
                     <div class="glass-card shadow-xl rounded-xl p-4 chart-container">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                <i class="fas fa-percentage mr-3 text-purple-600"></i><?= lang('Dashboard.additional_pma_investment_district') ?>
+                                <i
+                                    class="fas fa-percentage mr-3 text-purple-600"></i><?= lang('Dashboard.additional_pma_investment_district') ?>
                             </h3>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full table-auto">
                                 <thead>
                                     <tr class="bg-gray-50">
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.district') ?></th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.percentage') ?></th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.investment_amount') ?></th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.district') ?>
+                                        </th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.percentage') ?>
+                                        </th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.investment_amount') ?>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -1501,19 +1751,30 @@ footer div {
                                         ?>
                                         <?php foreach ($additional_investment_percentages_pma as $district => $info): ?>
                                             <tr>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo htmlspecialchars($district); ?></td>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format($info['percentage'], 1); ?>%</td>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format($info['amount'], 0, ',', '.'); ?></td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <?php echo htmlspecialchars($district); ?>
+                                                </td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                    <?php echo number_format($info['percentage'], 1); ?>%
+                                                </td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                    <?php echo number_format($info['amount'], 0, ',', '.'); ?>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                         <tr class="bg-gray-100 font-bold">
-                                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Total</td>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Total
+                                            </td>
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">100.0%</td>
-                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format(array_sum(array_column($additional_investment_percentages_pma, 'amount')), 0, ',', '.'); ?></td>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                <?php echo number_format(array_sum(array_column($additional_investment_percentages_pma, 'amount')), 0, ',', '.'); ?>
+                                            </td>
                                         </tr>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="3" class="px-4 py-2 text-center text-sm text-gray-500"><?= lang('Dashboard.no_data') ?></td>
+                                            <td colspan="3" class="px-4 py-2 text-center text-sm text-gray-500">
+                                                <?= lang('Dashboard.no_data') ?>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -1524,16 +1785,26 @@ footer div {
                     <div class="glass-card shadow-xl rounded-xl p-4 chart-container">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                                <i class="fas fa-percentage mr-3 text-orange-600"></i><?= lang('Dashboard.additional_pmdn_investment_district') ?>
+                                <i
+                                    class="fas fa-percentage mr-3 text-orange-600"></i><?= lang('Dashboard.additional_pmdn_investment_district') ?>
                             </h3>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="min-w-full table-auto">
                                 <thead>
                                     <tr class="bg-gray-50">
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.district') ?></th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.percentage') ?></th>
-                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"><?= lang('Dashboard.investment_amount') ?></th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.district') ?>
+                                        </th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.percentage') ?>
+                                        </th>
+                                        <th
+                                            class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <?= lang('Dashboard.investment_amount') ?>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -1546,19 +1817,30 @@ footer div {
                                         ?>
                                         <?php foreach ($additional_investment_percentages_pmdn as $district => $info): ?>
                                             <tr>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo htmlspecialchars($district); ?></td>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format($info['percentage'], 1); ?>%</td>
-                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format($info['amount'], 0, ',', '.'); ?></td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <?php echo htmlspecialchars($district); ?>
+                                                </td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                    <?php echo number_format($info['percentage'], 1); ?>%
+                                                </td>
+                                                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                    <?php echo number_format($info['amount'], 0, ',', '.'); ?>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                         <tr class="bg-gray-100 font-bold">
-                                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Total</td>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">Total
+                                            </td>
                                             <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">100.0%</td>
-                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500"><?php echo number_format(array_sum(array_column($additional_investment_percentages_pmdn, 'amount')), 0, ',', '.'); ?></td>
+                                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                                                <?php echo number_format(array_sum(array_column($additional_investment_percentages_pmdn, 'amount')), 0, ',', '.'); ?>
+                                            </td>
                                         </tr>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="3" class="px-4 py-2 text-center text-sm text-gray-500"><?= lang('Dashboard.no_data') ?></td>
+                                            <td colspan="3" class="px-4 py-2 text-center text-sm text-gray-500">
+                                                <?= lang('Dashboard.no_data') ?>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -1584,6 +1866,10 @@ footer div {
     <script>
         const data = <?= json_encode($data, JSON_HEX_TAG) ?>;
         const currentFilters = <?= json_encode($data['filters'] ?? []) ?>;
+        const APP_CONFIG = {
+            baseUrl: '<?= base_url() ?>',
+            currentUrl: '<?= current_url() ?>'
+        };
 
 
 
@@ -1744,7 +2030,7 @@ footer div {
                         halign: 'center'
                     }
                 },
-                didDrawPage: function(data) {
+                didDrawPage: function (data) {
                     // Footer
                     const pageCount = doc.internal.getNumberOfPages();
                     const pageSize = doc.internal.pageSize;
@@ -1755,8 +2041,8 @@ footer div {
                         `Halaman ${data.pageNumber} dari ${pageCount}`,
                         pageSize.width / 2,
                         pageHeight - 10, {
-                            align: 'center'
-                        }
+                        align: 'center'
+                    }
                     );
                 }
             });
@@ -1848,56 +2134,56 @@ footer div {
 
             // Set column widths
             ws['!cols'] = [{
-                    wch: 5
-                }, // No
-                {
-                    wch: 40
-                }, // Nama Perusahaan
-                {
-                    wch: 20
-                }, // Tambahan Realisasi
-                {
-                    wch: 15
-                }, // Jumlah TKA
-                {
-                    wch: 15
-                }, // Jumlah TKI
-                {
-                    wch: 15
-                } // Jumlah Proyek
+                wch: 5
+            }, // No
+            {
+                wch: 40
+            }, // Nama Perusahaan
+            {
+                wch: 20
+            }, // Tambahan Realisasi
+            {
+                wch: 15
+            }, // Jumlah TKA
+            {
+                wch: 15
+            }, // Jumlah TKI
+            {
+                wch: 15
+            } // Jumlah Proyek
             ];
 
             // Merge cells for title
             ws['!merges'] = [{
-                    s: {
-                        r: 0,
-                        c: 0
-                    },
-                    e: {
-                        r: 0,
-                        c: 5
-                    }
-                }, // Title row 1
-                {
-                    s: {
-                        r: 1,
-                        c: 0
-                    },
-                    e: {
-                        r: 1,
-                        c: 5
-                    }
-                }, // Title row 2
-                {
-                    s: {
-                        r: 2,
-                        c: 0
-                    },
-                    e: {
-                        r: 2,
-                        c: 5
-                    }
-                } // Title row 3
+                s: {
+                    r: 0,
+                    c: 0
+                },
+                e: {
+                    r: 0,
+                    c: 5
+                }
+            }, // Title row 1
+            {
+                s: {
+                    r: 1,
+                    c: 0
+                },
+                e: {
+                    r: 1,
+                    c: 5
+                }
+            }, // Title row 2
+            {
+                s: {
+                    r: 2,
+                    c: 0
+                },
+                e: {
+                    r: 2,
+                    c: 5
+                }
+            } // Title row 3
             ];
 
             // Style header row (bold, centered)
@@ -2114,1369 +2400,21 @@ footer div {
 
         }
 
-        // Charts JavaScript - Complete Chart management and rendering
-        // Version: 2.0 - All Charts Fully Functional
 
-        class ChartsManager {
-            constructor(data, currency, usdRate) {
-                this.data = data;
-                this.currency = currency;
-                this.usdRate = usdRate;
-                this.charts = {
-                    pmaPmdn: null,
-                    district: null,
-                    location: null,
-                    sector: null,
-                    workforcePma: null,
-                    workforcePmdn: null,
-                    rankingDistrict: null,
-                    projectsPma: null,
-                    projectsPmdn: null,
-                    country: null,
-                    quarterlyAdditionalInvestment: null
-                };
 
-                this.init();
-            }
 
-            init() {
-                this.createAllCharts();
-                this.initializeChartToggles();
-                this.initializeAllChartTypeChanges();
-            }
 
-            formatRp(num) {
-                if (!num) return 'Rp 0';
-                return 'Rp ' + Number(num).toLocaleString('id-ID');
-            }
 
-            formatUSD(num) {
-                if (!num) return '$ 0';
-                return '$ ' + Number(num).toLocaleString('en-US');
-            }
 
-            generateColors(count) {
-                const colors = [];
-                for (let i = 0; i < count; i++) {
-                    const hue = (i * 360 / Math.max(count, 1)) % 360;
-                    colors.push('hsl(' + hue + ', 70%, 50%)');
-                }
-                return colors;
-            }
 
-            // ==================== CREATE ALL CHARTS ==================== //
 
-            createAllCharts() {
-                this.createPmaPmdnChart();
-                this.createDistrictChart();
-                this.createLocationChart();
-                this.createSectorChart();
-                this.createWorkforceCharts();
-                this.createRankingChart();
-                this.createProjectsCharts();
-                this.createCountryChart();
-                this.createQuarterlyChart();
-            }
 
-            createPmaPmdnChart() {
-                const totalProjectsPMA = parseInt(this.data.total_projects?.PMA ?? 0) || 0;
-                const totalProjectsPMDN = parseInt(this.data.total_projects?.PMDN ?? 0) || 0;
-                const addInvPMA = parseFloat(this.data.total_additional_investment?.PMA ?? 0) || 0;
-                const addInvPMDN = parseFloat(this.data.total_additional_investment?.PMDN ?? 0) || 0;
-
-                this.charts.pmaPmdn = new Chart(document.getElementById('pma-pmdn-chart'), {
-                    type: 'pie',
-                    data: {
-                        labels: ['PMA', 'PMDN'],
-                        datasets: [{
-                            data: [totalProjectsPMA, totalProjectsPMDN],
-                            backgroundColor: ['#3B82F6', '#F59E0B']
-                        }]
-                    },
-                    plugins: [ChartDataLabels],
-                    options: {
-                        plugins: {
-                            datalabels: {
-                                color: '#ffffff',
-                                formatter: (value, ctx) => {
-                                    const total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                    const percentage = ((value / total) * 100).toFixed(1);
-                                    const label = ctx.chart.data.labels[ctx.dataIndex];
-                                    const addInv = label === 'PMA' ? addInvPMA : addInvPMDN;
-                                    const addInvFormatted = this.currency === "USD" ? this.formatUSD(addInv) : this.formatRp(addInv);
-                                    return `${value} (${percentage}%)\nTambahan: ${addInvFormatted}`;
-                                },
-                                font: {
-                                    weight: 'bold',
-                                    size: 14
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => {
-                                        const label = ctx.label || '';
-                                        const value = ctx.raw || 0;
-                                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                        const percentage = ((value / total) * 100).toFixed(1);
-                                        const addInv = label === 'PMA' ? addInvPMA : addInvPMDN;
-                                        const addInvFormatted = this.currency === "USD" ? this.formatUSD(addInv) : this.formatRp(addInv);
-                                        return `${label}: ${value} proyek (${percentage}%)\nTambahan Investasi: ${addInvFormatted}`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            createDistrictChart() {
-                const dist = this.data.charts.district;
-                this.charts.district = new Chart(document.getElementById('district-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: dist.labels,
-                        datasets: [{
-                                label: 'PMA',
-                                data: dist.pma,
-                                backgroundColor: '#3B82F6'
-                            },
-                            {
-                                label: 'PMDN',
-                                data: dist.pmdn,
-                                backgroundColor: '#F59E0B'
-                            }
-                        ]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-            createLocationChart() {
-                const loc = this.data.charts.locations;
-                this.charts.location = new Chart(document.getElementById('investment-location-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: loc.labels,
-                        datasets: [{
-                            label: "Investasi",
-                            data: loc.values,
-                            backgroundColor: '#10B981'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-            createSectorChart() {
-                this.charts.sector = new Chart(document.getElementById('sector-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: this.data.charts.sectors.labels,
-                        datasets: [{
-                            label: 'Jumlah Proyek',
-                            data: this.data.charts.sectors.counts,
-                            backgroundColor: '#8B5CF6'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        indexAxis: 'y'
-                    }
-                });
-            }
-
-            createWorkforceCharts() {
-                const workforceData = this.data.workforce_by_district || {};
-
-                // PMA Workforce
-                const workforcePma = workforceData.PMA || {};
-                const pmaLabels = Object.keys(workforcePma);
-                const pmaTki = pmaLabels.map(l => workforcePma[l].TKI ?? 0);
-                const pmaTka = pmaLabels.map(l => workforcePma[l].TKA ?? 0);
-
-                this.charts.workforcePma = new Chart(document.getElementById('workforce-pma-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: pmaLabels,
-                        datasets: [{
-                                label: 'TKI',
-                                data: pmaTki,
-                                backgroundColor: '#EF4444'
-                            },
-                            {
-                                label: 'TKA',
-                                data: pmaTka,
-                                backgroundColor: '#F97316'
-                            }
-                        ]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-
-                // PMDN Workforce
-                const workforcePmdn = workforceData.PMDN || {};
-                const pmdnLabels = Object.keys(workforcePmdn);
-                const pmdnTki = pmdnLabels.map(l => workforcePmdn[l].TKI ?? 0);
-                const pmdnTka = pmdnLabels.map(l => workforcePmdn[l].TKA ?? 0);
-
-                this.charts.workforcePmdn = new Chart(document.getElementById('workforce-pmdn-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: pmdnLabels,
-                        datasets: [{
-                                label: 'TKI',
-                                data: pmdnTki,
-                                backgroundColor: '#EF4444'
-                            },
-                            {
-                                label: 'TKA',
-                                data: pmdnTka,
-                                backgroundColor: '#F97316'
-                            }
-                        ]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-            createRankingChart() {
-                const rankingData = this.data.ranking_by_district || [];
-                const rankingLabels = rankingData.map(item => item.district);
-                const rankingValues = rankingData.map(item => item.total_projects);
-
-                this.charts.rankingDistrict = new Chart(document.getElementById('ranking-district-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: rankingLabels,
-                        datasets: [{
-                            label: 'Total Proyek',
-                            data: rankingValues,
-                            backgroundColor: '#F59E0B'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-
-                this.populateRankingList(rankingData);
-            }
-
-            populateRankingList(rankingData) {
-                const rankingList = document.getElementById('ranking-list');
-                if (!rankingList) return;
-
-                rankingList.innerHTML = '';
-
-                const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-600', 'text-gray-500', 'text-gray-400'];
-                const medalIcons = ['fa-trophy', 'fa-medal', 'fa-medal', 'fa-medal', 'fa-medal'];
-
-                rankingData.forEach((item, index) => {
-                    const li = document.createElement('li');
-                    li.className = 'flex items-center justify-between p-2 bg-white rounded-lg shadow-sm';
-                    li.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fas ${index < 5 ? medalIcons[index] : 'fa-medal'} ${index < 5 ? medalColors[index] : 'text-gray-400'} mr-3"></i>
-                    <span class="font-medium text-gray-800">${item.district}</span>
-                </div>
-                <span class="font-bold text-blue-600">${item.total_projects} proyek</span>
-            `;
-                    rankingList.appendChild(li);
-                });
-            }
-
-            createProjectsCharts() {
-                // Use the sorted PMA and PMDN data separately
-                const pmaData = this.data.projects_by_district_pma || {};
-                const pmdnData = this.data.projects_by_district_pmdn || {};
-
-                const pmaLabels = Object.keys(pmaData);
-                const pmaValues = Object.values(pmaData);
-                const pmdnLabels = Object.keys(pmdnData);
-                const pmdnValues = Object.values(pmdnData);
-
-                // PMA Projects - sorted by PMA value descending
-                this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: pmaLabels,
-                        datasets: [{
-                            label: 'PMA',
-                            data: pmaValues,
-                            backgroundColor: '#3B82F6'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `PMA - ${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-
-                // PMDN Projects - sorted by PMDN value descending
-                this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: pmdnLabels,
-                        datasets: [{
-                            label: 'PMDN',
-                            data: pmdnValues,
-                            backgroundColor: '#F59E0B'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `PMDN - ${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-            createCountryChart() {
-                const countryData = this.data.charts.countries;
-                this.charts.country = new Chart(document.getElementById('country-chart'), {
-                    type: 'bar',
-                    data: {
-                        labels: countryData.labels,
-                        datasets: [{
-                            label: 'Jumlah Proyek',
-                            data: countryData.counts,
-                            backgroundColor: '#10B981'
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-
-            createQuarterlyChart() {
-                const quarterlyData = this.data.charts.quarterly_additional_investment;
-
-                if (quarterlyData && quarterlyData.labels && quarterlyData.values) {
-                    const canvasElement = document.getElementById('quarterly-additional-investment-chart');
-
-                    if (canvasElement) {
-                        this.charts.quarterlyAdditionalInvestment = new Chart(canvasElement, {
-                            type: 'bar',
-                            data: {
-                                labels: quarterlyData.labels,
-                                datasets: [{
-                                    label: 'Additional Investment',
-                                    data: quarterlyData.values,
-                                    backgroundColor: '#6366F1'
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    tooltip: {
-                                        callbacks: {
-                                            label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
-                                        }
-                                    }
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-
-            // ==================== CHART TOGGLES ==================== //
-
-            initializeChartToggles() {
-                const chartCheckboxes = [{
-                        id: 'show-pma-pmdn',
-                        container: 'pma-pmdn-container'
-                    },
-                    {
-                        id: 'show-district',
-                        container: 'district-container'
-                    },
-                    {
-                        id: 'show-investment',
-                        container: 'investment-container'
-                    },
-                    {
-                        id: 'show-sector',
-                        container: 'sector-container'
-                    },
-                    {
-                        id: 'show-workforce-pma',
-                        container: 'workforce-pma-container'
-                    },
-                    {
-                        id: 'show-workforce-pmdn',
-                        container: 'workforce-pmdn-container'
-                    },
-                    {
-                        id: 'show-ranking-district',
-                        container: 'ranking-district-container'
-                    },
-                    {
-                        id: 'show-projects-pma',
-                        container: 'projects-pma-container'
-                    },
-                    {
-                        id: 'show-projects-pmdn',
-                        container: 'projects-pmdn-container'
-                    },
-                    {
-                        id: 'show-country',
-                        container: 'country-container'
-                    },
-                    {
-                        id: 'show-quarterly-additional-investment',
-                        container: 'quarterly-additional-investment-container'
-                    }
-                ];
-
-                chartCheckboxes.forEach(({
-                    id,
-                    container
-                }) => {
-                    const checkbox = document.getElementById(id);
-                    const containerEl = document.getElementById(container);
-
-                    if (checkbox && containerEl) {
-                        checkbox.addEventListener('change', function() {
-                            containerEl.style.display = this.checked ? 'block' : 'none';
-                        });
-                    }
-                });
-            }
-
-            // ==================== CHART TYPE CHANGES ==================== //
-
-            initializeAllChartTypeChanges() {
-                this.initPmaPmdnTypeChange();
-                this.initDistrictTypeChange();
-                this.initInvestmentTypeChange();
-                this.initSectorTypeChange();
-                this.initWorkforcePmaTypeChange();
-                this.initWorkforcePmdnTypeChange();
-                this.initRankingDistrictTypeChange();
-                this.initProjectsPmaTypeChange();
-                this.initProjectsPmdnTypeChange();
-                this.initCountryTypeChange();
-                this.initQuarterlyTypeChange();
-            }
-
-            initPmaPmdnTypeChange() {
-                const typeSelect = document.getElementById('pma-pmdn-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.pmaPmdn) this.charts.pmaPmdn.destroy();
-
-                    const totalProjectsPMA = parseInt(this.data.total_projects?.PMA ?? 0) || 0;
-                    const totalProjectsPMDN = parseInt(this.data.total_projects?.PMDN ?? 0) || 0;
-                    const chartType = e.target.value === 'doughnut' ? 'doughnut' : e.target.value;
-
-                    this.charts.pmaPmdn = new Chart(document.getElementById('pma-pmdn-chart'), {
-                        type: chartType,
-                        data: {
-                            labels: ['PMA', 'PMDN'],
-                            datasets: [{
-                                data: [totalProjectsPMA, totalProjectsPMDN],
-                                backgroundColor: ['#3B82F6', '#F59E0B']
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => {
-                                            const label = ctx.label || '';
-                                            const value = ctx.raw || 0;
-                                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                                            return `${label}: ${value} proyek (${percentage}%)`;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                });
-            }
-
-            initDistrictTypeChange() {
-                const typeSelect = document.getElementById('district-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.district) this.charts.district.destroy();
-
-                    const chartType = e.target.value;
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const actualType = isHorizontal ? 'bar' : chartType;
-                    const dist = this.data.charts.district;
-
-                    this.charts.district = new Chart(document.getElementById('district-chart'), {
-                        type: actualType,
-                        data: {
-                            labels: dist.labels,
-                            datasets: [{
-                                    label: 'PMA',
-                                    data: dist.pma,
-                                    backgroundColor: '#3B82F6'
-                                },
-                                {
-                                    label: 'PMDN',
-                                    data: dist.pmdn,
-                                    backgroundColor: '#F59E0B'
-                                }
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            scales: actualType !== 'pie' ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    });
-                });
-            }
-
-            initInvestmentTypeChange() {
-                const typeSelect = document.getElementById('investment-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.location) this.charts.location.destroy();
-
-                    const chartType = e.target.value;
-                    const loc = this.data.charts.locations;
-
-                    this.charts.location = new Chart(document.getElementById('investment-location-chart'), {
-                        type: chartType === 'area' ? 'line' : chartType,
-                        data: {
-                            labels: loc.labels,
-                            datasets: [{
-                                label: "Investasi",
-                                data: loc.values,
-                                backgroundColor: '#10B981',
-                                fill: chartType === 'area'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
-                                    }
-                                }
-                            },
-                            scales: chartType !== 'pie' ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {}
-                        }
-                    });
-                });
-            }
-
-            initSectorTypeChange() {
-                const typeSelect = document.getElementById('sector-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.sector) this.charts.sector.destroy();
-
-                    const chartType = e.target.value;
-                    const isHorizontal = chartType === 'horizontalBar';
-
-                    this.charts.sector = new Chart(document.getElementById('sector-chart'), {
-                        type: isHorizontal ? 'bar' : chartType,
-                        data: {
-                            labels: this.data.charts.sectors.labels,
-                            datasets: [{
-                                label: 'Jumlah Proyek',
-                                data: this.data.charts.sectors.counts,
-                                backgroundColor: chartType === 'pie' ? this.generateColors(this.data.charts.sectors.labels.length) : '#8B5CF6'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            indexAxis: isHorizontal ? 'y' : 'x',
-                            scales: chartType !== 'pie' ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {}
-                        }
-                    });
-                });
-            }
-
-            initWorkforcePmaTypeChange() {
-                const typeSelect = document.getElementById('workforce-pma-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.workforcePma) this.charts.workforcePma.destroy();
-
-                    const chartType = e.target.value;
-                    const workforceData = this.data.workforce_by_district || {};
-                    const workforcePma = workforceData.PMA || {};
-                    const pmaLabels = Object.keys(workforcePma);
-                    const pmaTki = pmaLabels.map(l => workforcePma[l].TKI ?? 0);
-                    const pmaTka = pmaLabels.map(l => workforcePma[l].TKA ?? 0);
-
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const isStacked = chartType === 'stacked';
-                    const isPie = chartType === 'pie';
-                    const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
-
-                    let config = {
-                        type: actualType,
-                        data: {
-                            labels: pmaLabels,
-                            datasets: isPie ? [{
-                                label: 'Workforce',
-                                data: pmaTki.map((tki, i) => tki + pmaTka[i]),
-                                backgroundColor: this.generateColors(pmaLabels.length)
-                            }] : [{
-                                    label: 'TKI',
-                                    data: pmaTki,
-                                    backgroundColor: '#EF4444'
-                                },
-                                {
-                                    label: 'TKA',
-                                    data: pmaTka,
-                                    backgroundColor: '#F97316'
-                                }
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => isPie ? `${ctx.label}: ${ctx.raw} orang` : `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
-                                    }
-                                }
-                            },
-                            scales: !isPie ? {
-                                y: {
-                                    beginAtZero: true,
-                                    stacked: isStacked
-                                },
-                                x: {
-                                    stacked: isStacked
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    };
-
-                    this.charts.workforcePma = new Chart(document.getElementById('workforce-pma-chart'), config);
-                });
-            }
-
-            initWorkforcePmdnTypeChange() {
-                const typeSelect = document.getElementById('workforce-pmdn-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.workforcePmdn) this.charts.workforcePmdn.destroy();
-
-                    const chartType = e.target.value;
-                    const workforceData = this.data.workforce_by_district || {};
-                    const workforcePmdn = workforceData.PMDN || {};
-                    const pmdnLabels = Object.keys(workforcePmdn);
-                    const pmdnTki = pmdnLabels.map(l => workforcePmdn[l].TKI ?? 0);
-                    const pmdnTka = pmdnLabels.map(l => workforcePmdn[l].TKA ?? 0);
-
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const isStacked = chartType === 'stacked';
-                    const isPie = chartType === 'pie';
-                    const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
-
-                    let config = {
-                        type: actualType,
-                        data: {
-                            labels: pmdnLabels,
-                            datasets: isPie ? [{
-                                label: 'Workforce',
-                                data: pmdnTki.map((tki, i) => tki + pmdnTka[i]),
-                                backgroundColor: this.generateColors(pmdnLabels.length)
-                            }] : [{
-                                    label: 'TKI',
-                                    data: pmdnTki,
-                                    backgroundColor: '#EF4444'
-                                },
-                                {
-                                    label: 'TKA',
-                                    data: pmdnTka,
-                                    backgroundColor: '#F97316'
-                                }
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => isPie ? `${ctx.label}: ${ctx.raw} orang` : `${ctx.dataset.label} - ${ctx.label}: ${ctx.raw} orang`
-                                    }
-                                }
-                            },
-                            scales: !isPie ? {
-                                y: {
-                                    beginAtZero: true,
-                                    stacked: isStacked
-                                },
-                                x: {
-                                    stacked: isStacked
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    };
-
-                    this.charts.workforcePmdn = new Chart(document.getElementById('workforce-pmdn-chart'), config);
-                });
-            }
-
-            initRankingDistrictTypeChange() {
-                const typeSelect = document.getElementById('ranking-district-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.rankingDistrict) this.charts.rankingDistrict.destroy();
-
-                    const chartType = e.target.value;
-                    const rankingData = this.data.ranking_by_district || [];
-                    const rankingLabels = rankingData.map(item => item.district);
-                    const rankingValues = rankingData.map(item => item.total_projects);
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const isPie = chartType === 'pie';
-
-                    this.charts.rankingDistrict = new Chart(document.getElementById('ranking-district-chart'), {
-                        type: isHorizontal ? 'bar' : chartType,
-                        data: {
-                            labels: rankingLabels,
-                            datasets: [{
-                                label: 'Total Proyek',
-                                data: rankingValues,
-                                backgroundColor: isPie ? this.generateColors(rankingLabels.length) : '#F59E0B'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            scales: !isPie ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    });
-                });
-            }
-
-            initProjectsPmaTypeChange() {
-                const typeSelect = document.getElementById('projects-pma-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.projectsPma) this.charts.projectsPma.destroy();
-
-                    const chartType = e.target.value;
-                    const dist = this.data.charts.district;
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const isPie = chartType === 'pie';
-
-                    this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
-                        type: (isHorizontal || chartType === 'horizontalLine') ? 'bar' : chartType,
-                        data: {
-                            labels: dist.labels,
-                            datasets: [{
-                                label: 'PMA',
-                                data: dist.pma,
-                                backgroundColor: isPie ? this.generateColors(dist.labels.length) : '#3B82F6'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `PMA - ${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            scales: !isPie ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    });
-                });
-            }
-
-            initProjectsPmdnTypeChange() {
-                const typeSelect = document.getElementById('projects-pmdn-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.projectsPmdn) this.charts.projectsPmdn.destroy();
-
-                    const chartType = e.target.value;
-                    const dist = this.data.charts.district;
-                    const isHorizontal = chartType === 'horizontalBar' || chartType === 'horizontalLine';
-                    const isPie = chartType === 'pie';
-
-                    this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
-                        type: isHorizontal ? 'bar' : chartType,
-                        data: {
-                            labels: dist.labels,
-                            datasets: [{
-                                label: 'PMDN',
-                                data: dist.pmdn,
-                                backgroundColor: isPie ? this.generateColors(dist.labels.length) : '#F59E0B'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `PMDN - ${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            scales: !isPie ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    });
-                });
-            }
-
-            initCountryTypeChange() {
-                const typeSelect = document.getElementById('country-type');
-                if (!typeSelect) return;
-
-                typeSelect.addEventListener('change', (e) => {
-                    if (this.charts.country) this.charts.country.destroy();
-
-                    const chartType = e.target.value;
-                    const countryData = this.data.charts.countries;
-                    const isHorizontal = chartType === 'horizontalBar';
-                    const isPieOrDoughnut = chartType === 'pie' || chartType === 'doughnut';
-
-                    this.charts.country = new Chart(document.getElementById('country-chart'), {
-                        type: isHorizontal ? 'bar' : chartType,
-                        data: {
-                            labels: countryData.labels,
-                            datasets: [{
-                                label: 'Jumlah Proyek',
-                                data: countryData.counts,
-                                backgroundColor: isPieOrDoughnut ? this.generateColors(countryData.labels.length) : '#10B981'
-                            }]
-                        },
-                        options: {
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: (ctx) => `${ctx.label}: ${ctx.raw} proyek`
-                                    }
-                                }
-                            },
-                            scales: !isPieOrDoughnut ? {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            } : {},
-                            indexAxis: isHorizontal ? 'y' : 'x'
-                        }
-                    });
-                });
-            }
-
-            initQuarterlyTypeChange() {
-                const typeSelect = document.getElementById('quarterly-additional-investment-type');
-                const yearSelect = document.getElementById('quarterly-additional-investment-year');
-
-                if (!typeSelect || !yearSelect) return;
-
-                const updateQuarterlyChart = () => {
-                    if (this.charts.quarterlyAdditionalInvestment) {
-                        this.charts.quarterlyAdditionalInvestment.destroy();
-                    }
-
-                    const chartType = typeSelect.value;
-                    const selectedYear = yearSelect.value;
-
-                    console.log('Updating quarterly chart - Year:', selectedYear, 'Type:', chartType);
-
-                    // Get data for selected year
-                    let quarterlyData;
-                    if (selectedYear === 'all') {
-                        quarterlyData = this.data.charts.quarterly_additional_investment;
-                    } else {
-                        const allQuarterlyData = this.data.charts.quarterly_additional_investment_all_years || {};
-                        quarterlyData = allQuarterlyData[selectedYear] || {
-                            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                            values: [0, 0, 0, 0]
-                        };
-                    }
-
-                    console.log('Quarterly data:', quarterlyData);
-
-                    const isPie = chartType === 'pie';
-
-                    this.charts.quarterlyAdditionalInvestment = new Chart(
-                        document.getElementById('quarterly-additional-investment-chart'), {
-                            type: chartType === 'area' ? 'line' : chartType,
-                            data: {
-                                labels: quarterlyData.labels,
-                                datasets: [{
-                                    label: 'Additional Investment',
-                                    data: quarterlyData.values,
-                                    backgroundColor: isPie ? this.generateColors(4) : '#6366F1',
-                                    fill: chartType === 'area'
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    tooltip: {
-                                        callbacks: {
-                                            label: (ctx) => this.currency === "USD" ? this.formatUSD(ctx.raw) : this.formatRp(ctx.raw)
-                                        }
-                                    }
-                                },
-                                scales: !isPie ? {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                } : {}
-                            }
-                        }
-                    );
-                };
-
-                typeSelect.addEventListener('change', updateQuarterlyChart);
-                yearSelect.addEventListener('change', updateQuarterlyChart);
-            }
-        }
-
-        // Initialize charts when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof data !== 'undefined' && typeof currentFilters !== 'undefined') {
-                const currency = (currentFilters && currentFilters.currency) ? currentFilters.currency : "IDR";
-                const usdRate = data.usd_rate ?? 15000;
-                window.chartsManager = new ChartsManager(data, currency, usdRate);
-            }
-        });
-
-        const searchInput = document.getElementById('search-charts');
-        const chartItems = document.querySelectorAll('.chart-item');
-
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase();
-            chartItems.forEach(item => {
-                const label = item.querySelector('span').textContent.toLowerCase();
-                if (label.includes(query)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
 
 
         // Dashboard JavaScript - Extracted from dashboard.php
 
-        class DashboardApp {
-            constructor(data, currentFilters) {
-                this.data = data;
-                this.currentFilters = currentFilters;
-                this.currency = (currentFilters && currentFilters.currency) ? currentFilters.currency : "IDR";
-                this.usdRate = data.usd_rate ?? 15000;
 
-                this.totalProjectsPMA = parseInt(data.total_projects?.PMA ?? 0) || 0;
-                this.totalProjectsPMDN = parseInt(data.total_projects?.PMDN ?? 0) || 0;
-                this.invPMA = parseFloat(data.total_investment?.PMA ?? 0) || 0;
-                this.invPMDN = parseFloat(data.total_investment?.PMDN ?? 0) || 0;
-                this.addInvPMA = parseFloat(data.total_additional_investment?.PMA ?? 0) || 0;
-                this.addInvPMDN = parseFloat(data.total_additional_investment?.PMDN ?? 0) || 0;
 
-                this.init();
-            }
-
-            init() {
-                this.populateStatsCards();
-                this.initializeEventListeners();
-                this.addAnimationStyles();
-                this.initializeDragAndDrop();
-            }
-
-            generateColors(count) {
-                const colors = [];
-                for (let i = 0; i < count; i++) {
-                    const hue = (i * 360 / Math.max(count, 1)) % 360;
-                    colors.push('hsl(' + hue + ', 70%, 50%)');
-                }
-                return colors;
-            }
-
-            formatRp(num) {
-                if (!num) return 'Rp 0';
-                return 'Rp ' + Number(num).toLocaleString('id-ID');
-            }
-
-            formatUSD(num) {
-                if (!num) return '$ 0';
-                return '$ ' + Number(num).toLocaleString('en-US');
-            }
-
-            convertCurrency(val) {
-                if (this.currency === "USD") return val / this.usdRate;
-                return val;
-            }
-
-            populateStatsCards() {
-                const totalInv = this.invPMA + this.invPMDN;
-                const totalAddInv = this.addInvPMA + this.addInvPMDN;
-
-                const formatNumber = (num) => {
-                    const str = this.currency === "USD" ? this.formatUSD(num) : this.formatRp(num);
-                    return str.length > 15 ? '<span class="text-2xl">' + str + '</span>' : '<span class="text-3xl">' + str + '</span>';
-                };
-
-                const statsContainer = document.getElementById('stats-cards');
-
-                const cards = [
-                    this.createStatCard('Total Proyek', this.totalProjectsPMA + this.totalProjectsPMDN, 'PMA & PMDN Gabungan', 'blue', 'fa-project-diagram'),
-                    this.createStatCard('Total Investasi', formatNumber(totalInv), 'Nilai Investasi PMA & PMDN', 'green', 'fa-money-bill-wave'),
-                    this.createStatCard('Total Tambahan Investasi', formatNumber(totalAddInv), 'Tambahan Investasi PMA & PMDN', 'teal', 'fa-plus-circle'),
-                    this.createStatCard('Proyek PMA', this.totalProjectsPMA, 'Penanaman Modal Asing', 'purple', 'fa-globe'),
-                    this.createStatCard('Proyek PMDN', this.totalProjectsPMDN, 'Penanaman Modal Dalam Negeri', 'orange', 'fa-home'),
-                    this.createStatCard('Total Investasi PMA', formatNumber(this.invPMA), 'Investasi PMA', 'indigo', 'fa-money-bill-wave'),
-                    this.createStatCard('Total Investasi PMDN', formatNumber(this.invPMDN), 'Investasi PMDN', 'cyan', 'fa-money-bill-wave'),
-                    this.createStatCard('Tambahan Investasi PMA', formatNumber(this.addInvPMA), 'Tambahan Investasi PMA', 'pink', 'fa-plus-circle'),
-                    this.createStatCard('Tambahan Investasi PMDN', formatNumber(this.addInvPMDN), 'Tambahan Investasi PMDN', 'lime', 'fa-plus-circle')
-                ];
-
-                statsContainer.innerHTML = cards.join('');
-            }
-
-            createStatCard(title, value, subtitle, color, icon) {
-                return `
-            <div class="modern-card bg-gradient-to-br from-${color}-50 to-${color}-100 shadow-xl rounded-xl p-6 chart-container animate-fade-in border-l-4 border-${color}-500">
-                <div class="flex items-center justify-between">
-                    <div class="flex-1">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">${title}</h3>
-                        <p class="font-bold text-${color}-600 overflow-hidden text-ellipsis">${value}</p>
-                        <p class="text-sm text-gray-600 mt-1">${subtitle}</p>
-                    </div>
-                    <div class="bg-${color}-100 p-4 rounded-full shadow-lg">
-                        <i class="fas ${icon} text-3xl text-${color}-600"></i>
-                    </div>
-                </div>
-            </div>
-        `;
-            }
-
-            initializeEventListeners() {
-                // Currency filter
-                const currencyFilter = document.getElementById("filter-currency");
-                if (currencyFilter) {
-                    currencyFilter.addEventListener("change", () => this.applyCurrencyFilter());
-                }
-
-                // Language switcher
-                const languageSwitcher = document.getElementById('language-switcher');
-                if (languageSwitcher) {
-                    languageSwitcher.addEventListener('change', (e) => this.changeLanguage(e.target.value));
-                }
-
-                // Set current currency value
-                if (this.currentFilters && typeof this.currentFilters === 'object') {
-                    if (this.currentFilters.currency && currencyFilter) {
-                        currencyFilter.value = this.currentFilters.currency;
-                    }
-                }
-            }
-
-            applyCurrencyFilter() {
-                const selectedCurrency = document.getElementById('filter-currency').value;
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentUpload = urlParams.get('upload') || 'all';
-
-                const params = new URLSearchParams();
-                if (currentUpload !== 'all') params.append('upload', currentUpload);
-                if (selectedCurrency !== 'IDR') params.append('currency', selectedCurrency);
-
-const url = '<?= base_url('dashboard') ?>' + (params.toString() ? '?' + params.toString() : '');
-                window.location.href = url;
-            }
-
-            changeLanguage(language) {
-fetch('<?= base_url('dashboard/setLanguage') ?>', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: 'language=' + encodeURIComponent(language)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            window.location.reload();
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal Mengubah Bahasa',
-                                text: 'Failed to set language: ' + (data.message || 'Unknown error'),
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Terjadi Kesalahan',
-                            text: 'An error occurred while changing language',
-                            confirmButtonText: 'OK'
-                        });
-                    });
-            }
-
-            addAnimationStyles() {
-                const style = document.createElement('style');
-                style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fade-in {
-                animation: fadeIn 0.6s ease-out;
-            }
-        `;
-                document.head.appendChild(style);
-            }
-
-            initializeDragAndDrop() {
-                const dropZone = document.getElementById('drop-zone');
-                const fileInput = document.getElementById('excel-file-input');
-                const uploadText = document.getElementById('upload-text');
-                const fileName = document.getElementById('file-name');
-
-                if (!dropZone || !fileInput) return;
-
-                // Prevent default drag behaviors
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, this.preventDefaults, false);
-                    document.body.addEventListener(eventName, this.preventDefaults, false);
-                });
-
-                // Highlight drop zone
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, () => {
-                        dropZone.classList.add('border-blue-600', 'bg-blue-50');
-                    }, false);
-                });
-
-                ['dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, () => {
-                        dropZone.classList.remove('border-blue-600', 'bg-blue-50');
-                    }, false);
-                });
-
-                // Handle drop
-                dropZone.addEventListener('drop', (e) => {
-                    const dt = e.dataTransfer;
-                    const files = dt.files;
-
-                    if (files.length > 0) {
-                        const dataTransfer = new DataTransfer();
-                        dataTransfer.items.add(files[0]);
-                        fileInput.files = dataTransfer.files;
-                        fileInput.dispatchEvent(new Event('change', {
-                            bubbles: true
-                        }));
-                        this.displayFileName(files[0], fileName, uploadText);
-                    }
-                }, false);
-
-                // Handle file input change
-                fileInput.addEventListener('change', (e) => {
-                    const files = e.target.files;
-                    if (files.length > 0) {
-                        this.displayFileName(files[0], fileName, uploadText);
-                    }
-                }, false);
-            }
-
-            preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
-            displayFileName(file, fileNameElement, uploadTextElement) {
-                const fileNameText = file.name.length > 30 ? file.name.substring(0, 27) + '...' : file.name;
-                fileNameElement.textContent = `File dipilih: ${fileNameText}`;
-                fileNameElement.classList.remove('hidden');
-                uploadTextElement.textContent = 'File berhasil dipilih!';
-            }
-        }
-
-        // Global functions for onclick handlers
-        function confirmDelete(uploadId) {
-            Swal.fire({
-                title: 'Konfirmasi Hapus',
-                text: "Apakah Anda yakin ingin menghapus unggahan ini beserta seluruh datanya?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + uploadId).submit();
-                }
-            });
-        }
-
-        // Initialize app when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof data !== 'undefined' && typeof currentFilters !== 'undefined') {
-                window.dashboardApp = new DashboardApp(data, currentFilters);
-            }
-        });
     </script>
     <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
     <script src="<?= base_url('assets/js/charts.js') ?>"></script>

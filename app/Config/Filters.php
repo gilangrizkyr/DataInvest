@@ -17,23 +17,22 @@ use App\Filters\AuthFilter;
 class Filters extends BaseFilters
 {
     public array $aliases = [
-        'csrf'              => CSRF::class,
-        'toolbar'           => DebugToolbar::class,
-        'honeypot'          => Honeypot::class,
-        'invalidchars'      => InvalidChars::class,
-        'secureheaders'     => SecureHeaders::class,
-        'cors'              => Cors::class,
-        'forcehttps'        => ForceHTTPS::class,
-        'pagecache'         => PageCache::class,
-        'performance'       => PerformanceMetrics::class,
-        'threatdetection'   => \App\Filters\ThreatDetection::class,
-        'roleFilter'        => \App\Filters\RoleFilter::class,
-        'auth'              => AuthFilter::class,
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
+        'honeypot' => Honeypot::class,
+        'invalidchars' => InvalidChars::class,
+        'secureheaders' => SecureHeaders::class,
+        'cors' => Cors::class,
+        'forcehttps' => ForceHTTPS::class,
+        'pagecache' => PageCache::class,
+        'performance' => PerformanceMetrics::class,
+        'threatdetection' => \App\Filters\ThreatDetection::class,
+        'roleFilter' => \App\Filters\RoleFilter::class,
+        'auth' => AuthFilter::class,
     ];
 
     public array $required = [
         'before' => [
-            'forcehttps',
             'pagecache',
         ],
         'after' => [

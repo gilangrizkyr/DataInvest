@@ -1,11 +1,23 @@
-version: '3.8'
 services:
   app:
-    build: .
-    container_name: DataInvest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: datainvest
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+      - app_writable:/var/www/html/writable
+      - app_uploads:/var/www/html/public/uploads
     ports:
-      - "8080:80"    # PHP
-      # - "3000:3000" # Node
+      - "9006:80"
     env_file:
       - .env
-    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  app_writable:
+  app_uploads:
