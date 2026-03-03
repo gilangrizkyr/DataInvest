@@ -8,22 +8,6 @@ Options -Indexes
     Options +FollowSymlinks
     RewriteEngine On
     
-    # Redirect root ke public folder (dari root .htaccess)
-    RewriteBase /DataInvest/public/
-
-    # Pengecualian untuk file statis
-    RewriteCond %{REQUEST_URI} !^/public/assets/
-    RewriteCond %{REQUEST_URI} !^/public/uploads/
-    RewriteCond %{REQUEST_URI} !^/public/favicon\.ico
-    RewriteCond %{REQUEST_URI} !^/public/logo-dpmptsp\.png
-    RewriteCond %{REQUEST_URI} !^/assets/
-    RewriteCond %{REQUEST_URI} !^/uploads/
-    RewriteCond %{REQUEST_URI} !^/favicon\.ico
-    RewriteCond %{REQUEST_URI} !^/logo-dpmptsp\.png
-
-    # JANGAN rewrite jika sudah ada index.php di URL (mencegah loop)
-    RewriteCond %{REQUEST_URI} !^/index\.php
-
     # Jika file/folder nyata tidak ditemukan, arahkan ke index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
