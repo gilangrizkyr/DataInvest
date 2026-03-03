@@ -77,7 +77,12 @@ class DashboardService
 
         // Convert ke USD jika filter currency = USD
         if (($filters['currency'] ?? 'IDR') === 'USD') {
-            $this->currencyService->convertToUSD($statistics, $upload['usd_value']);
+            // Update: data charts juga dikirim untuk dikonversi
+            $conversionData = &$statistics;
+            $conversionData['charts'] = &$charts;
+            $conversionData['investment_by_location'] = &$statistics['investment_by_location'];
+
+            $this->currencyService->convertToUSD($conversionData, $upload['usd_value']);
 
             // Juga konversi data ranking perusahaan
             foreach (['PMA', 'PMDN'] as $type) {

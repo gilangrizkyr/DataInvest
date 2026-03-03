@@ -35,7 +35,7 @@
         <div class="flex flex-col sm:flex-row gap-4">
             <a href="#public-stats"
                 class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition transform hover:scale-105 shadow-xl shadow-blue-900/40">
-                <i class="fas fa-chart-pie mr-2"></i>Lihat Statistik Riil
+                <i class="fas fa-chart-pie mr-2"></i>Lihat Statistik
             </a>
         </div>
     </div>

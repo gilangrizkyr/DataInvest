@@ -29,6 +29,33 @@ class CurrencyService
         if (isset($data['additional_investment_percentages'])) {
             $this->convertPercentagesData($data['additional_investment_percentages'], $usdRate);
         }
+
+        // Convert charts data
+        if (isset($data['charts'])) {
+            $this->convertChartsData($data['charts'], $usdRate);
+        }
+    }
+
+    private function convertChartsData(array &$charts, float $usdRate): void
+    {
+        // Convert locations chart
+        if (isset($charts['locations']['values'])) {
+            foreach ($charts['locations']['values'] as &$amount) {
+                $amount = round($amount / $usdRate, 2);
+            }
+        }
+
+        // Convert district chart datasets
+        if (isset($charts['district']['pma'])) {
+            foreach ($charts['district']['pma'] as &$amount) {
+                $amount = round($amount / $usdRate, 2);
+            }
+        }
+        if (isset($charts['district']['pmdn'])) {
+            foreach ($charts['district']['pmdn'] as &$amount) {
+                $amount = round($amount / $usdRate, 2);
+            }
+        }
     }
 
     private function convertInvestments(array &$investments, float $usdRate): void

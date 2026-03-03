@@ -140,6 +140,11 @@
             </select>
         </div>
     </div>
+    <?php
+    $currency = $data['filters']['currency'] ?? 'IDR';
+    $currencySymbol = $currency === 'USD' ? '$' : 'Rp';
+    $currencyLabel = $currency === 'USD' ? 'USD ($)' : 'IDR (Rp)';
+    ?>
 
     <!-- Lampu Sorot Data (Data Spotlight) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
@@ -191,8 +196,7 @@
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Total
                         Realisasi</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
-                        <span
-                            class="text-blue-600 font-bold"><?= ($data['filters']['currency'] ?? 'IDR') === 'USD' ? '$' : 'Rp' ?></span>
+                        <span class="text-blue-600 font-bold"><?= $currencySymbol ?></span>
                         <?= number_format(($data['total_investment']['PMA'] ?? 0) + ($data['total_investment']['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
                 </div>
@@ -203,13 +207,13 @@
             <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                 <div class="flex flex-col">
                     <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
-                    <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['total_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
+                    <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
+                        <?= number_format($data['total_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
                 <div class="flex flex-col text-right">
                     <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
-                    <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['total_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
+                    <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
+                        <?= number_format($data['total_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
             </div>
         </div>
@@ -221,8 +225,7 @@
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">
                         Tambahan Investasi</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
-                        <span
-                            class="text-sky-600 font-bold"><?= ($data['filters']['currency'] ?? 'IDR') === 'USD' ? '$' : 'Rp' ?></span>
+                        <span class="text-sky-600 font-bold"><?= $currencySymbol ?></span>
                         <?= number_format(($data['total_additional_investment']['PMA'] ?? 0) + ($data['total_additional_investment']['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
                 </div>
@@ -233,13 +236,13 @@
             <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
                 <div class="flex flex-col">
                     <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMA</span>
-                    <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['total_additional_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
+                    <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
+                        <?= number_format($data['total_additional_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
                 <div class="flex flex-col text-right">
                     <span class="text-[9px] text-slate-400 font-black uppercase tracking-tighter mb-0.5">PMDN</span>
-                    <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['total_additional_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
+                    <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
+                        <?= number_format($data['total_additional_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
             </div>
         </div>
@@ -461,7 +464,7 @@
         <div class="flex items-center justify-between mb-8">
             <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-amber-500 rounded-full mr-3"></span>
-                Top 10 Realisasi per Kecamatan (IDR)
+                Top 10 Realisasi per Kecamatan (<?= $currency ?>)
             </h3>
             <select onchange="switchChartType('locationChart', this.value)"
                 class="text-[10px] font-black border-slate-300 rounded-lg py-1 px-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-100 text-slate-800 shadow-sm cursor-pointer outline-none">
@@ -572,7 +575,7 @@
                             Persentase</th>
                         <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
-                            Nilai (<?= $data['filters']['currency'] ?? 'IDR' ?>)</th>
+                            Nilai (<?= $currency ?>)</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -593,7 +596,7 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 text-xs text-right font-black text-slate-600 tabular-nums">
-                                    <?= number_format($info['amount'], 0, ',', '.') ?>
+                                    <?= $currencySymbol ?>         <?= number_format($info['amount'], 0, ',', '.') ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -619,8 +622,9 @@
                 </div>
                 <div class="flex flex-col items-end">
                     <span class="text-[9px] font-bold text-blue-400 uppercase tracking-tighter">Nilai
-                        (<?= $data['filters']['currency'] ?? 'IDR' ?>)</span>
+                        (<?= $currency ?>)</span>
                     <span class="text-lg font-black tabular-nums">
+                        <?= $currencySymbol ?>
                         <?= number_format(array_sum(array_column($data['additional_investment_percentages']['PMA'] ?? [], 'amount')), 0, ',', '.') ?>
                     </span>
                 </div>
@@ -648,7 +652,7 @@
                             Persentase</th>
                         <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
-                            Nilai (<?= $data['filters']['currency'] ?? 'IDR' ?>)</th>
+                            Nilai (<?= $currency ?>)</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -669,7 +673,7 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-6 text-xs text-right font-black text-slate-600 tabular-nums">
-                                    <?= number_format($info['amount'], 0, ',', '.') ?>
+                                    <?= $currencySymbol ?>         <?= number_format($info['amount'], 0, ',', '.') ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -695,8 +699,9 @@
                 </div>
                 <div class="flex flex-col items-end">
                     <span class="text-[9px] font-bold text-green-400 uppercase tracking-tighter">Nilai
-                        (<?= $data['filters']['currency'] ?? 'IDR' ?>)</span>
+                        (<?= $currency ?>)</span>
                     <span class="text-lg font-black tabular-nums">
+                        <?= $currencySymbol ?>
                         <?= number_format(array_sum(array_column($data['additional_investment_percentages']['PMDN'] ?? [], 'amount')), 0, ',', '.') ?>
                     </span>
                 </div>
@@ -745,7 +750,7 @@
                             Nama Perusahaan</th>
                         <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
-                            Realisasi (<?= $data['filters']['currency'] ?? 'IDR' ?>)</th>
+                            Realisasi (<?= $currency ?>)</th>
                         <th
                             class="text-center py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             TKA</th>
@@ -767,7 +772,7 @@
                                     <?= esc($row['nama_perusahaan']) ?>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
-                                    <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
+                                    <?= $currencySymbol ?>         <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-center font-bold text-slate-500 tabular-nums">
                                     <?= number_format($row['jumlah_tka'] ?? 0) ?>
@@ -846,7 +851,7 @@
                             Nama Perusahaan</th>
                         <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
-                            Realisasi (<?= $data['filters']['currency'] ?? 'IDR' ?>)</th>
+                            Realisasi (<?= $currency ?>)</th>
                         <th
                             class="text-center py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             TKA</th>
@@ -868,7 +873,7 @@
                                     <?= esc($row['nama_perusahaan']) ?>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-right font-black text-green-600 tabular-nums">
-                                    <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
+                                    <?= $currencySymbol ?>         <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-center font-bold text-slate-500 tabular-nums">
                                     <?= number_format($row['jumlah_tka'] ?? 0) ?>
@@ -1099,16 +1104,17 @@
             </div>
             <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                 <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Unit Mata Uang</p>
-                <p class="text-lg font-bold text-slate-800"><?= $data['filters']['currency'] ?? 'IDR' ?></p>
+                <p class="text-lg font-bold text-slate-800"><?= $currency ?></p>
             </div>
         </div>
         <table id="metadata-table" class="w-full border-collapse">
             <thead>
                 <tr class="bg-slate-900 text-white">
                     <th class="p-5 text-left font-black uppercase tracking-widest text-xs">Indikator Kinerja Utama</th>
-                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">PMA</th>
-                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">PMDN</th>
-                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">TOTAL KOMULATIF</th>
+                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">PMA (<?= $currency ?>)</th>
+                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">PMDN (<?= $currency ?>)</th>
+                    <th class="p-5 text-right font-black uppercase tracking-widest text-xs">TOTAL (<?= $currency ?>)
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -1209,7 +1215,7 @@
                         font: { family: 'Inter', weight: '900', size: 10 },
                         formatter: (value, ctx) => {
                             if (value === 0) return '';
-                            const currency = '<?= ($data['filters']['currency'] ?? 'IDR') === 'USD' ? '$' : 'Rp' ?>';
+                            const currency = '<?= $currencySymbol ?>';
                             return currency + ' ' + value.toLocaleString('id-ID');
                         }
                     }

@@ -157,7 +157,7 @@ class ProjectModel extends Model
 
         $totals = ['PMA' => 0, 'PMDN' => 0];
         foreach ($result as $row) {
-            $totals[$row['investment_type']] = $row['total'];
+            $totals[$row['investment_type']] = (float) $row['total'];
         }
         return $totals;
     }
@@ -179,7 +179,7 @@ class ProjectModel extends Model
 
         $totals = ['PMA' => 0, 'PMDN' => 0];
         foreach ($result as $row) {
-            $totals[$row['investment_type']] = $row['total'];
+            $totals[$row['investment_type']] = (float) $row['total'];
         }
         return $totals;
     }
@@ -256,7 +256,7 @@ class ProjectModel extends Model
 
         $investments = [];
         foreach ($result as $row) {
-            $investments[$row['subdistrict']] = $row['total'];
+            $investments[$row['subdistrict']] = (float) $row['total'];
         }
         // Already sorted by DESC, but ensure with arsort
         arsort($investments);
@@ -409,8 +409,8 @@ class ProjectModel extends Model
         $stats = $this->getStatisticsByUpload($uploadId);
         if ($stats) {
             return [
-                'PMA' => $stats['realization_investment_pma'] ?? 0,
-                'PMDN' => $stats['realization_investment_pmdn'] ?? 0
+                'PMA' => (float) ($stats['realization_investment_pma'] ?? 0),
+                'PMDN' => (float) ($stats['realization_investment_pmdn'] ?? 0)
             ];
         }
 
@@ -422,7 +422,7 @@ class ProjectModel extends Model
 
         $realization = ['PMA' => 0, 'PMDN' => 0];
         foreach ($result as $row) {
-            $realization[$row['investment_type']] = $row['realization'];
+            $realization[$row['investment_type']] = (float) $row['realization'];
         }
         return $realization;
     }
@@ -470,7 +470,7 @@ class ProjectModel extends Model
 
         $investments = ['PMA' => [], 'PMDN' => []];
         foreach ($result as $row) {
-            $investments[$row['investment_type']][$row['subdistrict']] = $row['total'];
+            $investments[$row['investment_type']][$row['subdistrict']] = (float) $row['total'];
         }
         return $investments;
     }
