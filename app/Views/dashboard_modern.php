@@ -1600,6 +1600,101 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, `Ranking ${type}`);
             XLSX.writeFile(workbook, `Ranking_${type}_${new Date().getTime()}.xlsx`);
         };
+
+        // --- BUBBLE SORT ANIMATION LOGIC FOR DASHBOARD ---
+
+        function shuffleChartData(chart) {
+            if (!chart || !chart.data.datasets[0]) return;
+            const datasets = chart.data.datasets;
+            const labels = chart.data.labels;
+            const n = labels.length;
+
+            for (let i = n - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                // Swap labels
+                [labels[i], labels[j]] = [labels[j], labels[i]];
+                // Swap data in all datasets
+                datasets.forEach(ds => {
+                    [ds.data[i], ds.data[j]] = [ds.data[j], ds.data[i]];
+                });
+            }
+            chart.update();
+        }
+
+        async function animateBubbleSort(chart) {
+            if (!chart || !chart.data.datasets[0]) return;
+
+            const datasets = chart.data.datasets;
+            const labels = chart.data.labels;
+            const n = labels.length;
+
+            if (n <= 1) return;
+
+            for (let i = 0; i < n - 1; i++) {
+                let swapped = false;
+                for (let j = 0; j < n - i - 1; j++) {
+                    // Logic for comparison: 
+                    // If multi-dataset, use sum of values at that index
+                    let val1 = 0;
+                    let val2 = 0;
+                    datasets.forEach(ds => {
+                        val1 += Number(ds.data[j] || 0);
+                        val2 += Number(ds.data[j + 1] || 0);
+                    });
+
+                    if (val1 < val2) { // Descending
+                        // Swap labels
+                        let tempLabel = labels[j];
+                        labels[j] = labels[j + 1];
+                        labels[j + 1] = tempLabel;
+
+                        // Swap data in all datasets
+                        datasets.forEach(ds => {
+                            let tempVal = ds.data[j];
+                            ds.data[j] = ds.data[j + 1];
+                            ds.data[j + 1] = tempVal;
+                        });
+                        swapped = true;
+                    }
+                }
+
+                if (swapped) {
+                    chart.update({
+                        duration: 400,
+                        easing: 'easeOutQuart'
+                    });
+                    await new Promise(resolve => setTimeout(resolve, 450));
+                } else {
+                    break;
+                }
+            }
+            chart.update();
+        }
+
+        // Trigger animations using IntersectionObserver
+        const observerOptions = { threshold: 0.2 };
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const canvasId = entry.target.id;
+                    const chart = window.charts[canvasId];
+                    if (chart) {
+                        setTimeout(async () => {
+                            shuffleChartData(chart);
+                            await new Promise(r => setTimeout(r, 1000));
+                            animateBubbleSort(chart);
+                        }, 500);
+                        chartObserver.unobserve(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe the target charts
+        ['districtChart', 'workforceChart', 'locationChart'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) chartObserver.observe(el);
+        });
     });
 
     /**

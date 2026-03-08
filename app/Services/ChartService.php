@@ -59,10 +59,8 @@ class ChartService
             ];
         }
 
-        // Sort by total descending (highest to lowest)
-        uasort($districtTotals, function ($a, $b) {
-            return $b['total'] <=> $a['total'];
-        });
+        // Sort alphabetically by district name to provide a natural "unsorted by value" state
+        ksort($districtTotals);
 
         $labels = [];
         $pma = [];
@@ -109,8 +107,9 @@ class ChartService
 
     public function generateLocationChart(array $locations): array
     {
-        arsort($locations);
+        arsort($locations); // Sort by value to identify top 10
         $top10 = array_slice($locations, 0, 10, true);
+        ksort($top10); // Sort alphabetically for a neutral initial state
 
         return [
             'labels' => array_keys($top10),
@@ -165,10 +164,8 @@ class ChartService
             ];
         }
 
-        // Sort by total workforce descending
-        uasort($districtTotals, function ($a, $b) {
-            return $b['total'] <=> $a['total'];
-        });
+        // Sort alphabetically
+        ksort($districtTotals);
 
         $labels = [];
         $tki = [];

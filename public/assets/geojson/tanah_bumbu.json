@@ -1,0 +1,105 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Batulicin" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [116.03, -3.42], [116.06, -3.42], [116.06, -3.48], [116.03, -3.48], [116.03, -3.42]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Simpang Empat" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [116.00, -3.36], [116.04, -3.36], [116.04, -3.42], [116.00, -3.42], [116.00, -3.36]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Kusan Hilir" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.82, -3.58], [115.92, -3.58], [115.92, -3.68], [115.82, -3.68], [115.82, -3.58]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Satui" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.25, -3.75], [115.45, -3.75], [115.45, -3.85], [115.25, -3.85], [115.25, -3.75]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Angsana" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.55, -3.73], [115.65, -3.73], [115.65, -3.83], [115.55, -3.83], [115.55, -3.73]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Sungai Loban" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.62, -3.70], [115.72, -3.70], [115.72, -3.80], [115.62, -3.80], [115.62, -3.70]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Karang Bintang" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.85, -3.35], [115.95, -3.35], [115.95, -3.45], [115.85, -3.45], [115.85, -3.35]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Mantewe" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.65, -3.15], [115.75, -3.15], [115.75, -3.25], [115.65, -3.25], [115.65, -3.15]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Kusan Hulu" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.60, -3.40], [115.70, -3.40], [115.70, -3.50], [115.60, -3.50], [115.60, -3.40]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Kuranji" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.55, -3.55], [115.65, -3.55], [115.65, -3.65], [115.55, -3.65], [115.55, -3.55]
+        ]]
+      }
+    }
+  ]
+}

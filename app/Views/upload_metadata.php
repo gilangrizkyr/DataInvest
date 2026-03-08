@@ -124,6 +124,7 @@
                             ?>
                         </select>
                     </div>
+                    
                     <!-- USD Value -->
                     <div>
                         <label for="usd_value" class="block text-sm font-medium text-gray-700 mb-2">

@@ -32,4 +32,19 @@ class Home extends BaseController
             'data' => $data
         ]);
     }
+
+    public function apiData()
+    {
+        $filters = [
+            'upload' => 'all',
+            'quarter' => $this->request->getGet('quarter') ?? 'all',
+            'year' => $this->request->getGet('year') ?? 'all',
+            'quarterly_year' => 'all',
+            'currency' => 'IDR'
+        ];
+
+        $data = $this->dashboardService->getDashboardData($filters);
+
+        return $this->response->setJSON($data);
+    }
 }

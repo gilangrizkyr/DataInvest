@@ -9,6 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 
 // HOME ROUTE - Public landing page
 $routes->get('/', 'Home::index');
+$routes->get('/api/public/data', 'Home::apiData');
 
 // AUTH ROUTES
 $routes->get('/auth/login', 'Auth::login', ['filter' => 'auth:guest']);
