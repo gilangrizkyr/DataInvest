@@ -63,13 +63,13 @@
         </div>
 
         <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight max-w-4xl">
-            Transparansi Data Investasi <br />
+            Realisasi Investasi <br />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Kabupaten Tanah
                 Bumbu</span>
         </h1>
 
         <p class="text-xl text-slate-400 mb-10 max-w-2xl leading-relaxed">
-            DataInvest adalah platform resmi manajemen dan analisis data investasi terintegrasi milik DPMPTSP Tanah
+            DataInvest adalah platform resmi manajemen dan analisis Realisasi Investasi terintegrasi milik DPMPTSP Tanah
             Bumbu. Memastikan pertumbuhan ekonomi yang terukur dan transparan.
         </p>
 

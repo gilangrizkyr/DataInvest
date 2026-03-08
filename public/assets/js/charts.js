@@ -6,7 +6,7 @@ class ChartsManager {
         this.data = data;
         this.currency = currency;
         this.usdRate = usdRate;
-        
+
         this.charts = {
             pmaPmdn: null,
             district: null,
@@ -20,26 +20,26 @@ class ChartsManager {
             country: null,
             quarterlyAdditionalInvestment: null
         };
-        
+
         this.init();
     }
-    
+
     init() {
         this.createAllCharts();
         this.initializeChartToggles();
         this.initializeAllChartTypeChanges();
     }
-    
+
     formatRp(num) {
         if (!num) return 'Rp 0';
         return 'Rp ' + Number(num).toLocaleString('id-ID');
     }
-    
+
     formatUSD(num) {
         if (!num) return '$ 0';
         return '$ ' + Number(num).toLocaleString('en-US');
     }
-    
+
     generateColors(count) {
         const colors = [];
         for (let i = 0; i < count; i++) {
@@ -48,9 +48,9 @@ class ChartsManager {
         }
         return colors;
     }
-    
+
     // ==================== CREATE ALL CHARTS ==================== //
-    
+
     createAllCharts() {
         this.createPmaPmdnChart();
         this.createDistrictChart();
@@ -62,13 +62,13 @@ class ChartsManager {
         this.createCountryChart();
         this.createQuarterlyChart();
     }
-    
+
     createPmaPmdnChart() {
         const totalProjectsPMA = parseInt(this.data.total_projects?.PMA ?? 0) || 0;
         const totalProjectsPMDN = parseInt(this.data.total_projects?.PMDN ?? 0) || 0;
         const addInvPMA = parseFloat(this.data.total_additional_investment?.PMA ?? 0) || 0;
         const addInvPMDN = parseFloat(this.data.total_additional_investment?.PMDN ?? 0) || 0;
-        
+
         this.charts.pmaPmdn = new Chart(document.getElementById('pma-pmdn-chart'), {
             type: 'pie',
             data: {
@@ -110,7 +110,7 @@ class ChartsManager {
             }
         });
     }
-    
+
     createDistrictChart() {
         const dist = this.data.charts.district;
         this.charts.district = new Chart(document.getElementById('district-chart'), {
@@ -134,7 +134,7 @@ class ChartsManager {
             }
         });
     }
-    
+
     createLocationChart() {
         const loc = this.data.charts.locations;
         this.charts.location = new Chart(document.getElementById('investment-location-chart'), {
@@ -159,7 +159,7 @@ class ChartsManager {
             }
         });
     }
-    
+
     createSectorChart() {
         this.charts.sector = new Chart(document.getElementById('sector-chart'), {
             type: 'bar',
@@ -183,16 +183,16 @@ class ChartsManager {
             }
         });
     }
-    
+
     createWorkforceCharts() {
         const workforceData = this.data.workforce_by_district || {};
-        
+
         // PMA Workforce
         const workforcePma = workforceData.PMA || {};
         const pmaLabels = Object.keys(workforcePma);
         const pmaTki = pmaLabels.map(l => workforcePma[l].TKI ?? 0);
         const pmaTka = pmaLabels.map(l => workforcePma[l].TKA ?? 0);
-        
+
         this.charts.workforcePma = new Chart(document.getElementById('workforce-pma-chart'), {
             type: 'bar',
             data: {
@@ -213,13 +213,13 @@ class ChartsManager {
                 scales: { y: { beginAtZero: true } }
             }
         });
-        
+
         // PMDN Workforce
         const workforcePmdn = workforceData.PMDN || {};
         const pmdnLabels = Object.keys(workforcePmdn);
         const pmdnTki = pmdnLabels.map(l => workforcePmdn[l].TKI ?? 0);
         const pmdnTka = pmdnLabels.map(l => workforcePmdn[l].TKA ?? 0);
-        
+
         this.charts.workforcePmdn = new Chart(document.getElementById('workforce-pmdn-chart'), {
             type: 'bar',
             data: {
@@ -241,12 +241,12 @@ class ChartsManager {
             }
         });
     }
-    
+
     createRankingChart() {
         const rankingData = this.data.ranking_by_district || [];
         const rankingLabels = rankingData.map(item => item.district);
         const rankingValues = rankingData.map(item => item.total_projects);
-        
+
         this.charts.rankingDistrict = new Chart(document.getElementById('ranking-district-chart'), {
             type: 'bar',
             data: {
@@ -268,19 +268,19 @@ class ChartsManager {
                 scales: { y: { beginAtZero: true } }
             }
         });
-        
+
         this.populateRankingList(rankingData);
     }
-    
+
     populateRankingList(rankingData) {
         const rankingList = document.getElementById('ranking-list');
         if (!rankingList) return;
-        
+
         rankingList.innerHTML = '';
-        
+
         const medalColors = ['text-yellow-500', 'text-gray-400', 'text-amber-600', 'text-gray-500', 'text-gray-400'];
         const medalIcons = ['fa-trophy', 'fa-medal', 'fa-medal', 'fa-medal', 'fa-medal'];
-        
+
         rankingData.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = 'flex items-center justify-between p-2 bg-white rounded-lg shadow-sm';
@@ -294,10 +294,10 @@ class ChartsManager {
             rankingList.appendChild(li);
         });
     }
-    
+
     createProjectsCharts() {
         const dist = this.data.charts.district;
-        
+
         // PMA Projects
         this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
             type: 'bar',
@@ -320,7 +320,7 @@ class ChartsManager {
                 scales: { y: { beginAtZero: true } }
             }
         });
-        
+
         // PMDN Projects
         this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
             type: 'bar',
@@ -344,7 +344,7 @@ class ChartsManager {
             }
         });
     }
-    
+
     createCountryChart() {
         const countryData = this.data.charts.countries;
         this.charts.country = new Chart(document.getElementById('country-chart'), {
@@ -369,13 +369,13 @@ class ChartsManager {
             }
         });
     }
-    
+
     createQuarterlyChart() {
         const quarterlyData = this.data.charts.quarterly_additional_investment;
-        
+
         if (quarterlyData && quarterlyData.labels && quarterlyData.values) {
             const canvasElement = document.getElementById('quarterly-additional-investment-chart');
-            
+
             if (canvasElement) {
                 this.charts.quarterlyAdditionalInvestment = new Chart(canvasElement, {
                     type: 'bar',
@@ -401,9 +401,9 @@ class ChartsManager {
             }
         }
     }
-    
+
     // ==================== CHART TOGGLES ==================== //
-    
+
     initializeChartToggles() {
         const chartCheckboxes = [
             { id: 'show-pma-pmdn', container: 'pma-pmdn-container' },
@@ -418,21 +418,21 @@ class ChartsManager {
             { id: 'show-country', container: 'country-container' },
             { id: 'show-quarterly-additional-investment', container: 'quarterly-additional-investment-container' }
         ];
-        
+
         chartCheckboxes.forEach(({ id, container }) => {
             const checkbox = document.getElementById(id);
             const containerEl = document.getElementById(container);
-            
+
             if (checkbox && containerEl) {
-                checkbox.addEventListener('change', function() {
+                checkbox.addEventListener('change', function () {
                     containerEl.style.display = this.checked ? 'block' : 'none';
                 });
             }
         });
     }
-    
+
     // ==================== CHART TYPE CHANGES ==================== //
-    
+
     initializeAllChartTypeChanges() {
         this.initPmaPmdnTypeChange();
         this.initDistrictTypeChange();
@@ -446,18 +446,18 @@ class ChartsManager {
         this.initCountryTypeChange();
         this.initQuarterlyTypeChange();
     }
-    
+
     initPmaPmdnTypeChange() {
         const typeSelect = document.getElementById('pma-pmdn-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.pmaPmdn) this.charts.pmaPmdn.destroy();
-            
+
             const totalProjectsPMA = parseInt(this.data.total_projects?.PMA ?? 0) || 0;
             const totalProjectsPMDN = parseInt(this.data.total_projects?.PMDN ?? 0) || 0;
             const chartType = e.target.value === 'doughnut' ? 'doughnut' : e.target.value;
-            
+
             this.charts.pmaPmdn = new Chart(document.getElementById('pma-pmdn-chart'), {
                 type: chartType,
                 data: {
@@ -485,19 +485,19 @@ class ChartsManager {
             });
         });
     }
-    
+
     initDistrictTypeChange() {
         const typeSelect = document.getElementById('district-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.district) this.charts.district.destroy();
-            
+
             const chartType = e.target.value;
             const isHorizontal = chartType === 'horizontalBar';
             const actualType = isHorizontal ? 'bar' : chartType;
             const dist = this.data.charts.district;
-            
+
             this.charts.district = new Chart(document.getElementById('district-chart'), {
                 type: actualType,
                 data: {
@@ -521,17 +521,17 @@ class ChartsManager {
             });
         });
     }
-    
+
     initInvestmentTypeChange() {
         const typeSelect = document.getElementById('investment-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.location) this.charts.location.destroy();
-            
+
             const chartType = e.target.value;
             const loc = this.data.charts.locations;
-            
+
             this.charts.location = new Chart(document.getElementById('investment-location-chart'), {
                 type: chartType === 'area' ? 'line' : chartType,
                 data: {
@@ -556,17 +556,17 @@ class ChartsManager {
             });
         });
     }
-    
+
     initSectorTypeChange() {
         const typeSelect = document.getElementById('sector-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.sector) this.charts.sector.destroy();
-            
+
             const chartType = e.target.value;
             const isHorizontal = chartType === 'horizontalBar';
-            
+
             this.charts.sector = new Chart(document.getElementById('sector-chart'), {
                 type: isHorizontal ? 'bar' : chartType,
                 data: {
@@ -591,26 +591,26 @@ class ChartsManager {
             });
         });
     }
-    
+
     initWorkforcePmaTypeChange() {
         const typeSelect = document.getElementById('workforce-pma-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.workforcePma) this.charts.workforcePma.destroy();
-            
+
             const chartType = e.target.value;
             const workforceData = this.data.workforce_by_district || {};
             const workforcePma = workforceData.PMA || {};
             const pmaLabels = Object.keys(workforcePma);
             const pmaTki = pmaLabels.map(l => workforcePma[l].TKI ?? 0);
             const pmaTka = pmaLabels.map(l => workforcePma[l].TKA ?? 0);
-            
+
             const isHorizontal = chartType === 'horizontalBar';
             const isStacked = chartType === 'stacked';
             const isPie = chartType === 'pie';
             const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
-            
+
             let config = {
                 type: actualType,
                 data: {
@@ -632,37 +632,37 @@ class ChartsManager {
                             }
                         }
                     },
-                    scales: !isPie ? { 
-                        y: { beginAtZero: true, stacked: isStacked }, 
-                        x: { stacked: isStacked } 
+                    scales: !isPie ? {
+                        y: { beginAtZero: true, stacked: isStacked },
+                        x: { stacked: isStacked }
                     } : {},
                     indexAxis: isHorizontal ? 'y' : 'x'
                 }
             };
-            
+
             this.charts.workforcePma = new Chart(document.getElementById('workforce-pma-chart'), config);
         });
     }
-    
+
     initWorkforcePmdnTypeChange() {
         const typeSelect = document.getElementById('workforce-pmdn-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.workforcePmdn) this.charts.workforcePmdn.destroy();
-            
+
             const chartType = e.target.value;
             const workforceData = this.data.workforce_by_district || {};
             const workforcePmdn = workforceData.PMDN || {};
             const pmdnLabels = Object.keys(workforcePmdn);
             const pmdnTki = pmdnLabels.map(l => workforcePmdn[l].TKI ?? 0);
             const pmdnTka = pmdnLabels.map(l => workforcePmdn[l].TKA ?? 0);
-            
+
             const isHorizontal = chartType === 'horizontalBar';
             const isStacked = chartType === 'stacked';
             const isPie = chartType === 'pie';
             const actualType = (isHorizontal || isStacked) ? 'bar' : (isPie ? 'pie' : chartType);
-            
+
             let config = {
                 type: actualType,
                 data: {
@@ -684,32 +684,32 @@ class ChartsManager {
                             }
                         }
                     },
-                    scales: !isPie ? { 
-                        y: { beginAtZero: true, stacked: isStacked }, 
-                        x: { stacked: isStacked } 
+                    scales: !isPie ? {
+                        y: { beginAtZero: true, stacked: isStacked },
+                        x: { stacked: isStacked }
                     } : {},
                     indexAxis: isHorizontal ? 'y' : 'x'
                 }
             };
-            
+
             this.charts.workforcePmdn = new Chart(document.getElementById('workforce-pmdn-chart'), config);
         });
     }
-    
+
     initRankingDistrictTypeChange() {
         const typeSelect = document.getElementById('ranking-district-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.rankingDistrict) this.charts.rankingDistrict.destroy();
-            
+
             const chartType = e.target.value;
             const rankingData = this.data.ranking_by_district || [];
             const rankingLabels = rankingData.map(item => item.district);
             const rankingValues = rankingData.map(item => item.total_projects);
             const isHorizontal = chartType === 'horizontalBar';
             const isPie = chartType === 'pie';
-            
+
             this.charts.rankingDistrict = new Chart(document.getElementById('ranking-district-chart'), {
                 type: isHorizontal ? 'bar' : chartType,
                 data: {
@@ -734,19 +734,19 @@ class ChartsManager {
             });
         });
     }
-    
+
     initProjectsPmaTypeChange() {
         const typeSelect = document.getElementById('projects-pma-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.projectsPma) this.charts.projectsPma.destroy();
-            
+
             const chartType = e.target.value;
             const dist = this.data.charts.district;
             const isHorizontal = chartType === 'horizontalBar';
             const isPie = chartType === 'pie';
-            
+
             this.charts.projectsPma = new Chart(document.getElementById('projects-pma-chart'), {
                 type: (isHorizontal || chartType === 'horizontalLine') ? 'bar' : chartType,
                 data: {
@@ -771,19 +771,19 @@ class ChartsManager {
             });
         });
     }
-    
+
     initProjectsPmdnTypeChange() {
         const typeSelect = document.getElementById('projects-pmdn-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.projectsPmdn) this.charts.projectsPmdn.destroy();
-            
+
             const chartType = e.target.value;
             const dist = this.data.charts.district;
             const isHorizontal = chartType === 'horizontalBar' || chartType === 'horizontalLine';
             const isPie = chartType === 'pie';
-            
+
             this.charts.projectsPmdn = new Chart(document.getElementById('projects-pmdn-chart'), {
                 type: isHorizontal ? 'bar' : chartType,
                 data: {
@@ -808,19 +808,19 @@ class ChartsManager {
             });
         });
     }
-    
+
     initCountryTypeChange() {
         const typeSelect = document.getElementById('country-type');
         if (!typeSelect) return;
-        
+
         typeSelect.addEventListener('change', (e) => {
             if (this.charts.country) this.charts.country.destroy();
-            
+
             const chartType = e.target.value;
             const countryData = this.data.charts.countries;
             const isHorizontal = chartType === 'horizontalBar';
             const isPieOrDoughnut = chartType === 'pie' || chartType === 'doughnut';
-            
+
             this.charts.country = new Chart(document.getElementById('country-chart'), {
                 type: isHorizontal ? 'bar' : chartType,
                 data: {
@@ -845,23 +845,22 @@ class ChartsManager {
             });
         });
     }
-    
+
     initQuarterlyTypeChange() {
         const typeSelect = document.getElementById('quarterly-additional-investment-type');
         const yearSelect = document.getElementById('quarterly-additional-investment-year');
-        
+
         if (!typeSelect || !yearSelect) return;
-        
+
         const updateQuarterlyChart = () => {
             if (this.charts.quarterlyAdditionalInvestment) {
                 this.charts.quarterlyAdditionalInvestment.destroy();
             }
-            
+
             const chartType = typeSelect.value;
             const selectedYear = yearSelect.value;
-            
-            console.log('Updating quarterly chart - Year:', selectedYear, 'Type:', chartType);
-            
+
+
             // Get data for selected year
             let quarterlyData;
             if (selectedYear === 'all') {
@@ -873,13 +872,12 @@ class ChartsManager {
                     values: [0, 0, 0, 0]
                 };
             }
-            
-            console.log('Quarterly data:', quarterlyData);
-            
+
+
             const isPie = chartType === 'pie';
-            
+
             this.charts.quarterlyAdditionalInvestment = new Chart(
-                document.getElementById('quarterly-additional-investment-chart'), 
+                document.getElementById('quarterly-additional-investment-chart'),
                 {
                     type: chartType === 'area' ? 'line' : chartType,
                     data: {
@@ -904,14 +902,14 @@ class ChartsManager {
                 }
             );
         };
-        
+
         typeSelect.addEventListener('change', updateQuarterlyChart);
         yearSelect.addEventListener('change', updateQuarterlyChart);
     }
 }
 
 // Initialize charts when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (typeof data !== 'undefined' && typeof currentFilters !== 'undefined') {
         const currency = (currentFilters && currentFilters.currency) ? currentFilters.currency : "IDR";
         const usdRate = data.usd_rate ?? 15000;
@@ -926,7 +924,7 @@ searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     chartItems.forEach(item => {
         const label = item.querySelector('span').textContent.toLowerCase();
-        if(label.includes(query)) {
+        if (label.includes(query)) {
             item.style.display = 'flex';
         } else {
             item.style.display = 'none';

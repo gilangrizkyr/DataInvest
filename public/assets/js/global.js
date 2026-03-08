@@ -135,7 +135,7 @@ function validateRequired(value) {
 function getFormData(form) {
     const formData = new FormData(form);
     const data = {};
-    
+
     for (let [key, value] of formData.entries()) {
         if (data[key] === undefined) {
             data[key] = value;
@@ -145,7 +145,7 @@ function getFormData(form) {
             data[key] = [data[key], value];
         }
     }
-    
+
     return data;
 }
 
@@ -166,17 +166,17 @@ function clearFormValidation(form) {
  */
 function displayFormErrors(errors, form) {
     clearFormValidation(form);
-    
+
     Object.keys(errors).forEach(fieldName => {
         const field = form.querySelector(`[name="${fieldName}"]`);
         if (field) {
             field.classList.add('is-invalid');
             const feedbackEl = document.createElement('div');
             feedbackEl.className = 'invalid-feedback d-block';
-            feedbackEl.textContent = Array.isArray(errors[fieldName]) 
-                ? errors[fieldName][0] 
+            feedbackEl.textContent = Array.isArray(errors[fieldName])
+                ? errors[fieldName][0]
                 : errors[fieldName];
-            
+
             if (field.nextElementSibling?.classList.contains('invalid-feedback')) {
                 field.nextElementSibling.replaceWith(feedbackEl);
             } else {
@@ -444,7 +444,7 @@ function removeStorageItem(key) {
 // ============================================================
 
 // Initialize on document ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Remove alerts after 5 seconds
     const alerts = document.querySelectorAll('[role="alert"]');
     alerts.forEach(alert => {
@@ -465,5 +465,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Log application version
-console.log('%cDataInvest Application', 'color: #2563eb; font-size: 16px; font-weight: bold;');
-console.log('%cVersion 2.0 - Modern & Responsive', 'color: #6b7280; font-size: 12px;');
+
