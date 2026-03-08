@@ -81,6 +81,7 @@ class DashboardService
             $conversionData = &$statistics;
             $conversionData['charts'] = &$charts;
             $conversionData['investment_by_location'] = &$statistics['investment_by_location'];
+            $conversionData['additional_investment_percentages'] = &$additionalInvestmentPercentages;
 
             $this->currencyService->convertToUSD($conversionData, $upload['usd_value']);
 
