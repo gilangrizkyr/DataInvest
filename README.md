@@ -1,63 +1,125 @@
-# CodeIgniter 4 Framework
+# 📊 DataInvest - Sistem Statistik Terpadu v2
 
-## What is CodeIgniter?
+**DataInvest** adalah aplikasi manajemen data investasi yang dirancang khusus untuk DPMPTSP (Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu) Kabupaten Tanah Bumbu. Aplikasi ini mempermudah pengelolaan, analisis, dan visualisasi data investasi PMA (Penanaman Modal Asing) dan PMDN (Penanaman Modal Dalam Negeri).
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+---
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 🚀 Fitur Utama
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+-   **Dashboard Modern**: Visualisasi statistik investasi yang intuitif dengan fitur filter periode, tahun, dan mata uang.
+-   **Manajemen Upload Fleksibel**: Mendukung impor data dari Excel (.xlsx, .xls, .csv) dengan sistem pemetaan kolom otomatis yang cerdas.
+-   **Keamanan Berlapis**: Dilengkapi dengan deteksi ancaman real-time (SQLi, XSS, Path Traversal) dan manajemen hak akses berbasis peran (Role-Based Access Control).
+-   **Statistik Otomatis**: Menghitung data agregat per sektor dan per kecamatan secara otomatis setelah proses upload.
+-   **Ekspor Laporan**: Mendukung ekspor data dan grafik ke format Excel dan PDF yang siap cetak.
+-   **Multi-Bahasa**: Antarmuka dalam Bahasa Indonesia dan Bahasa Inggris.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Important Change with index.php
+## 🛠️ Aturan & Logika Aplikasi (Business Rules)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Aplikasi ini dibangun dengan beberapa aturan utama yang harus dipahami oleh pengembang:
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### 1. Keamanan & Akses (Filters)
+-   **AuthFilter**: Memastikan setiap pengguna yang mengakses dashboard harus login terlebih dahulu.
+-   **RoleFilter**: Membatasi akses fitur tertentu berdasarkan peran. Fitur *User Management* hanya dapat diakses oleh `superadmin`.
+-   **ThreatDetection**: Filter global yang memantau setiap request untuk mendeteksi upaya serangan. Upaya serangan akan diblokir (403) dan dicatat dalam `security_logs`.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+### 2. Logika Pemrosesan Data (Upload & Parser)
+-   **Fleksibilitas Kolom**: Parser Excel dirancang sangat fleksibel. Sistem akan berusaha memproses data meskipun nama kolom tidak persis sama dengan template, menggunakan sistem *alternative mapping*.
+-   **Pencegahan Duplikasi**: Sistem melarang upload data untuk Quarter dan Tahun yang sama jika data tersebut sudah berstatus 'completed' atau 'processing'.
+-   **Format Waktu & Angka**: Angka investasi dibersihkan secara otomatis dari simbol mata uang (Rp) dan pemisah ribuan sebelum disimpan ke database. Format Quarter secara internal dinormalisasi menjadi `Q1`, `Q2`, `Q3`, atau `Q4`.
 
-## Repository Management
+### 3. Otomasi Statistik
+-   Setelah data Excel berhasil diproses, aplikasi akan menjalankan perhitungan statistik secara otomatis untuk memperbarui tabel:
+    -   `upload_statistics` (Agregat global per upload)
+    -   `district_statistics` (Data per kecamatan)
+    -   `sector_statistics` (Data per sektor/KBLI)
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+---
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## 💻 Tech Stack
 
-## Contributing
+-   **Framework**: [CodeIgniter 4](https://codeigniter.com/) (PHP 8.1+)
+-   **Database**: MySQL / MariaDB
+-   **Frontend**: Bootstrap 5, Chart.js, Three.js (Modern Glassmorphic UI)
+-   **Library**:
+    -   `PhpSpreadsheet`: Untuk pemrosesan file Excel.
+    -   `TCPDF`: Untuk pembuatan laporan PDF.
+-   **Infrastruktur**: Docker & Docker Compose.
 
-We welcome contributions from the community.
+---
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+## 🔌 API Endpoints
 
-## Server Requirements
+Aplikasi ini menyediakan beberapa endpoint API untuk integrasi data dan monitoring:
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+-   **GET `/api/public/data`**: Mengambil data statistik publik untuk ditampilkan di landing page.
+-   **GET `/api/security/threats`**: Mengambil log ancaman keamanan terbaru (Memerlukan role minimal `staff`).
+-   **GET `/api/security/export`**: Mengekspor log keamanan dalam format tertentu.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+---
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+## 🗄️ Struktur Database Utama
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+-   **`users`**: Menyimpan data akun pengguna, peran (`superadmin`, `admin`, `staff`), dan status.
+-   **`uploads`**: Informasi file Excel yang diunggah, metadata (Quarter/Year), dan status pemrosesan.
+-   **`projects`**: Data detail dari setiap baris di file Excel (PMA/PMDN).
+-   **`upload_statistics`**: Hasil kalkulasi agregat per file upload.
+-   **`district_statistics`**: Agregasi data investasi per kecamatan.
+-   **`sector_statistics`**: Agregasi data investasi per sektor usaha (KBLI).
+-   **`security_logs`**: Catatan upaya serangan yang terdeteksi oleh sistem.
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-# Sistem-Statistik-Terpadu
-# Sistem-Statistik-Terpadu-v2
-# DataInvest
+---
+
+## ⚙️ Instalasi & Setup
+
+### Menggunakan Docker (Direkomendasikan)
+1. Salin file `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Jalankan docker-compose:
+   ```bash
+   docker-compose up -d
+   ```
+3. Akses aplikasi di `http://localhost:8081`.
+
+### Instalasi Manual (Local)
+1. Pastikan PHP 8.1+ dan Composer terinstal.
+2. Install dependensi:
+   ```bash
+   composer install
+   ```
+3. Konfigurasi database di file `.env`.
+4. Jalankan migrasi dan seeder:
+   ```bash
+   php spark migrate
+   php spark db:seed UserSeeder
+   ```
+5. Jalankan server:
+   ```bash
+   php spark serve
+   ```
+
+---
+
+## 📁 Struktur Direktori
+
+-   `app/Controllers`: Logika alur aplikasi (Auth, Dashboard, UserManagement, dll).
+-   `app/Filters`: Logika keamanan dan pembatasan akses.
+-   `app/Models`: Interaksi database dan parser Excel yang kompleks.
+-   `app/Services`: Logika bisnis tambahan (Pemrosesan upload, kalkulasi statistik).
+-   `app/Views`: Template antarmuka pengguna.
+-   `public/`: Asset publik (CSS, JS, Images).
+-   `writable/uploads`: Lokasi penyimpanan file Excel sementara sebelum diproses.
+
+---
+
+## 📝 Catatan Tambahan
+-   Log aplikasi dapat ditemukan di `writable/logs`.
+-   Pastikan direktori `writable` memiliki izin tulis (write permission).
+-   Gunakan `php spark` untuk utilitas baris perintah CodeIgniter.
+
+---
+
+**Developed for DPMPTSP Kabupaten Tanah Bumbu.**
