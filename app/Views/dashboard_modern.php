@@ -122,6 +122,292 @@
     }
 </style>
 
+<?php
+// ─── Stat Filter Variables ────────────────────────────────────────────────────
+$statFilterData = $stat_filter_data ?? null;
+$availableYears = $available_years ?? [];
+$isStatFilterActive = $is_stat_filter_active ?? false;
+$activeStatYear = $data['filters']['stat_year'] ?? 'all';
+$activeStatQuarters = $data['filters']['stat_quarters'] ?? [];
+
+// Resolved display values for KPI cards
+// When filter is active, use aggregated values; otherwise fall back to upload-based values
+$kpiTotalInvestment = $isStatFilterActive && $statFilterData
+    ? $statFilterData['total_investment']
+    : ($data['total_investment'] ?? ['PMA' => 0, 'PMDN' => 0]);
+$kpiTotalAdditional = $isStatFilterActive && $statFilterData
+    ? $statFilterData['total_additional_investment']
+    : ($data['total_additional_investment'] ?? ['PMA' => 0, 'PMDN' => 0]);
+$kpiTotalProjects = $isStatFilterActive && $statFilterData
+    ? $statFilterData['total_projects']
+    : ($data['total_projects'] ?? ['PMA' => 0, 'PMDN' => 0]);
+$kpiWorkforce = $isStatFilterActive && $statFilterData
+    ? $statFilterData['workforce']
+    : ($data['workforce'] ?? ['PMA' => ['TKI' => 0, 'TKA' => 0], 'PMDN' => ['TKI' => 0, 'TKA' => 0]]);
+// ─────────────────────────────────────────────────────────────────────────────
+?>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     FILTER STATISTIK: Tahun & Triwulan
+     Hanya mempengaruhi nilai angka KPI — struktur & tabel TIDAK berubah
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<style>
+    /* Filter Panel Styles */
+    .stat-filter-panel {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.75rem;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .stat-filter-panel.active-filter {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08), 0 4px 6px -1px rgba(15, 23, 42, 0.06);
+    }
+
+    .stat-filter-label {
+        font-size: 0.6rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #94a3b8;
+    }
+
+    .tw-checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tw-checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 10px;
+        border: 1.5px solid #e2e8f0;
+        background: #f8fafc;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #64748b;
+        transition: all 0.15s ease;
+        user-select: none;
+    }
+
+    .tw-checkbox-label:hover {
+        border-color: #93c5fd;
+        background: #eff6ff;
+        color: #2563eb;
+    }
+
+    .tw-checkbox-label input[type="checkbox"] {
+        display: none;
+    }
+
+    .tw-checkbox-label.checked {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #ffffff;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .stat-filter-btn-apply {
+        padding: 0.45rem 1.25rem;
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 900;
+        cursor: pointer;
+        transition: background 0.15s ease, transform 0.1s ease;
+        letter-spacing: 0.05em;
+    }
+
+    .stat-filter-btn-apply:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    .stat-filter-btn-reset {
+        padding: 0.45rem 1rem;
+        background: #f1f5f9;
+        color: #64748b;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        font-weight: 900;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .stat-filter-btn-reset:hover {
+        background: #fee2e2;
+        border-color: #fca5a5;
+        color: #dc2626;
+    }
+
+    .filter-active-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        background: #dbeafe;
+        color: #1d4ed8;
+        font-size: 0.65rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .filter-no-result-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.75rem;
+        border-radius: 999px;
+        background: #fee2e2;
+        color: #dc2626;
+        font-size: 0.65rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="stat-filter-panel <?= $isStatFilterActive ? 'active-filter' : '' ?>">
+    <form method="GET" action="<?= current_url() ?>" id="stat-filter-form">
+        <?php /* Hanya simpan currency; upload selalu diabaikan */ ?>
+        <?php if (!empty($data['filters']['currency']) && $data['filters']['currency'] !== 'IDR'): ?>
+            <input type="hidden" name="currency" value="<?= esc($data['filters']['currency']) ?>">
+        <?php endif; ?>
+
+        <div class="flex flex-col md:flex-row md:items-end gap-5 flex-wrap">
+
+            <!-- Header label -->
+            <div class="flex items-center gap-3 md:w-auto">
+                <div
+                    class="w-9 h-9 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 border border-blue-100 shadow-sm flex-shrink-0">
+                    <i class="fas fa-filter text-sm"></i>
+                </div>
+                <div>
+                    <p class="stat-filter-label">Filter Statistik</p>
+                    <p class="text-xs font-black text-slate-700 leading-tight">Tahun & Triwulan</p>
+                </div>
+                <?php if ($isStatFilterActive): ?>
+                    <?php if ($statFilterData !== null): ?>
+                        <span class="filter-active-badge">
+                            <i class="fas fa-check-circle"></i>
+                            Aktif
+                        </span>
+                    <?php else: ?>
+                        <span class="filter-no-result-badge">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Tidak ada data
+                        </span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+
+            <!-- Divider -->
+            <div class="hidden md:block w-px bg-slate-200 self-stretch"></div>
+
+            <!-- Tahun -->
+            <div class="flex flex-col gap-1.5">
+                <span class="stat-filter-label">Tahun</span>
+                <select name="stat_year" id="stat-year-select"
+                    class="form-select text-xs font-black border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-slate-50 text-slate-700 py-2 px-3 min-w-[130px] cursor-pointer shadow-sm">
+                    <option value="all" <?= ($activeStatYear === 'all') ? 'selected' : '' ?>>Semua Tahun</option>
+                    <?php foreach ($availableYears as $yr): ?>
+                        <option value="<?= esc($yr) ?>" <?= ($activeStatYear == $yr) ? 'selected' : '' ?>><?= esc($yr) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Divider -->
+            <div class="hidden md:block w-px bg-slate-200 self-stretch"></div>
+
+            <!-- Triwulan Multi-Select -->
+            <div class="flex flex-col gap-1.5">
+                <span class="stat-filter-label">Triwulan (dapat pilih lebih dari satu)</span>
+                <div class="tw-checkbox-group" id="tw-checkbox-group">
+                    <?php
+                    $twOptions = ['Q1' => 'TW 1', 'Q2' => 'TW 2', 'Q3' => 'TW 3', 'Q4' => 'TW 4'];
+                    foreach ($twOptions as $qVal => $qLabel):
+                        $isChecked = in_array($qVal, (array) $activeStatQuarters, true);
+                        ?>
+                        <label class="tw-checkbox-label <?= $isChecked ? 'checked' : '' ?>">
+                            <input type="checkbox" name="stat_quarters[]" value="<?= $qVal ?>" <?= $isChecked ? 'checked' : '' ?> onchange="updateCheckboxStyle(this)">
+                            <i class="fas <?= $isChecked ? 'fa-check-square' : 'fa-square' ?> text-[10px]"
+                                id="icon-<?= $qVal ?>"></i>
+                            <?= $qLabel ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 ml-auto">
+                <?php if ($isStatFilterActive): ?>
+                    <a href="<?= base_url('dashboard' . ($data['filters']['currency'] !== 'IDR' ? '?currency=' . esc($data['filters']['currency']) : '')) ?>"
+                        class="stat-filter-btn-reset">
+                        <i class="fas fa-times mr-1"></i> Reset
+                    </a>
+                <?php endif; ?>
+                <button type="submit" class="stat-filter-btn-apply">
+                    <i class="fas fa-search mr-1.5"></i> Terapkan
+                </button>
+            </div>
+
+        </div>
+
+        <?php if ($isStatFilterActive && $statFilterData !== null): ?>
+            <!-- Active filter info bar -->
+            <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap gap-2 items-center">
+                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan agregasi:</span>
+                <?php if ($activeStatYear !== 'all'): ?>
+                    <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-lg text-[10px] font-black border border-blue-100">
+                        <i class="fas fa-calendar mr-1"></i>Tahun <?= esc($activeStatYear) ?>
+                    </span>
+                <?php endif; ?>
+                <?php foreach ((array) $activeStatQuarters as $aq): ?>
+                    <?php $aqLabel = $twOptions[$aq] ?? $aq; ?>
+                    <span
+                        class="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-lg text-[10px] font-black border border-indigo-100">
+                        <i class="fas fa-layer-group mr-1"></i><?= esc($aqLabel) ?>
+                    </span>
+                <?php endforeach; ?>
+                <span class="ml-auto text-[10px] font-black text-slate-400">
+                    Data dari <?= count($statFilterData['upload_ids_used']) ?> upload
+                </span>
+            </div>
+        <?php endif; ?>
+    </form>
+</div>
+
+<script>
+    // Checkbox style toggle for Triwulan
+    function updateCheckboxStyle(checkbox) {
+        const label = checkbox.closest('.tw-checkbox-label');
+        const icon = label.querySelector('i');
+        if (checkbox.checked) {
+            label.classList.add('checked');
+            icon.classList.remove('fa-square');
+            icon.classList.add('fa-check-square');
+        } else {
+            label.classList.remove('checked');
+            icon.classList.remove('fa-check-square');
+            icon.classList.add('fa-square');
+        }
+    }
+</script>
+
 <!-- Detailed KPI Section -->
 <div class="mb-8">
     <div class="flex items-center justify-between mb-6">
@@ -144,13 +430,43 @@
     $currency = $data['filters']['currency'] ?? 'IDR';
     $currencySymbol = $currency === 'USD' ? '$' : 'Rp';
     $currencyLabel = $currency === 'USD' ? 'USD ($)' : 'IDR (Rp)';
+    $quarterLabels = ['Q1' => 'TW 1', 'Q2' => 'TW 2', 'Q3' => 'TW 3', 'Q4' => 'TW 4'];
+    $quarterKeyMap = ['Q1' => 'tambahan_realisasi_tw1', 'Q2' => 'tambahan_realisasi_tw2', 'Q3' => 'tambahan_realisasi_tw3', 'Q4' => 'tambahan_realisasi_tw4'];
+    // Ketika filter statistik aktif, LKPM selalu tampilkan semua 4 TW
+    if ($isStatFilterActive) {
+        $selectedQuarter = 'all';
+        $selectedQuarterLabel = null;  // null = tampilkan 4 kolom TW
+        $selectedQuarterKey = null;
+    } else {
+        $selectedQuarter = $data['quarter'] ?? ($data['filters']['quarter'] ?? 'all');
+        $selectedQuarterLabel = $quarterLabels[$selectedQuarter] ?? null;
+        $selectedQuarterKey = $quarterKeyMap[$selectedQuarter] ?? null;
+    }
+    $selectedUpload = $data['filters']['upload'] ?? 'all';
     ?>
+
 
     <!-- Lampu Sorot Data (Data Spotlight) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <?php
-        $top5 = $data['ranking_by_district'] ?? [];
-        $winner = !empty($top5) ? $top5[0] : null;
+        if ($isStatFilterActive && !empty($data['top_district'])) {
+            // Aggregated data — top district from multi-upload
+            $winner = [
+                'kecamatan' => $data['top_district'],
+                'jumlah_proyek' => $data['top_district_count'] ?? 0,
+            ];
+        } else {
+            $top5 = $data['ranking_by_district'] ?? [];
+            $winner = !empty($top5) ? $top5[0] : null;
+        }
+        // Period label
+        if ($isStatFilterActive && !empty($data['period_label'])) {
+            $periodLabelDisplay = $data['period_label'];
+        } else {
+            $q = $data['quarter'] ?? '-';
+            $y = $data['current_year'] ?? '-';
+            $periodLabelDisplay = "$q Tahun $y";
+        }
         ?>
         <div
             class="md:col-span-3 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 rounded-2xl p-0.5 shadow-xl shadow-blue-900/10 overflow-hidden">
@@ -165,9 +481,8 @@
                         <h4 class="text-white font-black text-xl tracking-tight">Lampu Sorot Data</h4>
                         <p class="text-slate-300 text-sm font-medium opacity-80">
                             Insight cerdas berdasarkan data <span
-                                class="text-blue-400 font-bold"><?= esc($data['upload_name'] ?? 'Investasi') ?></span>
-                            (Periode <span class="text-white font-bold"><?= esc($data['quarter'] ?? '-') ?></span> Tahun
-                            <span class="text-white font-bold"><?= esc($data['current_year'] ?? '-') ?></span>)
+                                class="text-blue-400 font-bold"> Periode <span><?= esc($periodLabelDisplay) ?></span>
+ 
                         </p>
                     </div>
                 </div>
@@ -201,7 +516,7 @@
                         Realisasi</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
                         <span class="text-blue-600 font-bold"><?= $currencySymbol ?></span>
-                        <?= number_format(($data['total_investment']['PMA'] ?? 0) + ($data['total_investment']['PMDN'] ?? 0), 0, ',', '.') ?>
+                        <?= number_format(($kpiTotalInvestment['PMA'] ?? 0) + ($kpiTotalInvestment['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
                 </div>
                 <div class="kpi-icon bg-blue-50 text-blue-600 shadow-sm border border-blue-100">
@@ -212,13 +527,13 @@
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
-                        <?= number_format($data['total_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
+                        <?= number_format($kpiTotalInvestment['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
                 <div
                     class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
-                        <?= number_format($data['total_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
+                        <?= number_format($kpiTotalInvestment['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
             </div>
         </div>
@@ -231,7 +546,7 @@
                         Tambahan Investasi</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
                         <span class="text-sky-600 font-bold"><?= $currencySymbol ?></span>
-                        <?= number_format(($data['total_additional_investment']['PMA'] ?? 0) + ($data['total_additional_investment']['PMDN'] ?? 0), 0, ',', '.') ?>
+                        <?= number_format(($kpiTotalAdditional['PMA'] ?? 0) + ($kpiTotalAdditional['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
                 </div>
                 <div class="kpi-icon bg-sky-50 text-sky-600 shadow-sm border border-sky-100">
@@ -242,13 +557,13 @@
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
-                        <?= number_format($data['total_additional_investment']['PMA'] ?? 0, 0, ',', '.') ?></span>
+                        <?= number_format($kpiTotalAdditional['PMA'] ?? 0, 0, ',', '.') ?></span>
                 </div>
                 <div
                     class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span class="text-sm font-black text-emerald-600 tabular-nums"><?= $currencySymbol ?>
-                        <?= number_format($data['total_additional_investment']['PMDN'] ?? 0, 0, ',', '.') ?></span>
+                        <?= number_format($kpiTotalAdditional['PMDN'] ?? 0, 0, ',', '.') ?></span>
                 </div>
             </div>
         </div>
@@ -260,7 +575,7 @@
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Unit
                         Proyek</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['total_projects']['PMA'] ?? 0) + ($data['total_projects']['PMDN'] ?? 0)) ?>
+                        <?= number_format(($kpiTotalProjects['PMA'] ?? 0) + ($kpiTotalProjects['PMDN'] ?? 0)) ?>
                         <span class="text-sm font-black text-slate-300 ml-1">UNIT</span>
                     </h3>
                 </div>
@@ -272,14 +587,14 @@
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['total_projects']['PMA'] ?? 0) ?>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($kpiTotalProjects['PMA'] ?? 0) ?>
                         Unit</span>
                 </div>
                 <div
                     class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['total_projects']['PMDN'] ?? 0) ?>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($kpiTotalProjects['PMDN'] ?? 0) ?>
                         Unit</span>
                 </div>
             </div>
@@ -292,7 +607,7 @@
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">
                         Penyerapan TKI</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['workforce']['PMA']['TKI'] ?? 0) + ($data['workforce']['PMDN']['TKI'] ?? 0)) ?>
+                        <?= number_format(($kpiWorkforce['PMA']['TKI'] ?? 0) + ($kpiWorkforce['PMDN']['TKI'] ?? 0)) ?>
                         <span class="text-sm font-black text-slate-300 ml-1">JIWA</span>
                     </h3>
                 </div>
@@ -304,14 +619,14 @@
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKI'] ?? 0) ?>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($kpiWorkforce['PMA']['TKI'] ?? 0) ?>
                         Jiwa</span>
                 </div>
                 <div
                     class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKI'] ?? 0) ?>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($kpiWorkforce['PMDN']['TKI'] ?? 0) ?>
                         Jiwa</span>
                 </div>
             </div>
@@ -324,7 +639,7 @@
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Tenaga
                         Kerja Asing</p>
                     <h3 class="text-2xl font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['workforce']['PMA']['TKA'] ?? 0) + ($data['workforce']['PMDN']['TKA'] ?? 0)) ?>
+                        <?= number_format(($kpiWorkforce['PMA']['TKA'] ?? 0) + ($kpiWorkforce['PMDN']['TKA'] ?? 0)) ?>
                         <span class="text-sm font-black text-slate-300 ml-1">JIWA</span>
                     </h3>
                 </div>
@@ -336,14 +651,14 @@
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
-                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($data['workforce']['PMA']['TKA'] ?? 0) ?>
+                        class="text-sm font-black text-blue-600 tabular-nums"><?= number_format($kpiWorkforce['PMA']['TKA'] ?? 0) ?>
                         Jiwa</span>
                 </div>
                 <div
                     class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/30 border border-emerald-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMDN</span>
                     <span
-                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($data['workforce']['PMDN']['TKA'] ?? 0) ?>
+                        class="text-sm font-black text-emerald-600 tabular-nums"><?= number_format($kpiWorkforce['PMDN']['TKA'] ?? 0) ?>
                         Jiwa</span>
                 </div>
             </div>
@@ -459,9 +774,9 @@
         </div>
         <div class="mt-8 flex justify-center gap-12 border-t border-slate-50 pt-6">
             <?php
-            $totalInv = ($data['total_additional_investment']['PMA'] ?? 0) + ($data['total_additional_investment']['PMDN'] ?? 0);
-            $pmaRatio = $totalInv > 0 ? (($data['total_additional_investment']['PMA'] ?? 0) / $totalInv) * 100 : 0;
-            $pmdnRatio = $totalInv > 0 ? (($data['total_additional_investment']['PMDN'] ?? 0) / $totalInv) * 100 : 0;
+            $totalInv = ($kpiTotalAdditional['PMA'] ?? 0) + ($kpiTotalAdditional['PMDN'] ?? 0);
+            $pmaRatio = $totalInv > 0 ? (($kpiTotalAdditional['PMA'] ?? 0) / $totalInv) * 100 : 0;
+            $pmdnRatio = $totalInv > 0 ? (($kpiTotalAdditional['PMDN'] ?? 0) / $totalInv) * 100 : 0;
             ?>
             <div class="flex flex-col items-center">
                 <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">PMA</span>
@@ -822,7 +1137,7 @@
                 <div class="flex flex-col items-end">
                     <span class="text-[9px] font-bold text-blue-400 uppercase tracking-tighter">Proyek</span>
                     <span
-                        class="text-xl font-black tabular-nums"><?= number_format($data['total_projects']['PMA'] ?? 0) ?></span>
+                        class="text-xl font-black tabular-nums"><?= number_format($kpiTotalProjects['PMA'] ?? 0) ?></span>
                 </div>
             </div>
         </div>
@@ -923,7 +1238,270 @@
                 <div class="flex flex-col items-end">
                     <span class="text-[9px] font-bold text-green-400 uppercase tracking-tighter">Proyek</span>
                     <span
-                        class="text-xl font-black tabular-nums"><?= number_format($data['total_projects']['PMDN'] ?? 0) ?></span>
+                        class="text-xl font-black tabular-nums"><?= number_format($kpiTotalProjects['PMDN'] ?? 0) ?></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Laporan Perusahaan Triwulan / Quarterly Company Report-->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8" x-data="{ searchPMA: '', searchPMDN: '' }">
+    <!-- Tabel PMA -->
+    <div class="card flex flex-col">
+        <div class="p-6 border-b border-slate-100 bg-white">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+                    <span class="w-1.5 h-6 bg-blue-600 rounded-full mr-4"></span>
+                    Laporan Perusahaan LKPM (PMA)
+                </h3>
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" x-model="searchPMA" placeholder="Cari..."
+                            class="form-input text-xs py-2 pl-9 pr-4 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 w-40 transition-all shadow-sm">
+                    </div>
+                    <div class="flex gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200">
+                        <button @click="exportRanking('PMA')"
+                            class="w-8 h-8 rounded-lg bg-white text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm border border-slate-100"
+                            title="Ekspor PDF">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                        <button @click="exportExcel('PMA')"
+                            class="w-8 h-8 rounded-lg bg-white text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm border border-slate-100"
+                            title="Ekspor Excel">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto max-h-[500px] overflow-y-auto custom-scrollbar flex-1">
+            <table class="w-full table-auto border-separate border-spacing-0" id="table-pma">
+                <thead class="bg-slate-50/90 backdrop-blur-md sticky top-0 z-20">
+                    <tr>
+                        <th
+                            class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Nama Perusahaan</th>
+                        <?php if ($selectedQuarterLabel): ?>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                <?= $selectedQuarterLabel ?> (<?= $currency ?>)
+                            </th>
+                        <?php else: ?>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 1 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 2 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 3 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 4 (<?= $currency ?>)</th>
+                        <?php endif; ?>
+                        <?php if (!$selectedQuarterLabel): ?>
+                            <th class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
+                                Total (<?= $currency ?>)</th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    <?php if (!empty($data['lkpm_by_quarter']['PMA']['data'])): ?>
+                        <?php foreach ($data['lkpm_by_quarter']['PMA']['data'] as $row): ?>
+                            <tr class="hover:bg-blue-50/50 transition-colors group"
+                                x-show="'<?= addslashes(strtolower($row['nama_perusahaan'])) ?>'.includes(searchPMA.toLowerCase())">
+                                <td
+                                    class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
+                                    <?= esc($row['nama_perusahaan']) ?>
+                                </td>
+                                <?php if ($selectedQuarterLabel): ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row[$selectedQuarterKey] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                <?php else: ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw1'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw2'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw3'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw4'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                <?php endif; ?>
+                                <?php if (!$selectedQuarterLabel): ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-green-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format((float) ($row['tambahan_realisasi'] ?? 0), 0, ',', '.') ?>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5" class="py-32 text-center"><i
+                                    class="fas fa-inbox text-slate-200 text-5xl mb-4 block"></i>
+                                <p class="text-slate-400 font-black uppercase text-xs">Belum ada data tersedia</p>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Total Bar PMA -->
+        <div
+            class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-5 flex justify-between items-center text-white shadow-2xl rounded-b-2xl border-l-4 border-l-blue-600 border-t border-slate-700/30">
+            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Akumulasi PMA</span>
+            <div class="flex gap-8 items-center">
+                <div class="flex flex-col items-end">
+                    <span class="text-[9px] font-bold text-blue-400 uppercase tracking-tighter">Total Laporan
+                        Triwulanan</span>
+                    <span
+                        class="text-xl font-black tabular-nums"><?= number_format($data['total_quarterly_reports']['PMA'] ?? 0) ?></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel PMDN -->
+    <div class="card flex flex-col">
+        <div class="p-6 border-b border-slate-100 bg-white">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+                    <span class="w-1.5 h-6 bg-green-600 rounded-full mr-4"></span>
+                    Laporan Perusahaan LKPM (PMDN)
+                </h3>
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" x-model="searchPMDN" placeholder="Cari..."
+                            class="form-input text-xs py-2 pl-9 pr-4 rounded-xl border-slate-200 focus:border-green-500 focus:ring-green-500 w-40 transition-all shadow-sm">
+                    </div>
+                    <div class="flex gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200">
+                        <button @click="exportRanking('PMDN')"
+                            class="w-8 h-8 rounded-lg bg-white text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm border border-slate-100"
+                            title="Ekspor PDF">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
+                        <button @click="exportExcel('PMDN')"
+                            class="w-8 h-8 rounded-lg bg-white text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm border border-slate-100"
+                            title="Ekspor Excel">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto max-h-[500px] overflow-y-auto custom-scrollbar flex-1">
+            <table class="w-full table-auto border-separate border-spacing-0" id="table-pmdn">
+                <thead class="bg-slate-50/90 backdrop-blur-md sticky top-0 z-20">
+                    <tr>
+                        <th
+                            class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Nama Perusahaan</th>
+                        <?php if ($selectedQuarterLabel): ?>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                <?= $selectedQuarterLabel ?> (<?= $currency ?>)
+                            </th>
+                        <?php else: ?>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 1 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 2 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 3 (<?= $currency ?>)</th>
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                                TW 4 (<?= $currency ?>)</th>
+                        <?php endif; ?>
+                        <?php if (!$selectedQuarterLabel): ?>
+                            <th class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
+                                Total (<?= $currency ?>)</th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    <?php if (!empty($data['lkpm_by_quarter']['PMDN']['data'])): ?>
+                        <?php foreach ($data['lkpm_by_quarter']['PMDN']['data'] as $row): ?>
+                            <tr class="hover:bg-green-50/50 transition-colors group"
+                                x-show="'<?= addslashes(strtolower($row['nama_perusahaan'])) ?>'.includes(searchPMDN.toLowerCase())">
+                                <td
+                                    class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
+                                    <?= esc($row['nama_perusahaan']) ?>
+                                </td>
+                                <?php if ($selectedQuarterLabel): ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row[$selectedQuarterKey] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                <?php else: ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw1'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw2'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw3'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format($row['tambahan_realisasi_tw4'] ?? 0, 0, ',', '.') ?>
+                                    </td>
+                                <?php endif; ?>
+                                <?php if (!$selectedQuarterLabel): ?>
+                                    <td class="py-4 px-6 text-sm text-right font-black text-green-600 tabular-nums">
+                                        <?= $currencySymbol ?>
+                                        <?= number_format((float) ($row['tambahan_realisasi'] ?? 0), 0, ',', '.') ?>
+                                    </td>
+                                <?php endif; ?>
+                                <!-- <td class="py-4 px-6 text-sm text-center">
+                                    <span
+                                        class="px-3 py-1 rounded-lg bg-slate-100 text-slate-600 font-black text-[10px] group-hover:bg-green-600 group-hover:text-white transition-all shadow-sm">
+                                        <?= number_format($row['jumlah_proyek'] ?? 0) ?>
+                                    </span>
+                                </td> -->
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5" class="py-32 text-center"><i
+                                    class="fas fa-inbox text-slate-200 text-5xl mb-4 block"></i>
+                                <p class="text-slate-400 font-black uppercase text-xs">Belum ada data tersedia</p>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Total Bar PMDN -->
+        <div
+            class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 px-6 py-5 flex justify-between items-center text-white shadow-2xl rounded-b-2xl border-l-4 border-l-green-600 border-t border-slate-700/30">
+            <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Akumulasi PMDN</span>
+            <div class="flex gap-8 items-center">
+                <div class="flex flex-col items-end">
+                    <span class="text-[9px] font-bold text-green-400 uppercase tracking-tighter">Total Laporan
+                        Triwulanan</span>
+                    <span
+                        class="text-xl font-black tabular-nums"><?= number_format($data['total_quarterly_reports']['PMDN'] ?? 0) ?></span>
                 </div>
             </div>
         </div>
@@ -1052,7 +1630,9 @@
             <tbody class="divide-y divide-slate-50">
                 <?php if (isset($data['uploads']) && count($data['uploads']) > 0): ?>
                     <?php foreach ($data['uploads'] as $up): ?>
-                        <tr class="hover:bg-slate-50/50 transition-colors">
+                        <?php $isSelectedUpload = $selectedUpload !== 'all' && (string) $selectedUpload === (string) $up['id']; ?>
+                        <tr
+                            class="hover:bg-slate-50/50 transition-colors <?= $isSelectedUpload ? 'bg-slate-100 border-l-4 border-l-blue-500' : '' ?>">
                             <td class="py-4 px-6 text-sm font-bold text-slate-700"><?= esc($up['upload_name'] ?? 'N/A') ?></td>
                             <td class="py-4 px-6 text-sm text-center font-bold text-slate-500"><?= esc($up['quarter'] ?? '-') ?>
                             </td>
@@ -1075,11 +1655,6 @@
                             </td>
                             <td class="py-4 px-6 text-center">
                                 <div class="flex justify-center gap-2">
-                                    <a href="<?= base_url('dashboard?upload=' . $up['id']) ?>"
-                                        class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-                                        title="Muat Statistik">
-                                        <i class="fas fa-sync-alt text-xs"></i>
-                                    </a>
                                     <a href="<?= base_url('dashboard/editMetadata/' . $up['id']) ?>"
                                         class="w-8 h-8 rounded-lg bg-slate-100 text-amber-600 flex items-center justify-center hover:bg-amber-500 hover:text-white transition-all shadow-sm"
                                         title="Edit Metadata">
@@ -1136,35 +1711,35 @@
                 <tr class="border-b-2 border-slate-100">
                     <td class="p-5 font-bold text-slate-700">Realisasi Investasi</td>
                     <td class="p-5 text-right tabular-nums">
-                        <?= number_format($data['total_investment']['PMA'] ?? 0, 0, ',', '.') ?>
+                        <?= number_format($kpiTotalInvestment['PMA'] ?? 0, 0, ',', '.') ?>
                     </td>
                     <td class="p-5 text-right tabular-nums">
-                        <?= number_format($data['total_investment']['PMDN'] ?? 0, 0, ',', '.') ?>
+                        <?= number_format($kpiTotalInvestment['PMDN'] ?? 0, 0, ',', '.') ?>
                     </td>
                     <td class="p-5 text-right font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['total_investment']['PMA'] ?? 0) + ($data['total_investment']['PMDN'] ?? 0), 0, ',', '.') ?>
+                        <?= number_format(($kpiTotalInvestment['PMA'] ?? 0) + ($kpiTotalInvestment['PMDN'] ?? 0), 0, ',', '.') ?>
                     </td>
                 </tr>
                 <tr class="border-b-2 border-slate-100">
                     <td class="p-5 font-bold text-slate-700">Jumlah Unit Proyek</td>
-                    <td class="p-5 text-right tabular-nums"><?= number_format($data['total_projects']['PMA'] ?? 0) ?>
+                    <td class="p-5 text-right tabular-nums"><?= number_format($kpiTotalProjects['PMA'] ?? 0) ?>
                     </td>
-                    <td class="p-5 text-right tabular-nums"><?= number_format($data['total_projects']['PMDN'] ?? 0) ?>
+                    <td class="p-5 text-right tabular-nums"><?= number_format($kpiTotalProjects['PMDN'] ?? 0) ?>
                     </td>
                     <td class="p-5 text-right font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['total_projects']['PMA'] ?? 0) + ($data['total_projects']['PMDN'] ?? 0)) ?>
+                        <?= number_format(($kpiTotalProjects['PMA'] ?? 0) + ($kpiTotalProjects['PMDN'] ?? 0)) ?>
                     </td>
                 </tr>
                 <tr>
                     <td class="p-5 font-bold text-slate-700">Penyerapan Tenaga Kerja</td>
                     <td class="p-5 text-right tabular-nums">
-                        <?= number_format(($data['total_workers']['PMA']['TKI'] ?? 0) + ($data['total_workers']['PMA']['TKA'] ?? 0)) ?>
+                        <?= number_format(($kpiWorkforce['PMA']['TKI'] ?? 0) + ($kpiWorkforce['PMA']['TKA'] ?? 0)) ?>
                     </td>
                     <td class="p-5 text-right tabular-nums">
-                        <?= number_format(($data['total_workers']['PMDN']['TKI'] ?? 0) + ($data['total_workers']['PMDN']['TKA'] ?? 0)) ?>
+                        <?= number_format(($kpiWorkforce['PMDN']['TKI'] ?? 0) + ($kpiWorkforce['PMDN']['TKA'] ?? 0)) ?>
                     </td>
                     <td class="p-5 text-right font-black text-slate-900 tabular-nums">
-                        <?= number_format(($data['total_workers']['PMA']['TKI'] ?? 0) + ($data['total_workers']['PMA']['TKA'] ?? 0) + ($data['total_workers']['PMDN']['TKI'] ?? 0) + ($data['total_workers']['PMDN']['TKA'] ?? 0)) ?>
+                        <?= number_format(($kpiWorkforce['PMA']['TKI'] ?? 0) + ($kpiWorkforce['PMA']['TKA'] ?? 0) + ($kpiWorkforce['PMDN']['TKI'] ?? 0) + ($kpiWorkforce['PMDN']['TKA'] ?? 0)) ?>
                     </td>
                 </tr>
             </tbody>
@@ -1206,7 +1781,7 @@
             data: {
                 labels: ['PMA', 'PMDN'],
                 datasets: [{
-                    data: [<?= $data['total_additional_investment']['PMA'] ?? 0 ?>, <?= $data['total_additional_investment']['PMDN'] ?? 0 ?>],
+                    data: [<?= $kpiTotalAdditional['PMA'] ?? 0 ?>, <?= $kpiTotalAdditional['PMDN'] ?? 0 ?>],
                     backgroundColor: ['#2563eb', '#10b981'],
                     hoverOffset: 12,
                     borderWidth: 4,
@@ -1698,10 +2273,10 @@
     });
 
     /**
-     * Switch chart type dynamically
-     * @param {string} chartId 
-     * @param {string} newType 
-     */
+   * Switch chart type dynamically
+   * @param {string} chartId 
+   * @param {string} newType 
+   */
     function switchChartType(chartId, newType) {
         const chart = window.charts[chartId];
         if (!chart) return;

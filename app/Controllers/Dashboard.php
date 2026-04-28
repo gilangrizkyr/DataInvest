@@ -25,7 +25,47 @@ class Dashboard extends BaseController
         $filters = $this->getFilters();
         $data = $this->dashboardService->getDashboardData($filters);
 
-        return view('dashboard_modern', ['data' => $data, 'title' => 'Dashboard Statistik']);
+        // ── NEW: Tahun + Triwulan filter aggregation ─────────────────────────────
+        $statYear = $filters['stat_year'] ?? 'all';
+        $statQuarters = $filters['stat_quarters'] ?? [];
+        $currency = $filters['currency'] ?? 'IDR';
+        $usdRate = (float) ($data['usd_rate'] ?? 16653);
+
+        // Get distinct years for the year dropdown
+        $uploadModel = new \App\Models\UploadModel();
+
+        $statFilterData = null;
+        $isStatFilterActive = ($statYear !== 'all' || !empty($statQuarters));
+        if ($isStatFilterActive) {
+            $uploadIds = $uploadModel->getUploadIdsByYearQuarters($statYear, $statQuarters);
+            if (!empty($uploadIds)) {
+                // KPI stats aggregation
+                $statFilterData = $this->dashboardService->getAggregatedStatsByFilter(
+                    $statYear,
+                    $statQuarters,
+                    $currency,
+                    $usdRate
+                );
+                // Full charts + tables aggregation — merge into $data to override all sections
+                $fullAggregated = $this->dashboardService->getFullAggregatedData($uploadIds, $filters);
+                if (!empty($fullAggregated)) {
+                    $data = array_merge($data, $fullAggregated);
+                }
+            }
+        }
+
+        // Get distinct years for the year dropdown
+        // ($uploadModel already instantiated above)
+        $availableYears = $uploadModel->getAvailableYears();
+        // ─────────────────────────────────────────────────────────────────────────
+
+        return view('dashboard_modern', [
+            'data' => $data,
+            'title' => 'Dashboard Statistik',
+            'stat_filter_data' => $statFilterData,
+            'available_years' => $availableYears,
+            'is_stat_filter_active' => $isStatFilterActive,
+        ]);
     }
 
     public function upload()
@@ -158,12 +198,24 @@ class Dashboard extends BaseController
 
     private function getFilters(): array
     {
+        // Normalize stat_quarters from GET array
+        $rawQuarters = $this->request->getGet('stat_quarters');
+        $statQuarters = [];
+        if (is_array($rawQuarters)) {
+            $statQuarters = array_filter($rawQuarters, fn($q) => $q !== 'all' && $q !== '');
+        } elseif (is_string($rawQuarters) && $rawQuarters !== 'all' && $rawQuarters !== '') {
+            $statQuarters = [$rawQuarters];
+        }
+
         return [
-            'upload' => $this->request->getGet('upload') ?? 'all',
+            'upload' => 'all',  // Selalu gunakan upload terbaru; filter via Tahun+Triwulan
             'quarter' => $this->request->getGet('quarter') ?? 'all',
             'year' => $this->request->getGet('year') ?? 'all',
             'quarterly_year' => $this->request->getGet('quarterly_year') ?? 'all',
-            'currency' => $this->request->getGet('currency') ?? 'IDR'
+            'currency' => $this->request->getGet('currency') ?? 'IDR',
+            // NEW: Tahun + Triwulan filter
+            'stat_year' => $this->request->getGet('stat_year') ?? 'all',
+            'stat_quarters' => $statQuarters,
         ];
     }
 

@@ -42,26 +42,26 @@ class UploadModel extends Model
         if (!str_starts_with($quarter, 'Q')) {
             $quarter = 'Q' . $quarter;
         }
-        
+
         // Log untuk debugging
         log_message('debug', "=== DUPLICATE CHECK START ===");
         log_message('debug', "Checking duplicate: Quarter={$quarter}, Year={$year}, ExcludeId={$excludeId}");
-        
+
         // Query dengan kondisi yang jelas
         $builder = $this->db->table($this->table);
         $builder->where('quarter', $quarter);
         $builder->where('year', $year);
-        
+
         // Cek semua status KECUALI 'failed' dan 'uploaded' (yang masih menunggu metadata)
         $builder->where('status !=', 'failed');
         $builder->where('status !=', 'uploaded');
-        
+
         if ($excludeId !== null) {
             $builder->where('id !=', $excludeId);
         }
-        
+
         $result = $builder->get()->getRowArray();
-        
+
         // Log hasil
         if ($result) {
             log_message('debug', "✅ DUPLICATE FOUND!");
@@ -70,7 +70,7 @@ class UploadModel extends Model
             log_message('debug', "❌ NO DUPLICATE - Data aman untuk diproses");
         }
         log_message('debug', "=== DUPLICATE CHECK END ===");
-        
+
         return $result;
     }
 
@@ -98,27 +98,27 @@ class UploadModel extends Model
     {
         // Normalize quarter untuk perbandingan
         $normalizedQuarter = str_replace('Q', '', strtoupper(trim($quarter)));
-        
+
         log_message('debug', "ValidateMetadata called - UploadID: {$uploadId}, Quarter: {$quarter}, Normalized: {$normalizedQuarter}, Year: {$year}");
-        
+
         $duplicate = $this->checkDuplicateUpload($quarter, $year, $uploadId);
-        
+
         if ($duplicate) {
             $message = "❌ Data untuk Quarter {$normalizedQuarter} (Q{$normalizedQuarter}) Tahun {$year} sudah ada!";
             $message .= " Upload sebelumnya: '{$duplicate['upload_name']}'";
             $message .= " (ID: {$duplicate['id']}, Status: {$duplicate['status']})";
-            
+
             log_message('warning', $message);
-            
+
             return [
                 'valid' => false,
                 'message' => $message,
                 'duplicate' => $duplicate
             ];
         }
-        
+
         log_message('debug', "Validation passed - no duplicate found");
-        
+
         return [
             'valid' => true,
             'message' => 'Validasi berhasil - tidak ada duplikat',
@@ -181,8 +181,56 @@ class UploadModel extends Model
     public function getUploadsByQuarterYear($quarter, $year)
     {
         return $this->where('quarter', $quarter)
-                    ->where('year', $year)
-                    ->orderBy('upload_date', 'DESC')
-                    ->findAll();
+            ->where('year', $year)
+            ->orderBy('upload_date', 'DESC')
+            ->findAll();
+    }
+
+    /**
+     * Get upload IDs filtered by year and/or multiple quarters.
+     * Used by the new Tahun + Triwulan filter feature.
+     *
+     * @param  string|null  $year     e.g. '2025' or 'all'
+     * @param  array        $quarters e.g. ['Q1','Q2'] or empty = all quarters
+     * @return array        Flat list of upload IDs
+     */
+    public function getUploadIdsByYearQuarters(?string $year = null, array $quarters = []): array
+    {
+        $builder = $this->db->table($this->table)
+            ->select('id')
+            ->where('status', 'completed');
+
+        if ($year && $year !== 'all') {
+            $builder->where('year', (int) $year);
+        }
+
+        if (!empty($quarters)) {
+            // Normalize to Q1/Q2/Q3/Q4 format
+            $normalized = array_map(function ($q) {
+                $q = strtoupper(trim($q));
+                return str_starts_with($q, 'Q') ? $q : 'Q' . $q;
+            }, $quarters);
+            $builder->whereIn('quarter', $normalized);
+        }
+
+        $rows = $builder->orderBy('upload_date', 'DESC')->get()->getResultArray();
+        return array_column($rows, 'id');
+    }
+
+    /**
+     * Get all distinct years that have completed uploads.
+     *
+     * @return array e.g. [2025, 2024, 2023]
+     */
+    public function getAvailableYears(): array
+    {
+        $rows = $this->db->table($this->table)
+            ->distinct()
+            ->select('year')
+            ->where('status', 'completed')
+            ->where('year IS NOT NULL', null, false)
+            ->orderBy('year', 'DESC')
+            ->get()->getResultArray();
+        return array_column($rows, 'year');
     }
 }
