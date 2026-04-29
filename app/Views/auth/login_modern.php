@@ -9,7 +9,7 @@
     <a href="<?= base_url('/') ?>"
         class="absolute top-6 left-6 flex items-center space-x-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl backdrop-blur-md border border-white/10 transition-all duration-300 group shadow-lg">
         <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
-        <span class="text-sm font-bold">Kembali ke Beranda</span>
+        <span class="text-sm font-bold">Kembali</span>
     </a>
 
     <div class="w-full max-w-md">
@@ -51,7 +51,7 @@
                 <!-- Username/Email Input -->
                 <div class="form-group mb-4">
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-                        Username atau Email
+                        Username
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -59,7 +59,7 @@
                         </div>
                         <input type="text" id="username" name="username"
                             class="form-control pl-10 w-full <?= (isset($errors) && isset($errors['username'])) ? 'border-red-500' : '' ?>"
-                            placeholder="username atau email" required value="<?= old('username') ?>">
+                            placeholder="Masukkan Username" required value="<?= old('username') ?>">
                     </div>
                     <?php if (isset($errors) && isset($errors['username'])): ?>
                         <p class="text-red-600 text-sm mt-2">
@@ -113,21 +113,21 @@
                 </button>
 
                 <!-- Divider -->
-                <div class="relative mb-6">
+                <!-- <div class="relative mb-6">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-300"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
                         <span class="px-2 bg-white text-gray-500">Atau</span>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Help Text -->
-                <p class="text-center text-gray-600 text-sm">
+                <!-- <p class="text-center text-gray-600 text-sm">
                     Belum punya akun?
                     <br>
                     <span class="text-gray-500">Hubungi administrator untuk pendaftaran</span>
-                </p>
+                </p> -->
             </form>
         </div>
 

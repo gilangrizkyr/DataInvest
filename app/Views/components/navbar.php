@@ -28,7 +28,7 @@ $user = session()->get('user');
                     <span
                         class="text-[8px] font-black text-slate-400 uppercase tracking-[0.25em] leading-none mb-1.5 opacity-80">Pemerintah
                         Kabupaten</span>
-                    <span class="text-[11px] font-black text-slate-800 tracking-wide leading-none uppercase group-hover:text-primary-600 transition-colors">DPMPTSP Tanah
+                    <span class="text-[12px] font-black text-slate-800 tracking-wide leading-none uppercase group-hover:text-primary-600 transition-colors">DPMPTSP Tanah
                         Bumbu</span>
                 </div>
             </div>

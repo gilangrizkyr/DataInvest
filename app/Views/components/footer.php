@@ -45,7 +45,7 @@
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Telepon & Fax</p>
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Telepon</p>
                             <p class="text-sm text-slate-300 font-bold">(0518) 70664</p>
                         </div>
                     </div>
