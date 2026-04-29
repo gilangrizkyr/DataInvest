@@ -242,7 +242,7 @@ class ProjectModel extends Model
      */
     public function getInvestmentByDistrict($uploadId, $filters = [])
     {
-        $builder = $this->select('subdistrict, SUM(total_investment) as total')
+        $builder = $this->select('subdistrict, SUM(additional_investment) as total')
             ->where('upload_id', $uploadId)
             ->where('subdistrict IS NOT NULL')
             ->where('subdistrict !=', '');
