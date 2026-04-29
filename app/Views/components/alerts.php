@@ -7,7 +7,10 @@ $processFlashMessage = function($message) {
     }
     return (string)$message;
 };
+
+$hasAlerts = session()->getFlashdata('success') || session()->getFlashdata('error') || session()->getFlashdata('warning') || session()->getFlashdata('info') || (isset($errors) && count($errors) > 0);
 ?>
+<?php if($hasAlerts): ?>
 <div class="container mx-auto px-4 pt-6">
     <?php if($success = session()->getFlashdata('success')): ?>
         <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3 animate-fade-in" role="alert" x-data="{ show: true }" x-show="show">
@@ -61,12 +64,19 @@ $processFlashMessage = function($message) {
         </div>
     <?php endif; ?>
 
-    <?php if(isset($errors) && is_array($errors) && count($errors) > 0): ?>
-        <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg" role="alert">
-            <p class="text-red-800 font-medium mb-2">Validation Errors:</p>
+    <?php 
+    $validationErrors = session()->getFlashdata('errors') ?? (isset($errors) ? $errors : []);
+    if(is_array($validationErrors) && count($validationErrors) > 0): ?>
+        <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg animate-fade-in" role="alert" x-data="{ show: true }" x-show="show">
+            <div class="flex justify-between items-start mb-2">
+                <p class="text-red-800 font-black text-xs uppercase tracking-widest">Kesalahan Validasi:</p>
+                <button @click="show = false" class="text-red-600 hover:text-red-800">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             <ul class="list-disc list-inside space-y-1">
-                <?php foreach($errors as $error): ?>
-                    <li class="text-red-700 text-sm"><?= htmlspecialchars($error) ?></li>
+                <?php foreach($validationErrors as $error): ?>
+                    <li class="text-red-700 text-sm font-medium"><?= htmlspecialchars($error) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -89,3 +99,4 @@ $processFlashMessage = function($message) {
         animation: fadeIn 0.3s ease-in-out;
     }
 </style>
+<?php endif; ?>

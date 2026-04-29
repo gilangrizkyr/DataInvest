@@ -355,10 +355,13 @@ class Dashboard extends BaseController
 
     public function profile()
     {
-        $user = session()->get('user');
-        if (!$user) {
+        $userSession = session()->get('user');
+        if (!$userSession) {
             return redirect()->to('auth/login');
         }
+
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userSession['id']);
 
         $data = [
             'title' => 'Profil Saya',
@@ -366,6 +369,74 @@ class Dashboard extends BaseController
         ];
 
         return view('profile', $data);
+    }
+
+    public function updateProfile()
+    {
+        $userSession = session()->get('user');
+        $userModel = new \App\Models\UserModel();
+
+        $rules = [
+            'name' => 'required|min_length[3]|max_length[100]',
+            'email' => "required|valid_email|is_unique[users.email,id,{$userSession['id']}]",
+            'username' => "required|min_length[3]|is_unique[users.username,id,{$userSession['id']}]",
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'username' => $this->request->getPost('username'),
+        ];
+
+        // Menggunakan skipValidation(true) karena kita sudah melakukan validasi manual di atas
+        // dan model memiliki aturan 'required' untuk password/role yang tidak ada di form ini
+        if ($userModel->skipValidation(true)->update($userSession['id'], $data)) {
+            // Update session data
+            $updatedUser = $userModel->find($userSession['id']);
+            session()->set('user', $updatedUser);
+            return redirect()->to('profile')->with('success', 'Profil berhasil diperbarui');
+        }
+
+        $error = $userModel->errors() ? implode(', ', $userModel->errors()) : 'Gagal memperbarui profil di database';
+        return redirect()->back()->with('error', $error);
+    }
+
+    public function changePassword()
+    {
+        $userSession = session()->get('user');
+        $userModel = new \App\Models\UserModel();
+
+        $rules = [
+            'current_password' => 'required',
+            'new_password' => 'required|min_length[8]',
+            'confirm_password' => 'required|matches[new_password]',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $user = $userModel->find($userSession['id']);
+        
+        // Verifikasi password lama
+        if (!password_verify($this->request->getPost('current_password'), $user['password'])) {
+            return redirect()->back()->with('error', 'Password saat ini salah');
+        }
+
+        $newData = [
+            'password' => $userModel->hashPassword($this->request->getPost('new_password'))
+        ];
+
+        // Sama seperti updateProfile, kita skip model validation karena hanya update password
+        if ($userModel->skipValidation(true)->update($userSession['id'], $newData)) {
+            return redirect()->to('profile')->with('success', 'Password berhasil diubah');
+        }
+
+        return redirect()->back()->with('error', 'Gagal mengubah password');
     }
 
     public function logs()
@@ -379,6 +450,12 @@ class Dashboard extends BaseController
 
     public function settings()
     {
+        // Only superadmin can access settings
+        $user = session()->get('user');
+        if (!$user || ($user['role'] ?? '') !== 'superadmin') {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Halaman tidak ditemukan atau Anda tidak memiliki akses.');
+        }
+
         $data = [
             'title' => 'Settings',
             'config' => [] // TODO: Ambil konfigurasi aplikasi

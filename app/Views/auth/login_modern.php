@@ -101,10 +101,10 @@
                         <input type="checkbox" name="remember" class="mr-2 form-check-input" value="1">
                         <span>Ingat saya</span>
                     </label>
-                    <a href="<?= base_url('auth/forgot-password') ?>"
+                    <!-- <a href="<?= base_url('auth/forgot-password') ?>"
                         class="text-primary-600 hover:text-primary-700 font-medium">
                         Lupa Kata Sandi?
-                    </a>
+                    </a> -->
                 </div>
 
                 <!-- Submit Button -->

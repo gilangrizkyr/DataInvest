@@ -4,7 +4,7 @@
 
 <!-- Section Header -->
 <?= view('components/section_header', [
-    'title' => 'Dashboard Statistik',
+    'title' => 'Dashboard Statistik Realisasi Investasi',
     'description' => 'Management data investasi dan statistik terpadu',
     'icon' => 'fas fa-chart-line'
 ]) ?>
@@ -119,6 +119,39 @@
 
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background: var(--slate-300);
+    }
+
+    /* ═══ MOBILE RESPONSIVE OVERRIDES ═══ */
+    @media (max-width: 767px) {
+        .card {
+            border-radius: 12px !important;
+        }
+
+        .card:hover {
+            transform: none;
+        }
+
+        .card p-7,
+        .card.p-7 {
+            padding: 1rem !important;
+        }
+
+        .card.p-8,
+        .card p-8 {
+            padding: 1.25rem !important;
+        }
+
+        .kpi-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+        }
+
+        .table thead th {
+            padding: 0.75rem 0.75rem;
+            font-size: 0.55rem;
+        }
     }
 </style>
 
@@ -410,8 +443,8 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 
 <!-- Detailed KPI Section -->
 <div class="mb-8">
-    <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-black text-slate-900 flex items-center">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center">
             <span class="w-2 h-8 bg-blue-600 rounded-full mr-4 shadow-sm"></span>
             Ringkasan Realisasi Investasi
         </h2>
@@ -471,7 +504,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         <div
             class="md:col-span-3 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 rounded-2xl p-0.5 shadow-xl shadow-blue-900/10 overflow-hidden">
             <div
-                class="bg-slate-900/40 backdrop-blur-xl rounded-[15px] p-7 flex flex-col md:flex-row items-center justify-between gap-6">
+                class="bg-slate-900/40 backdrop-blur-xl rounded-[15px] p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6">
                 <div class="flex items-center gap-6">
                     <div
                         class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-3xl shadow-inner border border-blue-500/30">
@@ -480,9 +513,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                     <div>
                         <h4 class="text-white font-black text-xl tracking-tight">Lampu Sorot Data</h4>
                         <p class="text-slate-300 text-sm font-medium opacity-80">
-                            Insight cerdas berdasarkan data <span
-                                class="text-blue-400 font-bold"> Periode <span><?= esc($periodLabelDisplay) ?></span>
- 
+                            Insight cerdas berdasarkan data <span class="text-blue-400 font-bold"> Periode
+                                <span><?= esc($periodLabelDisplay) ?></span>
+
                         </p>
                     </div>
                 </div>
@@ -507,14 +540,16 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6">
         <!-- Total Investasi -->
-        <div class="card p-7 border-t-4 border-t-blue-600 shadow-blue-glow">
-            <div class="flex justify-between items-start mb-5">
-                <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Total
+        <div class="card p-4 sm:p-7 border-t-4 border-t-blue-600 shadow-blue-glow">
+            <div class="flex justify-between items-start mb-3 sm:mb-5">
+                <div class="min-w-0 flex-1">
+                    <p
+                        class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+                        Total
                         Realisasi</p>
-                    <h3 class="text-2xl font-black text-slate-900 tabular-nums">
+                    <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <span class="text-blue-600 font-bold"><?= $currencySymbol ?></span>
                         <?= number_format(($kpiTotalInvestment['PMA'] ?? 0) + ($kpiTotalInvestment['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
@@ -523,7 +558,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                     <i class="fas fa-money-bill-trend-up"></i>
                 </div>
             </div>
-            <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-100 hidden sm:block">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
@@ -539,12 +574,13 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         </div>
 
         <!-- Tambahan Investasi -->
-        <div class="card p-7 border-t-4 border-t-sky-500 shadow-sky-glow">
-            <div class="flex justify-between items-start mb-5">
-                <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+        <div class="card p-4 sm:p-7 border-t-4 border-t-sky-500 shadow-sky-glow">
+            <div class="flex justify-between items-start mb-3 sm:mb-5">
+                <div class="min-w-0 flex-1">
+                    <p
+                        class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
                         Tambahan Investasi</p>
-                    <h3 class="text-2xl font-black text-slate-900 tabular-nums">
+                    <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <span class="text-sky-600 font-bold"><?= $currencySymbol ?></span>
                         <?= number_format(($kpiTotalAdditional['PMA'] ?? 0) + ($kpiTotalAdditional['PMDN'] ?? 0), 0, ',', '.') ?>
                     </h3>
@@ -553,7 +589,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                     <i class="fas fa-plus-circle"></i>
                 </div>
             </div>
-            <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-100 hidden sm:block">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span class="text-sm font-black text-blue-600 tabular-nums"><?= $currencySymbol ?>
@@ -569,21 +605,23 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         </div>
 
         <!-- Total Proyek -->
-        <div class="card p-7 border-t-4 border-t-green-500 shadow-green-glow">
-            <div class="flex justify-between items-start mb-5">
-                <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Unit
+        <div class="card p-4 sm:p-7 border-t-4 border-t-green-500 shadow-green-glow">
+            <div class="flex justify-between items-start mb-3 sm:mb-5">
+                <div class="min-w-0 flex-1">
+                    <p
+                        class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+                        Unit
                         Proyek</p>
-                    <h3 class="text-2xl font-black text-slate-900 tabular-nums">
+                    <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <?= number_format(($kpiTotalProjects['PMA'] ?? 0) + ($kpiTotalProjects['PMDN'] ?? 0)) ?>
-                        <span class="text-sm font-black text-slate-300 ml-1">UNIT</span>
+                        <span class="text-xs sm:text-sm font-black text-slate-300 ml-1">UNIT</span>
                     </h3>
                 </div>
                 <div class="kpi-icon bg-green-50 text-green-600 shadow-sm border border-green-100">
                     <i class="fas fa-diagram-project"></i>
                 </div>
             </div>
-            <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-100 hidden sm:block">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
@@ -601,21 +639,22 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         </div>
 
         <!-- Tenaga Kerja (TKI) -->
-        <div class="card p-7 border-t-4 border-t-sky-500 shadow-sky-glow">
-            <div class="flex justify-between items-start mb-5">
-                <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+        <div class="card p-4 sm:p-7 border-t-4 border-t-sky-500 shadow-sky-glow">
+            <div class="flex justify-between items-start mb-3 sm:mb-5">
+                <div class="min-w-0 flex-1">
+                    <p
+                        class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
                         Penyerapan TKI</p>
-                    <h3 class="text-2xl font-black text-slate-900 tabular-nums">
+                    <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <?= number_format(($kpiWorkforce['PMA']['TKI'] ?? 0) + ($kpiWorkforce['PMDN']['TKI'] ?? 0)) ?>
-                        <span class="text-sm font-black text-slate-300 ml-1">JIWA</span>
+                        <span class="text-xs sm:text-sm font-black text-slate-300 ml-1">JIWA</span>
                     </h3>
                 </div>
                 <div class="kpi-icon bg-sky-50 text-sky-600 shadow-sm border border-sky-100">
                     <i class="fas fa-users-viewfinder"></i>
                 </div>
             </div>
-            <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-100 hidden sm:block">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
@@ -633,21 +672,23 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         </div>
 
         <!-- Tenaga Kerja (TKA) -->
-        <div class="card p-7 border-t-4 border-t-amber-500 shadow-amber-glow">
-            <div class="flex justify-between items-start mb-5">
-                <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none mb-2">Tenaga
+        <div class="card p-4 sm:p-7 border-t-4 border-t-amber-500 shadow-amber-glow">
+            <div class="flex justify-between items-start mb-3 sm:mb-5">
+                <div class="min-w-0 flex-1">
+                    <p
+                        class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+                        Tenaga
                         Kerja Asing</p>
-                    <h3 class="text-2xl font-black text-slate-900 tabular-nums">
+                    <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <?= number_format(($kpiWorkforce['PMA']['TKA'] ?? 0) + ($kpiWorkforce['PMDN']['TKA'] ?? 0)) ?>
-                        <span class="text-sm font-black text-slate-300 ml-1">JIWA</span>
+                        <span class="text-xs sm:text-sm font-black text-slate-300 ml-1">JIWA</span>
                     </h3>
                 </div>
                 <div class="kpi-icon bg-amber-50 text-amber-600 shadow-sm border border-amber-100">
                     <i class="fas fa-passport"></i>
                 </div>
             </div>
-            <div class="space-y-3 pt-4 border-t border-slate-100">
+            <div class="space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-100 hidden sm:block">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-blue-50/30 border border-blue-100/20">
                     <span class="text-[10px] text-slate-500 font-black uppercase tracking-widest">PMA</span>
                     <span
@@ -667,10 +708,10 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 </div>
 
 <!-- Sebaran Proyek per Kecamatan Row -->
-<div class="card p-8 mb-8">
-    <div class="flex items-center justify-between mb-8">
-        <h3 class="text-xl font-black text-slate-800 flex items-center tracking-tight">
-            <span class="w-1.5 h-6 bg-green-500 rounded-full mr-4"></span>
+<div class="card p-4 sm:p-8 mb-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-3">
+        <h3 class="text-base sm:text-xl font-black text-slate-800 flex items-center tracking-tight">
+            <span class="w-1.5 h-6 bg-green-500 rounded-full mr-3 sm:mr-4"></span>
             Sebaran Proyek per Kecamatan
         </h3>
         <div class="flex items-center gap-3">
@@ -732,34 +773,34 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 </div>
 
 <!-- Tenaga Kerja per Kecamatan Row -->
-<div class="card p-8 mb-8">
-    <div class="flex items-center justify-between mb-8">
-        <h3 class="text-xl font-black text-slate-800 flex items-center tracking-tight">
-            <span class="w-1.5 h-6 bg-amber-500 rounded-full mr-4"></span>
+<div class="card p-4 sm:p-8 mb-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-3">
+        <h3 class="text-base sm:text-xl font-black text-slate-800 flex items-center tracking-tight">
+            <span class="w-1.5 h-6 bg-amber-500 rounded-full mr-3 sm:mr-4"></span>
             Tenaga Kerja (TKI & TKA) per Kecamatan
         </h3>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
             <select onchange="switchChartType('workforceChart', this.value)"
                 class="text-[10px] font-black border-slate-300 rounded-lg py-1 px-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-100 text-slate-800 shadow-sm cursor-pointer outline-none">
                 <option value="bar">Grouped Bar</option>
                 <option value="horizontalBar">Horizontal Bar</option>
             </select>
             <span
-                class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-50 rounded-full border border-slate-100">SDM
+                class="hidden sm:inline text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 py-1 bg-slate-50 rounded-full border border-slate-100">SDM
                 Investasi</span>
         </div>
     </div>
-    <div class="h-[450px] relative bg-slate-50/30 rounded-2xl p-6 border border-slate-100/50">
+    <div class="h-72 sm:h-[450px] relative bg-slate-50/30 rounded-2xl p-3 sm:p-6 border border-slate-100/50">
         <canvas id="workforceChart"></canvas>
     </div>
 </div>
 
 <!-- Secondary Charts Row -->
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-8 mb-8">
     <!-- Chart PMA vs PMDN -->
-    <div class="card p-7">
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+    <div class="card p-4 sm:p-7">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 sm:mb-8 gap-3">
+            <h3 class="text-sm sm:text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-blue-600 rounded-full mr-3"></span>
                 Rasio Investasi PMA vs PMDN
             </h3>
@@ -769,7 +810,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 <option value="pie">Pie</option>
             </select>
         </div>
-        <div class="h-64 relative">
+        <div class="h-72 sm:h-80 relative">
             <canvas id="ratioChart"></canvas>
         </div>
         <div class="mt-8 flex justify-center gap-12 border-t border-slate-50 pt-6">
@@ -790,9 +831,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
     </div>
 
     <!-- Chart Investasi per Lokasi -->
-    <div class="card p-7">
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+    <div class="card p-4 sm:p-7">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 sm:mb-8 gap-3">
+            <h3 class="text-sm sm:text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-amber-500 rounded-full mr-3"></span>
                 Top 10 Realisasi per Kecamatan (<?= $currency ?>)
             </h3>
@@ -803,18 +844,19 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 <option value="line">Line Chart</option>
             </select>
         </div>
-        <div class="h-80 relative bg-slate-50/30 rounded-2xl p-4 border border-slate-100/50">
+        <div
+            class="h-72 sm:h-[28rem] relative bg-slate-50/30 rounded-2xl p-2 sm:p-4 border border-slate-100/50 overflow-visible">
             <canvas id="locationChart"></canvas>
         </div>
     </div>
 </div>
 
 <!-- Tertiary Charts Row -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 mb-8">
     <!-- Chart Analisis Sektor -->
-    <div class="card p-7">
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+    <div class="card p-4 sm:p-7">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 sm:mb-8 gap-3">
+            <h3 class="text-sm sm:text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-sky-500 rounded-full mr-3"></span>
                 Analisis Sektor Proyek
             </h3>
@@ -826,15 +868,16 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 <option value="horizontalBar">Horizontal Bar</option>
             </select>
         </div>
-        <div class="h-80 relative bg-slate-50/30 rounded-2xl p-4 border border-slate-100/50">
+        <div
+            class="h-72 sm:h-[28rem] relative bg-slate-50/30 rounded-2xl p-2 sm:p-4 border border-slate-100/50 overflow-visible">
             <canvas id="sectorChart"></canvas>
         </div>
     </div>
 
     <!-- Chart Proyek per Negara -->
-    <div class="card p-7">
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
+    <div class="card p-4 sm:p-7">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 sm:mb-8 gap-3">
+            <h3 class="text-sm sm:text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-emerald-500 rounded-full mr-3"></span>
                 Proyek per Negara (PMA)
             </h3>
@@ -845,17 +888,17 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 <option value="polarArea">Polar Area</option>
             </select>
         </div>
-        <div class="h-80 relative bg-slate-50/30 rounded-2xl p-4 border border-slate-100/50">
+        <div class="h-64 sm:h-80 relative bg-slate-50/30 rounded-2xl p-2 sm:p-4 border border-slate-100/50">
             <canvas id="countryChart"></canvas>
         </div>
     </div>
 </div>
 
 <!-- Quarterly Trend Section (Full Width) -->
-<div class="card p-8 mb-8">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div class="flex items-center gap-6">
-            <h3 class="text-xl font-black text-slate-800 flex items-center tracking-tight">
+<div class="card p-4 sm:p-8 mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 mb-6 sm:mb-10">
+        <div class="flex items-center gap-4 sm:gap-6 flex-wrap">
+            <h3 class="text-base sm:text-xl font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-6 bg-indigo-500 rounded-full mr-4"></span>
                 Tren Investasi Kuartalan
             </h3>
@@ -865,20 +908,8 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 <option value="bar">Bar Chart</option>
             </select>
         </div>
-        <div class="flex items-center gap-3 bg-slate-50 p-2 rounded-xl border border-slate-200 shadow-sm">
-            <span
-                class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 border-r border-slate-200">Filter
-                Tahun</span>
-            <select id="quarterly-year-filter"
-                class="form-select text-xs font-black border-0 bg-transparent focus:ring-0 cursor-pointer text-slate-700 min-w-[120px]">
-                <option value="all">Semua Tahun</option>
-                <?php foreach (array_keys($data['charts']['quarterly_additional_investment_all_years'] ?? []) as $year): ?>
-                    <option value="<?= $year ?>" <?= ($data['filters']['quarterly_year'] ?? 'all') == $year ? 'selected' : '' ?>><?= $year ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
     </div>
-    <div class="h-96 relative bg-slate-50/20 rounded-2xl p-6 border border-slate-100/50">
+    <div class="h-64 sm:h-96 relative bg-slate-50/20 rounded-2xl p-3 sm:p-6 border border-slate-100/50">
         <canvas id="quarterlyChart"></canvas>
     </div>
 </div>
@@ -1079,6 +1110,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                             class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Nama Perusahaan</th>
                         <th
+                            class="text-left py-4 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Sektor</th>
+                        <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Realisasi (<?= $currency ?>)</th>
                         <th
@@ -1101,6 +1135,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                     class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
                                     <?= esc($row['nama_perusahaan']) ?>
                                 </td>
+                                <td class="py-4 px-4 text-xs font-semibold text-slate-500 max-w-[150px]">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-lg border border-indigo-100 text-[10px] font-black leading-tight">
+                                        <?= esc($row['sektor'] ?? '-') ?>
+                                    </span>
+                                </td>
                                 <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
                                     <?= $currencySymbol ?>         <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
                                 </td>
@@ -1120,7 +1160,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="py-32 text-center"><i
+                            <td colspan="6" class="py-32 text-center"><i
                                     class="fas fa-inbox text-slate-200 text-5xl mb-4 block"></i>
                                 <p class="text-slate-400 font-black uppercase text-xs">Belum ada data tersedia</p>
                             </td>
@@ -1180,6 +1220,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                             class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Nama Perusahaan</th>
                         <th
+                            class="text-left py-4 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Sektor</th>
+                        <th
                             class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Realisasi (<?= $currency ?>)</th>
                         <th
@@ -1202,6 +1245,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                     class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-green-700 transition-colors">
                                     <?= esc($row['nama_perusahaan']) ?>
                                 </td>
+                                <td class="py-4 px-4 text-xs font-semibold text-slate-500 max-w-[150px]">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[10px] font-black leading-tight">
+                                        <?= esc($row['sektor'] ?? '-') ?>
+                                    </span>
+                                </td>
                                 <td class="py-4 px-6 text-sm text-right font-black text-green-600 tabular-nums">
                                     <?= $currencySymbol ?>         <?= number_format($row['tambahan_realisasi'] ?? 0, 0, ',', '.') ?>
                                 </td>
@@ -1221,7 +1270,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="py-32 text-center"><i
+                            <td colspan="6" class="py-32 text-center"><i
                                     class="fas fa-inbox text-slate-200 text-5xl mb-4 block"></i>
                                 <p class="text-slate-400 font-black uppercase text-xs">Belum ada data tersedia</p>
                             </td>
@@ -1262,12 +1311,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                             class="form-input text-xs py-2 pl-9 pr-4 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 w-40 transition-all shadow-sm">
                     </div>
                     <div class="flex gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200">
-                        <button @click="exportRanking('PMA')"
+                        <button @click="exportLkpmPdf('PMA')"
                             class="w-8 h-8 rounded-lg bg-white text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm border border-slate-100"
                             title="Ekspor PDF">
                             <i class="fas fa-file-pdf"></i>
                         </button>
-                        <button @click="exportExcel('PMA')"
+                        <button @click="exportLkpmExcel('PMA')"
                             class="w-8 h-8 rounded-lg bg-white text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm border border-slate-100"
                             title="Ekspor Excel">
                             <i class="fas fa-file-excel"></i>
@@ -1283,6 +1332,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                         <th
                             class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Nama Perusahaan</th>
+                        <th
+                            class="text-left py-4 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Sektor</th>
                         <?php if ($selectedQuarterLabel): ?>
                             <th
                                 class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
@@ -1303,7 +1355,8 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                 TW 4 (<?= $currency ?>)</th>
                         <?php endif; ?>
                         <?php if (!$selectedQuarterLabel): ?>
-                            <th class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
                                 Total (<?= $currency ?>)</th>
                         <?php endif; ?>
                     </tr>
@@ -1316,6 +1369,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                 <td
                                     class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
                                     <?= esc($row['nama_perusahaan']) ?>
+                                </td>
+                                <td class="py-4 px-4 text-xs font-semibold text-slate-500 max-w-[150px]">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-lg border border-indigo-100 text-[10px] font-black leading-tight">
+                                        <?= esc($row['sektor'] ?? '-') ?>
+                                    </span>
                                 </td>
                                 <?php if ($selectedQuarterLabel): ?>
                                     <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
@@ -1389,12 +1448,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                             class="form-input text-xs py-2 pl-9 pr-4 rounded-xl border-slate-200 focus:border-green-500 focus:ring-green-500 w-40 transition-all shadow-sm">
                     </div>
                     <div class="flex gap-1.5 bg-slate-50 p-1 rounded-xl border border-slate-200">
-                        <button @click="exportRanking('PMDN')"
+                        <button @click="exportLkpmPdf('PMDN')"
                             class="w-8 h-8 rounded-lg bg-white text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm border border-slate-100"
                             title="Ekspor PDF">
                             <i class="fas fa-file-pdf"></i>
                         </button>
-                        <button @click="exportExcel('PMDN')"
+                        <button @click="exportLkpmExcel('PMDN')"
                             class="w-8 h-8 rounded-lg bg-white text-emerald-500 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all shadow-sm border border-slate-100"
                             title="Ekspor Excel">
                             <i class="fas fa-file-excel"></i>
@@ -1410,6 +1469,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                         <th
                             class="text-left py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
                             Nama Perusahaan</th>
+                        <th
+                            class="text-left py-4 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
+                            Sektor</th>
                         <?php if ($selectedQuarterLabel): ?>
                             <th
                                 class="text-right py-4 px-6 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-100">
@@ -1430,7 +1492,8 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                 TW 4 (<?= $currency ?>)</th>
                         <?php endif; ?>
                         <?php if (!$selectedQuarterLabel): ?>
-                            <th class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
+                            <th
+                                class="text-right py-4 px-6 text-[10px] font-black text-green-600 uppercase tracking-widest border-b border-slate-100">
                                 Total (<?= $currency ?>)</th>
                         <?php endif; ?>
                     </tr>
@@ -1443,6 +1506,12 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                                 <td
                                     class="py-4 px-6 text-sm font-bold text-slate-700 group-hover:text-blue-700 transition-colors">
                                     <?= esc($row['nama_perusahaan']) ?>
+                                </td>
+                                <td class="py-4 px-4 text-xs font-semibold text-slate-500 max-w-[150px]">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100 text-[10px] font-black leading-tight">
+                                        <?= esc($row['sektor'] ?? '-') ?>
+                                    </span>
                                 </td>
                                 <?php if ($selectedQuarterLabel): ?>
                                     <td class="py-4 px-6 text-sm text-right font-black text-blue-600 tabular-nums">
@@ -1937,11 +2006,15 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             options: {
                 ...commonOptions,
                 indexAxis: 'y',
+                layout: {
+                    padding: { right: 120, top: 10, bottom: 10, left: 10 }
+                },
                 plugins: {
                     legend: { display: false },
                     datalabels: {
                         anchor: 'end',
                         align: 'right',
+                        clip: false,
                         color: '#000000',
                         font: { family: 'Inter', weight: '900', size: 10 },
                         formatter: (value) => {
@@ -1983,17 +2056,21 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             options: {
                 ...commonOptions,
                 indexAxis: 'y',
+                layout: {
+                    padding: { right: 60, top: 10, bottom: 10, left: 10 }
+                },
                 plugins: {
                     legend: {
-                        position: 'right',
+                        position: 'bottom',
                         labels: { font: { family: 'Inter', weight: '700', size: 10 }, padding: 10 }
                     },
                     datalabels: {
                         anchor: 'end',
                         align: 'right',
+                        clip: false,
                         offset: 4,
                         color: '#000000',
-                        font: { family: 'Inter', weight: '900', size: 12 },
+                        font: { family: 'Inter', weight: '900', size: 11 },
                         formatter: (value) => {
                             return value.toLocaleString('id-ID');
                         }
@@ -2084,7 +2161,11 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                     y: {
                         beginAtZero: true,
                         grid: { color: '#f1f5f9', drawBorder: false },
-                        ticks: { font: { family: 'Inter', weight: '700', size: 10 }, color: '#64748b' }
+                        ticks: { 
+                            font: { family: 'Inter', weight: '700', size: 10 }, 
+                            color: '#64748b',
+                            padding: 25
+                        }
                     },
                     x: {
                         grid: { display: false },
@@ -2094,18 +2175,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             }
         });
 
-        // Quarterly Year Filter Logic
-        document.getElementById('quarterly-year-filter').addEventListener('change', function () {
-            const year = this.value;
-            const allYearsData = <?= json_encode($data['charts']['quarterly_additional_investment_all_years'] ?? []) ?>;
 
-            if (year === 'all') {
-                window.charts['quarterlyChart'].data.datasets[0].data = <?= json_encode($data['charts']['quarterly_additional_investment']['values'] ?? [0, 0, 0, 0]) ?>;
-            } else if (allYearsData[year]) {
-                window.charts['quarterlyChart'].data.datasets[0].data = allYearsData[year].values;
-            }
-            window.charts['quarterlyChart'].update();
-        });
 
         // Currency Switcher
         const currencyToggle = document.getElementById('currency-toggle');
@@ -2120,7 +2190,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         // Export Functions (Global scope via window)
         window.exportRanking = function (type) {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
+            const doc = new jsPDF('l', 'mm', 'a4');
             const listData = dashboardData.sector_count_by_company[type].data;
 
             if (!listData || listData.length === 0) {
@@ -2129,13 +2199,14 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             }
 
             doc.setFontSize(16);
-            doc.text(`Peringkat Perusahaan ${type}`, 105, 15, { align: 'center' });
+            doc.text(`Peringkat Perusahaan ${type}`, 148, 15, { align: 'center' });
             doc.setFontSize(10);
             doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 25);
 
             const tableBody = listData.map((row, idx) => [
                 idx + 1,
                 row.nama_perusahaan,
+                row.sektor || '-',
                 (row.tambahan_realisasi || 0).toLocaleString('id-ID'),
                 row.jumlah_tka || 0,
                 row.jumlah_tki || 0,
@@ -2144,15 +2215,16 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 
             doc.autoTable({
                 startY: 30,
-                head: [['No', 'Perusahaan', 'Realisasi', 'TKA', 'TKI', 'Proyek']],
+                head: [['No', 'Perusahaan', 'Sektor', 'Realisasi', 'TKA', 'TKI', 'Proyek']],
                 body: tableBody,
                 theme: 'grid',
                 headStyles: { fillColor: type === 'PMA' ? [37, 99, 235] : [16, 185, 129] },
                 columnStyles: {
-                    2: { halign: 'right' },
-                    3: { halign: 'center' },
+                    2: { cellWidth: 50 },
+                    3: { halign: 'right' },
                     4: { halign: 'center' },
-                    5: { halign: 'center' }
+                    5: { halign: 'center' },
+                    6: { halign: 'center' }
                 }
             });
 
@@ -2165,6 +2237,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 
             const worksheet = XLSX.utils.json_to_sheet(listData.map(row => ({
                 'Nama Perusahaan': row.nama_perusahaan,
+                'Sektor': row.sektor || '-',
                 'Tambahan Realisasi': row.tambahan_realisasi,
                 'TKA': row.jumlah_tka,
                 'TKI': row.jumlah_tki,
@@ -2174,6 +2247,82 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, `Ranking ${type}`);
             XLSX.writeFile(workbook, `Ranking_${type}_${new Date().getTime()}.xlsx`);
+        };
+
+        // ─── LKPM EXPORT FUNCTIONS ───────────────────────────────────────
+        window.exportLkpmPdf = function (type) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4'); // landscape for wider table
+            const lkpmData = dashboardData.lkpm_by_quarter?.[type]?.data;
+
+            if (!lkpmData || lkpmData.length === 0) {
+                Swal.fire('Info', 'Tidak ada data LKPM untuk diekspor', 'info');
+                return;
+            }
+
+            const currency = currentFilters.currency || 'IDR';
+            const prefix = currency === 'USD' ? '$' : 'Rp';
+
+            doc.setFontSize(16);
+            doc.text(`Laporan Perusahaan LKPM (${type})`, 148, 15, { align: 'center' });
+            doc.setFontSize(10);
+            doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 25);
+            doc.text(`Mata Uang: ${currency}`, 14, 30);
+
+            const tableBody = lkpmData.map((row, idx) => [
+                idx + 1,
+                row.nama_perusahaan,
+                row.sektor || '-',
+                prefix + ' ' + (row.tambahan_realisasi_tw1 || 0).toLocaleString('id-ID'),
+                prefix + ' ' + (row.tambahan_realisasi_tw2 || 0).toLocaleString('id-ID'),
+                prefix + ' ' + (row.tambahan_realisasi_tw3 || 0).toLocaleString('id-ID'),
+                prefix + ' ' + (row.tambahan_realisasi_tw4 || 0).toLocaleString('id-ID'),
+                prefix + ' ' + (row.tambahan_realisasi || 0).toLocaleString('id-ID')
+            ]);
+
+            doc.autoTable({
+                startY: 35,
+                head: [['No', 'Perusahaan', 'Sektor', `TW1 (${currency})`, `TW2 (${currency})`, `TW3 (${currency})`, `TW4 (${currency})`, `Total (${currency})`]],
+                body: tableBody,
+                theme: 'grid',
+                headStyles: { fillColor: type === 'PMA' ? [37, 99, 235] : [16, 185, 129], fontSize: 8 },
+                styles: { fontSize: 7 },
+                columnStyles: {
+                    0: { halign: 'center', cellWidth: 10 },
+                    2: { cellWidth: 35 },
+                    3: { halign: 'right' },
+                    4: { halign: 'right' },
+                    5: { halign: 'right' },
+                    6: { halign: 'right' },
+                    7: { halign: 'right', fontStyle: 'bold' }
+                }
+            });
+
+            doc.save(`LKPM_${type}_${new Date().getTime()}.pdf`);
+        };
+
+        window.exportLkpmExcel = function (type) {
+            const lkpmData = dashboardData.lkpm_by_quarter?.[type]?.data;
+            if (!lkpmData || lkpmData.length === 0) {
+                Swal.fire('Info', 'Tidak ada data LKPM untuk diekspor', 'info');
+                return;
+            }
+
+            const currency = currentFilters.currency || 'IDR';
+
+            const worksheet = XLSX.utils.json_to_sheet(lkpmData.map(row => ({
+                'Nama Perusahaan': row.nama_perusahaan,
+                'Sektor': row.sektor || '-',
+                [`TW1 (${currency})`]: row.tambahan_realisasi_tw1 || 0,
+                [`TW2 (${currency})`]: row.tambahan_realisasi_tw2 || 0,
+                [`TW3 (${currency})`]: row.tambahan_realisasi_tw3 || 0,
+                [`TW4 (${currency})`]: row.tambahan_realisasi_tw4 || 0,
+                [`Total (${currency})`]: row.tambahan_realisasi || 0
+            })));
+
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, `LKPM ${type}`);
+            XLSX.writeFile(workbook, `LKPM_${type}_${new Date().getTime()}.xlsx`);
         };
 
         // --- BUBBLE SORT ANIMATION LOGIC FOR DASHBOARD ---

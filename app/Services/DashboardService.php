@@ -373,7 +373,7 @@ class DashboardService
 
         // --- Normalize sector_count_by_company ---
         $sectorCountByCompany = [
-            'PMA'  => $sectorCountByCompany['PMA']  ?? ['data' => [], 'total' => 0],
+            'PMA' => $sectorCountByCompany['PMA'] ?? ['data' => [], 'total' => 0],
             'PMDN' => $sectorCountByCompany['PMDN'] ?? ['data' => [], 'total' => 0],
         ];
 
@@ -389,45 +389,45 @@ class DashboardService
         return [
             // Charts (same keys as getDashboardData)
             'charts' => [
-                'district'         => $cs->generateDistrictChart($projectsByDistrict),
-                'locations'        => $cs->generateLocationChart($investmentByLoc),
-                'sectors'          => $cs->generateSectorChart($sectors),
-                'countries'        => $cs->generateCountryChart($countries),
-                'workforce'        => $cs->generateWorkforceChart($workforceByDistrict),
-                'quarterly_additional_investment'           => $quarterlyChart,
+                'district' => $cs->generateDistrictChart($projectsByDistrict),
+                'locations' => $cs->generateLocationChart($investmentByLoc),
+                'sectors' => $cs->generateSectorChart($sectors),
+                'countries' => $cs->generateCountryChart($countries),
+                'workforce' => $cs->generateWorkforceChart($workforceByDistrict),
+                'quarterly_additional_investment' => $quarterlyChart,
                 'quarterly_additional_investment_all_years' => $allYearsData,
             ],
             // District ranking tables (both formats used by view)
-            'ranking_by_district'            => $rankingByDistrict,      // [{kecamatan,jumlah_proyek}]
-            'ranking_pma'                    => $pmaDistrict,             // [kec=>count] keyed
-            'ranking_pmdn'                   => $pmdnDistrict,
+            'ranking_by_district' => $rankingByDistrict,      // [{kecamatan,jumlah_proyek}]
+            'ranking_pma' => $pmaDistrict,             // [kec=>count] keyed
+            'ranking_pmdn' => $pmdnDistrict,
             // Company tables
-            'sector_count_by_company'        => $sectorCountByCompany,
+            'sector_count_by_company' => $sectorCountByCompany,
             // LKPM quarterly pivot
-            'lkpm_by_quarter'                => [
-                'PMA'  => ['data' => $lkpmPMA,  'total' => count($lkpmPMA)],
+            'lkpm_by_quarter' => [
+                'PMA' => ['data' => $lkpmPMA, 'total' => count($lkpmPMA)],
                 'PMDN' => ['data' => $lkpmPMDN, 'total' => count($lkpmPMDN)],
             ],
-            'total_quarterly_reports'        => [
-                'PMA'  => count($lkpmPMA),
+            'total_quarterly_reports' => [
+                'PMA' => count($lkpmPMA),
                 'PMDN' => count($lkpmPMDN),
             ],
             // District-level data
-            'projects_by_district'           => $projectsByDistrict,
-            'projects_by_district_pma'       => $pmaDistrict,
-            'projects_by_district_pmdn'      => $pmdnDistrict,
+            'projects_by_district' => $projectsByDistrict,
+            'projects_by_district_pma' => $pmaDistrict,
+            'projects_by_district_pmdn' => $pmdnDistrict,
             'additional_investment_by_district' => $addByDistrict,
             'additional_investment_percentages' => $additionalPercentages,
-            'investment_by_location'         => $investmentByLoc,
+            'investment_by_location' => $investmentByLoc,
             // Analysis
-            'sector_analysis'                => $sectors,
-            'workforce'                      => $workforceTotals,
-            'workforce_by_district'          => $workforceByDistrict,
-            'projects_by_country'            => $countries,
+            'sector_analysis' => $sectors,
+            'workforce' => $workforceTotals,
+            'workforce_by_district' => $workforceByDistrict,
+            'projects_by_country' => $countries,
             // Insight / period info
-            'period_label'                   => $periodLabel,
-            'top_district'                   => $topDistrict,
-            'top_district_count'             => $topDistrictCount,
+            'period_label' => $periodLabel,
+            'top_district' => $topDistrict,
+            'top_district_count' => $topDistrictCount,
         ];
     }
 

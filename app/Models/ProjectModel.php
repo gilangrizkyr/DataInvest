@@ -243,11 +243,11 @@ class ProjectModel extends Model
     public function getInvestmentByDistrict($uploadId, $filters = [])
     {
         // For now, we'll use direct calculation with filters since pre-calculated stats don't support filtering
-        $builder = $this->select('subdistrict, SUM(total_investment) as total')
+        // $builder = $this->select('subdistrict, SUM(total_investment) as total')
+        $builder = $this->select('subdistrict, SUM(additional_investment) as total')
             ->where('upload_id', $uploadId)
             ->where('subdistrict IS NOT NULL')
             ->where('subdistrict !=', '');
-
         if (!empty($filters['quarter']) && $filters['quarter'] !== 'all') {
             $builder->where('period_stage', $filters['quarter']);
         }
@@ -488,6 +488,7 @@ class ProjectModel extends Model
         $getCompanyData = function ($investmentType) use ($uploadId, $filters) {
             $builder = $this->db->table($this->table)
                 ->select('company_name AS nama_perusahaan,
+                      GROUP_CONCAT(DISTINCT sector_detail ORDER BY sector_detail SEPARATOR \', \') AS sektor,
                       SUM(additional_investment) AS tambahan_realisasi,
                       SUM(tki) AS jumlah_tki,
                       SUM(tka) AS jumlah_tka,
@@ -568,6 +569,7 @@ class ProjectModel extends Model
         $sql = "
             SELECT
                 p.company_name AS nama_perusahaan,
+                GROUP_CONCAT(DISTINCT p.sector_detail ORDER BY p.sector_detail SEPARATOR ', ') AS sektor,
                 SUM(CASE WHEN u.quarter = 'Q1' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw1,
                 SUM(CASE WHEN u.quarter = 'Q2' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw2,
                 SUM(CASE WHEN u.quarter = 'Q3' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw3,
@@ -589,6 +591,7 @@ class ProjectModel extends Model
         $result = $this->db->query($sql, [$investmentType, $uploadId])->getResultArray();
 
         foreach ($result as &$row) {
+            $row['sektor'] = $row['sektor'] ?? '-';
             $row['tambahan_realisasi_tw1'] = (float) $row['tambahan_realisasi_tw1'];
             $row['tambahan_realisasi_tw2'] = (float) $row['tambahan_realisasi_tw2'];
             $row['tambahan_realisasi_tw3'] = (float) $row['tambahan_realisasi_tw3'];
@@ -754,6 +757,7 @@ class ProjectModel extends Model
         $sql = "
             SELECT
                 p.company_name AS nama_perusahaan,
+                GROUP_CONCAT(DISTINCT p.sector_detail ORDER BY p.sector_detail SEPARATOR ', ') AS sektor,
                 SUM(CASE WHEN u.quarter = 'Q1' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw1,
                 SUM(CASE WHEN u.quarter = 'Q2' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw2,
                 SUM(CASE WHEN u.quarter = 'Q3' THEN p.additional_investment ELSE 0 END) AS tambahan_realisasi_tw3,
@@ -775,6 +779,7 @@ class ProjectModel extends Model
         $params = array_merge([$investmentType], $uploadIds);
         $result = $this->db->query($sql, $params)->getResultArray();
         foreach ($result as &$row) {
+            $row['sektor'] = $row['sektor'] ?? '-';
             $row['tambahan_realisasi_tw1'] = (float) $row['tambahan_realisasi_tw1'];
             $row['tambahan_realisasi_tw2'] = (float) $row['tambahan_realisasi_tw2'];
             $row['tambahan_realisasi_tw3'] = (float) $row['tambahan_realisasi_tw3'];

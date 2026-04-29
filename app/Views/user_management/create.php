@@ -3,134 +3,120 @@
 <?= $this->section('content') ?>
 <?php $errors = session()->getFlashdata('errors'); ?>
 
-<!-- Section Header -->
-<?= view('components/section_header', [
-    'title' => 'Tambah User Baru',
-    'description' => 'Silakan lengkapi formulir di bawah ini untuk mendaftarkan pengguna baru ke sistem.',
-    'icon' => 'fas fa-user-plus'
-]) ?>
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-10 text-center">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-primary-600 text-white rounded-[2.5rem] shadow-2xl shadow-primary-100 mb-6 transform hover:rotate-12 transition-transform duration-500">
+            <i class="fas fa-user-plus text-3xl"></i>
+        </div>
+        <h1 class="text-3xl font-black text-slate-800 tracking-tight">Tambah User Baru</h1>
+        <p class="text-slate-500 font-medium mt-2">Daftarkan akses baru untuk administrator atau unit kerja.</p>
+    </div>
 
-<div class="max-w-2xl mx-auto">
-    <div class="card p-8">
-        <form action="<?= base_url('user-management/store') ?>" method="POST">
-            <?= csrf_field() ?>
+    <div class="bg-white rounded-[2.5rem] shadow-card border border-slate-100 overflow-hidden">
+        <div class="p-10">
+            <form action="<?= base_url('user-management/store') ?>" method="POST" class="space-y-8">
+                <?= csrf_field() ?>
 
-            <div class="space-y-6">
-                <!-- Nama Lengkap -->
-                <div class="group">
-                    <label for="name"
-                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Nama
-                        Lengkap</label>
-                    <div class="relative">
-                        <i
-                            class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="text" name="name" id="name" value="<?= old('name') ?>" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['name']) ? 'border-red-500 bg-red-50' : '' ?>"
-                            placeholder="Masukkan nama lengkap...">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Nama Lengkap -->
+                    <div class="group space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] group-focus-within:text-primary-600 transition-colors">Nama Lengkap</label>
+                        <div class="relative">
+                            <i class="fas fa-id-card absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-500 transition-colors"></i>
+                            <input type="text" name="name" value="<?= old('name') ?>" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 focus:ring-4 focus:ring-primary-100 focus:border-primary-500 outline-none transition-all placeholder:text-slate-300" placeholder="Contoh: Ahmad Fauzi">
+                        </div>
+                        <?php if (isset($errors['name'])): ?>
+                            <p class="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-2 italic"><i class="fas fa-circle-exclamation mr-1"></i><?= $errors['name'] ?></p>
+                        <?php endif; ?>
                     </div>
-                    <?php if (isset($errors['name'])): ?>
-                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter"><?= $errors['name'] ?>
-                        </p>
-                    <?php endif; ?>
+
+                    <!-- Username -->
+                    <div class="group space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] group-focus-within:text-primary-600 transition-colors">ID Username</label>
+                        <div class="relative">
+                            <i class="fas fa-at absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-500 transition-colors"></i>
+                            <input type="text" name="username" value="<?= old('username') ?>" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 focus:ring-4 focus:ring-primary-100 focus:border-primary-500 outline-none transition-all placeholder:text-slate-300" placeholder="fauzi_123">
+                        </div>
+                        <p class="text-[9px] font-bold text-slate-400 px-2 uppercase tracking-tighter">Hanya alfanumerik (min. 3 karakter)</p>
+                        <?php if (isset($errors['username'])): ?>
+                            <p class="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-2 italic"><i class="fas fa-circle-exclamation mr-1"></i><?= $errors['username'] ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="group space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] group-focus-within:text-primary-600 transition-colors">Email Instansi</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-500 transition-colors"></i>
+                            <input type="email" name="email" value="<?= old('email') ?>" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 focus:ring-4 focus:ring-primary-100 focus:border-primary-500 outline-none transition-all placeholder:text-slate-300" placeholder="nama@dpmptsp.go.id">
+                        </div>
+                        <?php if (isset($errors['email'])): ?>
+                            <p class="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-2 italic"><i class="fas fa-circle-exclamation mr-1"></i><?= $errors['email'] ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="group space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] group-focus-within:text-primary-600 transition-colors">Kata Sandi Awal</label>
+                        <div class="relative">
+                            <i class="fas fa-lock-open absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-500 transition-colors"></i>
+                            <input type="password" name="password" required class="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold text-slate-700 focus:ring-4 focus:ring-primary-100 focus:border-primary-500 outline-none transition-all placeholder:text-slate-300" placeholder="Minimal 8 karakter">
+                        </div>
+                        <?php if (isset($errors['password'])): ?>
+                            <p class="text-[10px] font-bold text-rose-500 uppercase tracking-widest px-2 italic"><i class="fas fa-circle-exclamation mr-1"></i><?= $errors['password'] ?></p>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- Role -->
+                    <div class="group space-y-3 md:col-span-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] group-focus-within:text-primary-600 transition-colors">Tentukan Role Hak Akses</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="relative flex items-center p-5 rounded-2xl border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-primary-500 cursor-pointer transition-all group/opt">
+                                <input type="radio" name="role" value="admin" <?= old('role') === 'admin' ? 'checked' : '' ?> class="peer hidden">
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-300 mr-4 flex items-center justify-center peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition-transform"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-black text-slate-700">Administrator Unit</span>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase mt-0.5 tracking-tight">Akses manajemen data & laporan</span>
+                                </div>
+                            </label>
+                            
+                            <label class="relative flex items-center p-5 rounded-2xl border-2 border-slate-100 bg-slate-50 hover:bg-white hover:border-primary-500 cursor-pointer transition-all group/opt">
+                                <input type="radio" name="role" value="user" <?= old('role') === 'user' ? 'checked' : '' ?> class="peer hidden">
+                                <div class="w-5 h-5 rounded-full border-2 border-slate-300 mr-4 flex items-center justify-center peer-checked:border-primary-500 peer-checked:bg-primary-500 transition-all">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white scale-0 peer-checked:scale-100 transition-transform"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-black text-slate-700">User Standar</span>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase mt-0.5 tracking-tight">Akses pantauan dashboard saja</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Username -->
-                <div class="group">
-                    <label for="username"
-                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Username</label>
-                    <div class="relative">
-                        <i
-                            class="fas fa-at absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="text" name="username" id="username" value="<?= old('username') ?>" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['username']) ? 'border-red-500 bg-red-50' : '' ?>"
-                            placeholder="username123">
+                <!-- Info Box -->
+                <div class="p-6 bg-amber-50 rounded-3xl border border-amber-100 flex items-start gap-4">
+                    <div class="w-10 h-10 bg-amber-200 text-amber-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-shield-halved"></i>
                     </div>
-                    <p class="mt-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Hanya alfanumerik,
-                        minimal 3 karakter</p>
-                    <?php if (isset($errors['username'])): ?>
-                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
-                            <?= $errors['username'] ?>
-                        </p>
-                    <?php endif; ?>
+                    <div class="flex flex-col">
+                        <span class="text-xs font-black text-amber-800 uppercase tracking-widest">Keamanan Superadmin</span>
+                        <p class="text-[11px] font-medium text-amber-700 mt-1">Role Superadmin hanya dapat dikonfigurasi langsung melalui akses basis data inti untuk menjamin integritas sistem tingkat tinggi.</p>
+                    </div>
                 </div>
 
-                <!-- Email -->
-                <div class="group">
-                    <label for="email"
-                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Email
-                        Address</label>
-                    <div class="relative">
-                        <i
-                            class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="email" name="email" id="email" value="<?= old('email') ?>" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['email']) ? 'border-red-500 bg-red-50' : '' ?>"
-                            placeholder="email@contoh.com">
-                    </div>
-                    <?php if (isset($errors['email'])): ?>
-                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
-                            <?= $errors['email'] ?>
-                        </p>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Password -->
-                <div class="group">
-                    <label for="password"
-                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Password</label>
-                    <div class="relative">
-                        <i
-                            class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
-                        <input type="password" name="password" id="password" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-4 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all <?= isset($errors['password']) ? 'border-red-500 bg-red-50' : '' ?>"
-                            placeholder="********">
-                    </div>
-                    <p class="mt-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Minimal 8 karakter
-                    </p>
-                    <?php if (isset($errors['password'])): ?>
-                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter">
-                            <?= $errors['password'] ?>
-                        </p>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Role -->
-                <div class="group">
-                    <label for="role"
-                        class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3 block group-focus-within:text-blue-500 transition-colors">Role
-                        Pengguna</label>
-                    <div class="relative">
-                        <i
-                            class="fas fa-user-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-500 transition-colors"></i>
-                        <select name="role" id="role" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-xl py-3.5 pl-12 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all appearance-none cursor-pointer <?= isset($errors['role']) ? 'border-red-500 bg-red-50' : '' ?>">
-                            <option value="">-- Pilih Role --</option>
-                            <option value="admin" <?= old('role') === 'admin' ? 'selected' : '' ?>>Administrator</option>
-                            <option value="user" <?= old('role') === 'user' ? 'selected' : '' ?>>Standard User</option>
-                        </select>
-                        <i
-                            class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xs"></i>
-                    </div>
-                    <p class="mt-2 text-[10px] font-bold text-amber-500 uppercase tracking-tighter">Superadmin hanya
-                        dapat didaftarkan melalui database</p>
-                    <?php if (isset($errors['role'])): ?>
-                        <p class="mt-2 text-[10px] font-bold text-red-500 uppercase tracking-tighter"><?= $errors['role'] ?>
-                        </p>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex gap-4 pt-4">
-                    <a href="<?= base_url('user-management') ?>"
-                        class="flex-1 px-6 py-4 rounded-2xl bg-slate-100 text-slate-600 text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-all text-center leading-none flex items-center justify-center">
-                        Batal
-                    </a>
-                    <button type="submit"
-                        class="flex-[2] px-6 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-black uppercase tracking-widest hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-200 active:scale-95">
-                        <i class="fas fa-plus mr-2"></i>Daftarkan User
+                <!-- Footer Actions -->
+                <div class="flex items-center gap-4 pt-6">
+                    <a href="<?= base_url('user-management') ?>" class="flex-1 py-4 px-6 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-black uppercase tracking-widest rounded-2xl transition-all text-center">Batalkan</a>
+                    <button type="submit" class="flex-[2] py-4 px-6 bg-slate-900 hover:bg-black text-white text-xs font-black uppercase tracking-widest rounded-2xl shadow-xl hover:-translate-y-1 active:translate-y-0 transition-all">
+                        <i class="fas fa-save mr-2"></i> Daftarkan Sekarang
                     </button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

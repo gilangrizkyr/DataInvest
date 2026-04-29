@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password - SST Application</title>
-    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
+    <link rel="icon" type="image/png" href="<?= base_url('favicon_tanbu.png') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {

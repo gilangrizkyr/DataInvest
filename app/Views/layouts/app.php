@@ -7,7 +7,8 @@
     <title><?= $title ?? 'DataInvest - DPMPTSP Tanah Bumbu' ?></title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?= base_url('logo-dpmptsp.png') ?>">
+    <link rel="icon" type="image/png" href="<?= base_url('favicon_tanbu.png') ?>">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('favicon_tanbu.png') ?>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -88,7 +89,7 @@
         <?= view('components/alerts') ?>
         
         <!-- Page Content -->
-        <div class="container mx-auto px-4 py-8">
+        <div class="container mx-auto px-4 pb-8 pt-4 lg:pt-6">
             <?= $this->renderSection('content') ?>
         </div>
     </main>

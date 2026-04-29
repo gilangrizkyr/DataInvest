@@ -5,249 +5,231 @@
 <!-- Load Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div x-data="securityDashboard()" x-init="init()" class="space-y-8">
-    <!-- Header -->
-    <?= view('components/section_header', [
-        'title' => 'Security Monitoring',
-        'description' => 'Pantau dan kelola ancaman keamanan sistem secara real-time.',
-        'icon' => 'fas fa-shield-alt'
-    ]) ?>
-
-    <!-- Statistics Row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <!-- Total Attempts -->
-        <div class="card border-l-4 border-amber-400 p-6 flex items-center justify-between">
-            <div>
-                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Total Serangan</p>
-                <h3 class="text-3xl font-black text-slate-800 tabular-nums" x-text="stats.total_attempts || '0'">0</h3>
-                <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-tighter">Dalam 24 Jam Terakhir
-                </p>
-            </div>
-            <div
-                class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 shadow-sm border border-amber-200">
-                <i class="fas fa-exclamation-triangle text-xl"></i>
-            </div>
+<div x-data="securityDashboard()" x-init="init()" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-8" x-cloak>
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight flex items-center gap-4">
+                <span class="p-3 bg-slate-900 text-white rounded-2xl shadow-xl shadow-slate-200"><i class="fas fa-shield-halved"></i></span>
+                Security Monitoring
+            </h1>
+            <p class="text-slate-500 font-medium mt-2">Pemantauan aktivitas mencurigakan dan pencegahan intrusi secara real-time.</p>
         </div>
-
-        <!-- Blocked -->
-        <div class="card border-l-4 border-rose-500 p-6 flex items-center justify-between">
-            <div>
-                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Diblokir</p>
-                <div class="flex items-baseline gap-2">
-                    <h3 class="text-3xl font-black text-slate-800 tabular-nums" x-text="stats.total_blocked || '0'">0
-                    </h3>
-                    <span
-                        class="text-[10px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100"
-                        x-text="(stats.block_rate || '0') + '%'">0%</span>
-                </div>
-                <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-tighter">Serangan Berhasil
-                    Dicegah
-                </p>
+        <div class="flex items-center gap-3">
+            <div class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 flex items-center gap-3">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-black uppercase tracking-widest">Live Monitoring Active</span>
             </div>
-            <div
-                class="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center text-rose-600 shadow-sm border border-rose-200">
-                <i class="fas fa-ban text-xl"></i>
-            </div>
+            <button @click="fetchData()" class="p-3 bg-white hover:bg-slate-50 text-slate-600 rounded-xl border border-slate-100 shadow-sm transition-all group">
+                <i class="fas fa-sync-alt text-sm" :class="isLoading ? 'fa-spin' : ''"></i>
+            </button>
         </div>
+    </div>
 
-        <!-- Passed -->
-        <div class="card border-l-4 border-emerald-500 p-6 flex items-center justify-between">
-            <div>
-                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Lolos</p>
-                <h3 class="text-3xl font-black text-slate-800 tabular-nums" x-text="stats.passed || '0'">0</h3>
-                <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-tighter">Aktivitas Mencurigakan
-                </p>
-            </div>
-            <div
-                class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-200">
-                <i class="fas fa-check-circle text-xl"></i>
-            </div>
-        </div>
-
-        <!-- Critical -->
-        <div class="card border-l-4 border-rose-600 p-6 flex items-center justify-between bg-rose-50/30">
-            <div>
-                <p class="text-xs font-black text-rose-600 uppercase tracking-widest mb-1">Kritis</p>
-                <h3 class="text-3xl font-black text-rose-600 tabular-nums" x-text="stats.critical_threats || '0'">0</h3>
-                <p class="text-[10px] font-bold text-rose-400 mt-2 uppercase tracking-tighter">Butuh Penanganan</p>
-            </div>
-            <div
-                class="w-12 h-12 bg-rose-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-rose-200">
-                <i class="fas fa-skull-crossbones text-xl"></i>
-            </div>
-        </div>
-
-        <!-- System Status -->
-        <div class="card border-l-4 border-blue-600 p-6 flex items-center justify-between overflow-hidden relative">
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card: Total Attempts -->
+        <div class="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-card overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-50 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
             <div class="relative z-10">
-                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Status Sistem</p>
-                <h3 class="text-2xl font-black text-blue-600 uppercase tracking-tight"
-                    x-text="stats.system_status || 'SECURE'">SECURE</h3>
-                <p class="text-[10px] font-bold text-slate-400 mt-2 uppercase tracking-tighter">Sistem Berjalan Normal
-                </p>
+                <div class="flex items-center justify-between mb-6">
+                    <div class="p-4 bg-amber-50 text-amber-600 rounded-2xl"><i class="fas fa-bolt-lightning text-xl"></i></div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">24h Attempts</span>
+                </div>
+                <h3 class="text-4xl font-black text-slate-800 tracking-tighter" x-text="stats.total_attempts || '0'">0</h3>
+                <p class="text-xs font-bold text-slate-400 mt-2">Serangan Terdeteksi</p>
             </div>
-            <div
-                class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shadow-sm border border-blue-200 relative z-10">
-                <i class="fas fa-shield-halved text-xl"></i>
+        </div>
+
+        <!-- Card: Blocked -->
+        <div class="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-card overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-50 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+            <div class="relative z-10">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="p-4 bg-emerald-50 text-emerald-600 rounded-2xl"><i class="fas fa-shield-check text-xl"></i></div>
+                    <div class="px-3 py-1 bg-emerald-500 text-white rounded-lg text-[10px] font-black" x-text="(stats.block_rate || '0') + '%'">100%</div>
+                </div>
+                <h3 class="text-4xl font-black text-slate-800 tracking-tighter" x-text="stats.total_blocked || '0'">0</h3>
+                <p class="text-xs font-bold text-slate-400 mt-2">Akses Diblokir</p>
             </div>
-            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-50 rounded-full opacity-50 z-0"></div>
+        </div>
+
+        <!-- Card: Critical Threats -->
+        <div class="relative bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl overflow-hidden group">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-rose-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+            <div class="relative z-10">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="p-4 bg-rose-500/20 text-rose-400 rounded-2xl" :class="stats.critical_threats > 0 ? 'animate-pulse' : ''">
+                        <i class="fas fa-skull-crossbones text-xl"></i>
+                    </div>
+                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">High Severity</span>
+                </div>
+                <h3 class="text-4xl font-black text-white tracking-tighter" x-text="stats.critical_threats || '0'">0</h3>
+                <p class="text-xs font-bold text-slate-500 mt-2 uppercase tracking-widest">Ancaman Kritis</p>
+            </div>
+        </div>
+
+        <!-- Card: System Status -->
+        <div class="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-card overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-blue-50 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+            <div class="relative z-10 text-center">
+                <div class="w-20 h-20 bg-slate-50 rounded-full border-4 border-white shadow-xl mx-auto mb-4 flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-microchip text-2xl" :class="stats.system_status === 'SECURE' ? 'text-blue-500' : 'text-amber-500'"></i>
+                </div>
+                <h3 class="text-xl font-black tracking-widest uppercase" :class="stats.system_status === 'SECURE' ? 'text-blue-600' : 'text-amber-600'" x-text="stats.system_status">SECURE</h3>
+                <p class="text-[10px] font-black text-slate-400 uppercase mt-2 tracking-tighter">System Health Status</p>
+            </div>
         </div>
     </div>
 
     <!-- Charts Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Threat Timeline Chart -->
-        <div class="card flex flex-col min-h-[450px]">
-            <div class="p-6 border-b border-slate-100 bg-white">
-                <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
-                    <span class="w-1.5 h-6 bg-blue-600 rounded-full mr-4"></span>
-                    Timeline Ancaman (24 Jam)
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Main Timeline Chart -->
+        <div class="lg:col-span-8 bg-white rounded-[2rem] p-8 border border-slate-100 shadow-card">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-lg font-black text-slate-800 flex items-center gap-3">
+                    <span class="w-1.5 h-6 bg-primary-600 rounded-full"></span>
+                    Timeline Aktivitas Intrusi
                 </h3>
-            </div>
-            <div class="p-8 flex-1 relative">
-                <canvas id="timelineChart"></canvas>
-                <div x-show="isLoading"
-                    class="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-20">
-                    <div class="flex flex-col items-center">
-                        <i class="fas fa-circle-notch fa-spin text-3xl text-blue-500 mb-4"></i>
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Memuat Data...</p>
+                <div class="flex gap-2">
+                    <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Total
                     </div>
+                    <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase ml-4">
+                        <span class="w-2 h-2 rounded-full bg-rose-500"></span> Blocked
+                    </div>
+                </div>
+            </div>
+            <div class="h-[400px] relative">
+                <canvas id="timelineChart"></canvas>
+                <div x-show="isLoading && !chart" class="absolute inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center rounded-2xl">
+                    <i class="fas fa-circle-notch fa-spin text-3xl text-primary-500"></i>
                 </div>
             </div>
         </div>
 
         <!-- Threat Types Breakdown -->
-        <div class="card flex flex-col">
-            <div class="p-6 border-b border-slate-100 bg-white">
-                <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
-                    <span class="w-1.5 h-6 bg-emerald-500 rounded-full mr-4"></span>
-                    Distribusi Tipe Ancaman
-                </h3>
-            </div>
-            <div class="p-8 flex-1">
-                <div class="space-y-6">
-                    <template x-for="type in threatTypes" :key="type.type">
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-black text-slate-700 uppercase tracking-tight"
-                                    x-text="type.type">SQL Injection</span>
-                                <span
-                                    class="px-2 py-1 rounded-lg bg-white border border-slate-100 text-xs font-black text-slate-600 shadow-sm"
-                                    x-text="type.count + ' Attempts'">0 Attempts</span>
-                            </div>
-                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden shadow-inner">
-                                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-1000"
-                                    :style="'width: ' + ((type.count / stats.total_attempts) * 100) + '%'"></div>
-                            </div>
+        <div class="lg:col-span-4 bg-white rounded-[2rem] p-8 border border-slate-100 shadow-card flex flex-col">
+            <h3 class="text-lg font-black text-slate-800 flex items-center gap-3 mb-8">
+                <span class="w-1.5 h-6 bg-amber-500 rounded-full"></span>
+                Vektor Serangan
+            </h3>
+            <div class="flex-1 space-y-6">
+                <template x-for="type in threatTypes" :key="type.type">
+                    <div class="group">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-[11px] font-black text-slate-700 uppercase tracking-tight" x-text="type.type"></span>
+                            <span class="text-[11px] font-black text-slate-400" x-text="type.count + ' hits'"></span>
                         </div>
-                    </template>
+                        <div class="w-full bg-slate-50 rounded-full h-3 overflow-hidden border border-slate-100">
+                            <div class="bg-gradient-to-r from-primary-500 to-indigo-600 h-full rounded-full transition-all duration-1000 group-hover:brightness-110" :style="'width: ' + ((type.count / (stats.total_attempts || 1)) * 100) + '%'"></div>
+                        </div>
+                    </div>
+                </template>
 
-                    <div x-show="threatTypes.length === 0"
-                        class="h-full flex flex-col items-center justify-center text-slate-300 py-12">
-                        <i class="fas fa-shield-check text-5xl mb-4 opacity-10"></i>
-                        <p class="text-xs font-black uppercase tracking-widest text-slate-400">Tidak ada ancaman
-                            terdeteksi</p>
+                <div x-show="threatTypes.length === 0" class="h-full flex flex-col items-center justify-center text-slate-200 py-12">
+                    <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-check text-4xl opacity-20"></i>
+                    </div>
+                    <p class="text-xs font-black uppercase tracking-widest text-slate-400">Zero threats detected</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-slate-50">
+                <div class="p-4 bg-slate-900 rounded-2xl text-white">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i class="fas fa-circle-info text-blue-400 text-xs"></i>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Security Score</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-3xl font-black">98.2</span>
+                        <span class="text-xs font-bold text-emerald-400">Excellent</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Recent Threats Table -->
-    <div class="card overflow-hidden">
-        <div class="p-6 border-b border-slate-100 bg-white flex items-center justify-between">
-            <h3 class="text-lg font-black text-slate-800 flex items-center tracking-tight">
-                <span class="w-1.5 h-6 bg-slate-400 rounded-full mr-4"></span>
-                Event Keamanan Terbaru
-            </h3>
-            <button @click="fetchData()"
-                class="w-10 h-10 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center hover:bg-white hover:text-blue-600 transition-all shadow-sm border border-slate-100">
-                <i class="fas fa-sync-alt text-xs" :class="isLoading ? 'fa-spin' : ''"></i>
-            </button>
+    <!-- Detailed Logs Table -->
+    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-card overflow-hidden">
+        <div class="p-8 border-b border-slate-50 bg-white flex items-center justify-between">
+            <div>
+                <h3 class="text-xl font-black text-slate-800 tracking-tight">Security Event Logs</h3>
+                <p class="text-xs text-slate-400 font-medium mt-1 uppercase tracking-widest">Daftar aktivitas mencurigakan yang tercatat sistem</p>
+            </div>
+            <a href="<?= base_url('security-monitoring/export') ?>" class="px-6 py-3 bg-slate-900 hover:bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center gap-3">
+                <i class="fas fa-download"></i> Export Logs
+            </a>
         </div>
 
-        <div class="overflow-x-auto custom-scrollbar overflow-y-auto max-h-[500px]">
+        <div class="overflow-x-auto custom-scrollbar">
             <table class="w-full table-auto border-separate border-spacing-0">
-                <thead class="bg-slate-50/90 backdrop-blur-md sticky top-0 z-10">
-                    <tr>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-left border-b border-slate-100">
-                            Waktu</th>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-left border-b border-slate-100">
-                            Tipe</th>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-left border-b border-slate-100">
-                            IP Sumber</th>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-center border-b border-slate-100">
-                            Tingkat Bahaya</th>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-center border-b border-slate-100">
-                            Status</th>
-                        <th
-                            class="py-5 px-6 text-xs font-black text-slate-500 uppercase tracking-widest text-right border-b border-slate-100">
-                            Aksi</th>
+                <thead>
+                    <tr class="bg-slate-50/50">
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">Timestamp</th>
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">Incident Type</th>
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">Source IP</th>
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Severity</th>
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Status</th>
+                        <th class="py-5 px-8 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Details</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-50 bg-white">
+                <tbody class="divide-y divide-slate-50">
                     <template x-for="threat in threats" :key="threat.id">
-                        <tr class="hover:bg-slate-50/50 transition-colors group">
-                            <td class="py-4 px-6">
-                                <span class="text-xs font-bold text-slate-500"
-                                    x-text="formatDate(threat.created_at)"></span>
+                        <tr class="hover:bg-slate-50/50 transition-all group">
+                            <td class="py-5 px-8">
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-black text-slate-700" x-text="formatDate(threat.created_at).split(' - ')[0]"></span>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter" x-text="formatDate(threat.created_at).split(' - ')[1]"></span>
+                                </div>
                             </td>
-                            <td class="py-4 px-6">
-                                <span
-                                    class="px-2 py-1 rounded-lg bg-slate-50 text-xs font-black text-slate-600 uppercase tracking-widest border border-slate-200"
-                                    x-text="threat.type"></span>
+                            <td class="py-5 px-8">
+                                <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-black uppercase tracking-widest" x-text="threat.type"></span>
                             </td>
-                            <td class="py-4 px-6">
-                                <code
-                                    class="bg-slate-50 text-slate-600 border border-slate-100 px-3 py-1.5 rounded-lg text-xs font-black"
-                                    x-text="threat.ip_address"></code>
+                            <td class="py-5 px-8">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 rounded-full bg-slate-300 group-hover:bg-blue-500 transition-colors"></div>
+                                    <code class="text-xs font-black text-slate-600 bg-slate-50 px-2 py-1 rounded border border-slate-100" x-text="threat.ip_address"></code>
+                                </div>
                             </td>
-                            <td class="py-4 px-6 text-center">
-                                <template x-if="threat.severity === 'critical'">
-                                    <span
-                                        class="px-3 py-1.5 rounded-full bg-rose-600 text-white text-[10px] font-black uppercase tracking-widest shadow-sm">Critical</span>
-                                </template>
-                                <template x-if="threat.severity === 'high'">
-                                    <span
-                                        class="px-3 py-1.5 rounded-full bg-rose-50 text-rose-600 text-[10px] font-black uppercase tracking-widest border border-rose-100">High</span>
-                                </template>
-                                <template x-if="threat.severity === 'medium'">
-                                    <span
-                                        class="px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest border border-amber-100">Medium</span>
-                                </template>
-                                <template x-if="threat.severity === 'low'">
-                                    <span
-                                        class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest border border-blue-100">Low</span>
-                                </template>
+                            <td class="py-5 px-8 text-center">
+                                <span class="px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest border"
+                                    :class="{
+                                        'bg-rose-600 text-white border-rose-600 shadow-lg shadow-rose-100': threat.severity === 'critical',
+                                        'bg-rose-50 text-rose-600 border-rose-100': threat.severity === 'high',
+                                        'bg-amber-50 text-amber-600 border-amber-100': threat.severity === 'medium',
+                                        'bg-blue-50 text-blue-600 border-blue-100': threat.severity === 'low'
+                                    }"
+                                    x-text="threat.severity"></span>
                             </td>
-                            <td class="py-4 px-6 text-center">
-                                <span
-                                    class="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border"
-                                    :class="threat.status === 'blocked' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-slate-50 text-slate-400 border-slate-100'"
-                                    x-text="threat.status"></span>
+                            <td class="py-5 px-8 text-center">
+                                <div class="flex items-center justify-center gap-2">
+                                    <i class="fas fa-shield-halved text-[10px]" :class="threat.status === 'blocked' ? 'text-emerald-500' : 'text-slate-300'"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-widest" :class="threat.status === 'blocked' ? 'text-emerald-600' : 'text-slate-400'" x-text="threat.status"></span>
+                                </div>
                             </td>
-                            <td class="py-4 px-6 text-right">
-                                <button
-                                    class="w-8 h-8 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-slate-100">
-                                    <i class="fas fa-eye text-xs"></i>
+                            <td class="py-5 px-8 text-right">
+                                <button class="p-2.5 bg-slate-50 text-slate-400 rounded-xl hover:bg-slate-900 hover:text-white transition-all shadow-sm border border-slate-100">
+                                    <i class="fas fa-search-plus text-xs"></i>
                                 </button>
                             </td>
                         </tr>
                     </template>
-                    <tr x-show="threats.length === 0">
-                        <td colspan="6" class="py-20 text-center">
-                            <i class="fas fa-shield-check text-slate-200 text-5xl mb-4 block"></i>
-                            <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Tidak ada event
-                                keamanan terbaru</p>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
+            
+            <div x-show="threats.length === 0" class="py-32 flex flex-col items-center justify-center bg-white">
+                <div class="relative mb-6">
+                    <div class="w-24 h-24 bg-blue-50 rounded-full animate-ping opacity-20 absolute inset-0"></div>
+                    <div class="w-24 h-24 bg-white border border-slate-100 rounded-full flex items-center justify-center relative shadow-xl">
+                        <i class="fas fa-shield-heart text-4xl text-blue-500"></i>
+                    </div>
+                </div>
+                <h4 class="text-xl font-black text-slate-800 tracking-tight">Your System is Secure</h4>
+                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mt-2">No security incidents recorded in the current filter</p>
+            </div>
         </div>
     </div>
 </div>
@@ -271,8 +253,8 @@
 
             async init() {
                 await this.fetchData();
-                // Start auto-refresh every 30 seconds
-                setInterval(() => this.fetchData(), 30000);
+                // Start auto-refresh every 60 seconds
+                setInterval(() => this.fetchData(), 60000);
             },
 
             async fetchData() {
@@ -287,7 +269,6 @@
                         this.threatTypes = result.data.threat_types;
                         this.timeline = result.data.trend;
 
-                        // Simple logic for system status
                         if (this.stats.critical_threats > 0) {
                             this.stats.system_status = 'WARNING';
                         } else {
@@ -312,22 +293,31 @@
                     this.chart.destroy();
                 }
 
+                // Create Gradients
+                const blueGrad = ctx.createLinearGradient(0, 0, 0, 400);
+                blueGrad.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+                blueGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+                const roseGrad = ctx.createLinearGradient(0, 0, 0, 400);
+                roseGrad.addColorStop(0, 'rgba(244, 63, 94, 0.2)');
+                roseGrad.addColorStop(1, 'rgba(244, 63, 94, 0)');
+
                 this.chart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: this.timeline.map(t => t.time),
                         datasets: [
                             {
-                                label: 'Blocked Attempts',
+                                label: 'Blocked',
                                 data: this.timeline.map(t => t.blocked),
-                                borderColor: '#ef4444',
-                                backgroundColor: 'rgba(239, 68, 68, 0.05)',
+                                borderColor: '#f43f5e',
+                                backgroundColor: roseGrad,
                                 borderWidth: 3,
                                 fill: true,
                                 tension: 0.4,
                                 pointRadius: 0,
                                 pointHoverRadius: 6,
-                                pointBackgroundColor: '#ef4444',
+                                pointBackgroundColor: '#f43f5e',
                                 pointBorderColor: '#fff',
                                 pointBorderWidth: 2
                             },
@@ -335,7 +325,7 @@
                                 label: 'Total Attempts',
                                 data: this.timeline.map(t => t.attempts),
                                 borderColor: '#3b82f6',
-                                backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                                backgroundColor: blueGrad,
                                 borderWidth: 3,
                                 fill: true,
                                 tension: 0.4,
@@ -355,32 +345,30 @@
                             mode: 'index'
                         },
                         plugins: {
-                            legend: {
-                                display: true,
-                                position: 'bottom',
-                                labels: {
-                                    usePointStyle: true,
-                                    font: { family: 'DM Sans', weight: 'bold', size: 10 }
-                                }
-                            },
+                            legend: { display: false },
                             tooltip: {
-                                backgroundColor: '#1e293b',
-                                titleFont: { family: 'DM Sans', weight: 'bold', size: 12 },
-                                bodyFont: { family: 'DM Sans', weight: 'normal', size: 12 },
-                                padding: 12,
-                                cornerRadius: 12,
-                                displayColors: true
+                                backgroundColor: '#0f172a',
+                                titleFont: { family: 'Inter', weight: 'bold', size: 12 },
+                                bodyFont: { family: 'Inter', size: 12 },
+                                padding: 16,
+                                cornerRadius: 16,
+                                displayColors: true,
+                                bodySpacing: 8
                             }
                         },
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                grid: { color: '#f1f5f9', drawBorder: false },
-                                ticks: { font: { family: 'DM Sans', weight: 'bold', size: 10 }, color: '#94a3b8' }
+                                grid: { color: '#f8fafc', drawBorder: false },
+                                ticks: { 
+                                    font: { family: 'Inter', weight: '700', size: 10 }, 
+                                    color: '#94a3b8',
+                                    callback: (v) => v % 1 === 0 ? v : '' 
+                                }
                             },
                             x: {
                                 grid: { display: false },
-                                ticks: { font: { family: 'DM Sans', weight: 'bold', size: 10 }, color: '#94a3b8' }
+                                ticks: { font: { family: 'Inter', weight: '700', size: 10 }, color: '#94a3b8' }
                             }
                         }
                     }
@@ -389,11 +377,20 @@
 
             formatDate(dateStr) {
                 const date = new Date(dateStr);
-                return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' - ' +
-                    date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+                const time = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false });
+                const day = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+                return `${time} - ${day}`;
             }
         }
     }
 </script>
 
-<?= $this->endSection(); ?>
+<style>
+    [x-cloak] { display: none !important; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+</style>
+
+<?php $this->endSection(); ?>

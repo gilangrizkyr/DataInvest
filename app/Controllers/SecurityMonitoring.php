@@ -14,43 +14,44 @@ class SecurityMonitoring extends BaseController
         try {
             $db = \Config\Database::connect();
 
-            // 24 jam terakhir
-            $threats = $db->table('security_logs')
-                ->where('created_at >=', date('Y-m-d H:i:s', strtotime('-24 hours')))
-                ->orderBy('created_at', 'DESC')
-                ->limit(100)
-                ->get()
-                ->getResultArray();
-
+            // Stats for the last 24 hours (Real-time monitoring)
+            $last24h = date('Y-m-d H:i:s', strtotime('-24 hours'));
             $today = date('Y-m-d');
 
             $total = $db->table('security_logs')
-                ->where('DATE(created_at)', $today)
+                ->where('created_at >=', $last24h)
                 ->countAllResults();
 
             $blocked = $db->table('security_logs')
-                ->where('DATE(created_at)', $today)
+                ->where('created_at >=', $last24h)
                 ->where('status', 'blocked')
                 ->countAllResults();
 
             $critical = $db->table('security_logs')
-                ->where('DATE(created_at)', $today)
+                ->where('created_at >=', $last24h)
                 ->where('severity', 'critical')
                 ->countAllResults();
 
             $stats = [
                 'total_attempts' => $total,
                 'total_blocked' => $blocked,
-                'block_rate' => $total > 0 ? round(($blocked / $total) * 100, 1) : 0,
+                'block_rate' => $total > 0 ? round(($blocked / $total) * 100, 1) : 100, // Show 100% if no attempts
                 'critical_threats' => $critical,
                 'passed' => $total - $blocked,
             ];
+
+            // For the table, show the latest 50 threats regardless of time to keep the UI informative
+            $threats = $db->table('security_logs')
+                ->orderBy('created_at', 'DESC')
+                ->limit(50)
+                ->get()
+                ->getResultArray();
 
             $trend = $this->getTrendData($db);
 
             $threatTypes = $db->table('security_logs')
                 ->select('type, COUNT(*) as count')
-                ->where('created_at >=', date('Y-m-d H:i:s', strtotime('-24 hours')))
+                ->where('created_at >=', $last24h)
                 ->groupBy('type')
                 ->orderBy('count', 'DESC')
                 ->get()

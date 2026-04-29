@@ -23,6 +23,8 @@ $routes->post('/auth/process-reset-password', 'Auth::processResetPassword');
 // DASHBOARD ROUTES
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'roleFilter']);
 $routes->get('/profile', 'Dashboard::profile', ['filter' => 'auth']);
+$routes->post('/profile/update', 'Dashboard::updateProfile', ['filter' => 'auth']);
+$routes->post('/profile/change-password', 'Dashboard::changePassword', ['filter' => 'auth']);
 $routes->post('/dashboard/upload', 'Dashboard::upload', ['filter' => 'roleFilter']);
 $routes->get('/dashboard/metadata/(:num)', 'Dashboard::metadata/$1', ['filter' => 'roleFilter']);
 $routes->post('/dashboard/processMetadata', 'Dashboard::processMetadata', ['filter' => 'roleFilter']);
