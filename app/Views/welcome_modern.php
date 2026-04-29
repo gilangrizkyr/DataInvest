@@ -310,22 +310,37 @@
         },
         options: {
             ...commonOptions,
+            indexAxis: 'y', // Switch to horizontal for better label space
+            layout: {
+                padding: {
+                    right: 80, // Extra space for large labels
+                    top: 10,
+                    bottom: 10,
+                    left: 10
+                }
+            },
             plugins: {
                 ...commonOptions.plugins,
                 legend: { display: false },
                 datalabels: {
                     ...commonOptions.plugins.datalabels,
                     anchor: 'end',
-                    align: 'top',
-                    offset: 5,
-                    formatter: (value) => 'Rp ' + Math.round(value).toLocaleString('id-ID')
+                    align: 'right',
+                    offset: 8,
+                    formatter: (value) => {
+                        return 'Rp ' + Math.round(value).toLocaleString('id-ID');
+                    },
+                    font: { family: 'Inter', weight: '900', size: 10 }
                 }
             },
             scales: {
-                x: { grid: { display: false }, ticks: { font: { family: 'Inter', weight: '700', size: 10 }, color: '#64748b' } },
-                y: {
-                    display: false,
-                    grace: '20%' // Add more headroom for vertical labels
+                x: { display: false, grace: '30%' },
+                y: { 
+                    grid: { display: false }, 
+                    ticks: { 
+                        font: { family: 'Inter', weight: '700', size: 11 }, 
+                        color: '#64748b' 
+                    } 
                 }
             }
         }

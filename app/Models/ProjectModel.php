@@ -242,9 +242,7 @@ class ProjectModel extends Model
      */
     public function getInvestmentByDistrict($uploadId, $filters = [])
     {
-        // For now, we'll use direct calculation with filters since pre-calculated stats don't support filtering
-        // $builder = $this->select('subdistrict, SUM(total_investment) as total')
-        $builder = $this->select('subdistrict, SUM(additional_investment) as total')
+        $builder = $this->select('subdistrict, SUM(total_investment) as total')
             ->where('upload_id', $uploadId)
             ->where('subdistrict IS NOT NULL')
             ->where('subdistrict !=', '');
@@ -258,7 +256,6 @@ class ProjectModel extends Model
         foreach ($result as $row) {
             $investments[$row['subdistrict']] = (float) $row['total'];
         }
-        // Already sorted by DESC, but ensure with arsort
         arsort($investments);
         return $investments;
     }

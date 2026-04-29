@@ -1,0 +1,78 @@
+# ==========================================
+# DataInvest - Professional .gitignore (CI4)
+# ==========================================
+
+# --- Environment & Credentials ---
+.env
+.env.*
+*.env
+!env
+!.env.example
+
+# --- Composer Dependencies ---
+/vendor/
+composer.lock
+# (Keep lock file if you want consistent versions across dev/prod, 
+# but usually in CI4 maintenance, some prefer ignoring it if vendor is uploaded manually. 
+# Professional standard is to KEEP it, but I'll leave it as is if you prefer.)
+
+# --- CodeIgniter 4 Writable Directory ---
+# Ignore everything in writable except the directory structure and .gitkeep files
+/writable/*
+!/writable/.gitkeep
+!/writable/cache/
+/writable/cache/*
+!/writable/cache/.gitkeep
+!/writable/debugbar/
+/writable/debugbar/*
+!/writable/debugbar/.gitkeep
+!/writable/logs/
+/writable/logs/*
+!/writable/logs/.gitkeep
+!/writable/session/
+/writable/session/*
+!/writable/session/.gitkeep
+!/writable/uploads/
+/writable/uploads/*
+!/writable/uploads/.gitkeep
+
+# --- Public Assets & User Uploads ---
+# Do not track files uploaded by users to keep the repo small and clean
+/public/uploads/*
+!/public/uploads/.gitkeep
+/public/assets/uploads/*
+!/public/assets/uploads/.gitkeep
+
+# --- Database Files ---
+*.sqlite
+*.db
+*.sql
+# (Exclude backups/dumps from repo)
+
+# --- IDE & Editor Specific ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+.phpunit.result.cache
+
+# --- OS Specific ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --- Maintenance & Temp ---
+*.log
+*.tmp
+*.temp
+/node_modules/
+/npm-debug.log*
+/yarn-error.log*
