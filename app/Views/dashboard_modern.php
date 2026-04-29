@@ -2,12 +2,64 @@
 
 <?php $this->section('content'); ?>
 
-<!-- Section Header -->
-<?= view('components/section_header', [
-    'title' => 'Dashboard Statistik Realisasi Investasi',
-    'description' => 'Management data investasi dan statistik terpadu',
-    'icon' => 'fas fa-chart-line'
-]) ?>
+<?php
+// ─── Stat Filter Variables ────────────────────────────────────────────────────
+$statFilterData = $stat_filter_data ?? null;
+$availableYears = $available_years ?? [];
+$isStatFilterActive = $is_stat_filter_active ?? false;
+$activeStatYear = $data['filters']['stat_year'] ?? 'all';
+$activeStatQuarters = $data['filters']['stat_quarters'] ?? [];
+
+// ─── Resolve Spotlight Data at the top ───
+if ($isStatFilterActive && !empty($data['top_district'])) {
+    $winner = [
+        'kecamatan' => $data['top_district'],
+        'jumlah_proyek' => $data['top_district_count'] ?? 0,
+    ];
+} else {
+    $top5 = $data['ranking_by_district'] ?? [];
+    $winner = !empty($top5) ? $top5[0] : null;
+}
+
+if ($isStatFilterActive && !empty($data['period_label'])) {
+    $periodLabelDisplay = $data['period_label'];
+} else {
+    $q = $data['quarter'] ?? '-';
+    $y = $data['current_year'] ?? '-';
+    $periodLabelDisplay = "$q Tahun $y";
+}
+?>
+
+<!-- Premium Spotlight Header -->
+<div class="mb-10 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 rounded-2xl p-0.5 shadow-xl shadow-blue-900/10 overflow-hidden header-animate">
+    <div class="bg-slate-900/40 backdrop-blur-xl rounded-[15px] p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6">
+        <div class="flex items-center gap-6">
+            <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-3xl shadow-inner border border-blue-500/30">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+                <h4 class="text-white font-black text-xl sm:text-2xl tracking-tight">Dashboard Statistik Realisasi</h4>
+                <p class="text-slate-300 text-sm font-medium opacity-80">
+                    Insight cerdas berdasarkan data <span class="text-blue-400 font-bold">Periode <?= esc($periodLabelDisplay) ?></span>
+                </p>
+            </div>
+        </div>
+        <div class="flex-1 md:max-w-2xl">
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-2xl">
+                <p class="text-slate-100 text-base font-bold leading-relaxed">
+                    <?php if ($winner): ?>
+                        <i class="fas fa-star text-amber-400 mr-3 animate-pulse"></i>
+                        Kecamatan <span class="text-blue-400 decoration-blue-500/50 underline-offset-4 font-black"><?= esc($winner['kecamatan']) ?></span>
+                        unggul sebagai kontributor utama dengan total <span class="text-white font-black px-2 py-0.5 bg-blue-600 rounded-lg"><?= number_format($winner['jumlah_proyek']) ?> proyek</span> aktif.
+                    <?php else: ?>
+                        <i class="fas fa-info-circle text-slate-400 mr-2"></i>
+                        Management data investasi dan statistik terpadu DPMPTSP.
+                    <?php endif; ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Professional Analytics Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -156,13 +208,6 @@
 </style>
 
 <?php
-// ─── Stat Filter Variables ────────────────────────────────────────────────────
-$statFilterData = $stat_filter_data ?? null;
-$availableYears = $available_years ?? [];
-$isStatFilterActive = $is_stat_filter_active ?? false;
-$activeStatYear = $data['filters']['stat_year'] ?? 'all';
-$activeStatQuarters = $data['filters']['stat_quarters'] ?? [];
-
 // Resolved display values for KPI cards
 // When filter is active, use aggregated values; otherwise fall back to upload-based values
 $kpiTotalInvestment = $isStatFilterActive && $statFilterData
@@ -315,11 +360,6 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
 
 <div class="stat-filter-panel <?= $isStatFilterActive ? 'active-filter' : '' ?>">
     <form method="GET" action="<?= current_url() ?>" id="stat-filter-form">
-        <?php /* Hanya simpan currency; upload selalu diabaikan */ ?>
-        <?php if (!empty($data['filters']['currency']) && $data['filters']['currency'] !== 'IDR'): ?>
-            <input type="hidden" name="currency" value="<?= esc($data['filters']['currency']) ?>">
-        <?php endif; ?>
-
         <div class="flex flex-col md:flex-row md:items-end gap-5 flex-wrap">
 
             <!-- Header label -->
@@ -330,7 +370,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 </div>
                 <div>
                     <p class="stat-filter-label">Filter Statistik</p>
-                    <p class="text-xs font-black text-slate-700 leading-tight">Tahun & Triwulan</p>
+                    <p class="text-xs font-black text-slate-700 leading-tight">Agregasi Data</p>
                 </div>
                 <?php if ($isStatFilterActive): ?>
                     <?php if ($statFilterData !== null): ?>
@@ -385,10 +425,23 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                 </div>
             </div>
 
+            <!-- Divider -->
+            <div class="hidden md:block w-px bg-slate-200 self-stretch"></div>
+
+            <!-- Mata Uang (Moved here after TW) -->
+            <div class="flex flex-col gap-1.5">
+                <span class="stat-filter-label">Mata Uang</span>
+                <select name="currency" id="currency-toggle"
+                    class="form-select text-xs font-black border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-slate-50 text-slate-700 py-2 px-3 cursor-pointer shadow-sm">
+                    <option value="IDR" <?= ($data['filters']['currency'] ?? 'IDR') === 'IDR' ? 'selected' : '' ?>>IDR (Rp)</option>
+                    <option value="USD" <?= ($data['filters']['currency'] ?? 'IDR') === 'USD' ? 'selected' : '' ?>>USD ($)</option>
+                </select>
+            </div>
+
             <!-- Actions -->
             <div class="flex items-center gap-2 ml-auto">
                 <?php if ($isStatFilterActive): ?>
-                    <a href="<?= base_url('dashboard' . ($data['filters']['currency'] !== 'IDR' ? '?currency=' . esc($data['filters']['currency']) : '')) ?>"
+                    <a href="<?= base_url('dashboard') ?>"
                         class="stat-filter-btn-reset">
                         <i class="fas fa-times mr-1"></i> Reset
                     </a>
@@ -416,6 +469,9 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                         <i class="fas fa-layer-group mr-1"></i><?= esc($aqLabel) ?>
                     </span>
                 <?php endforeach; ?>
+                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 rounded-lg text-[10px] font-black border border-amber-100 uppercase">
+                    <i class="fas fa-money-bill-wave mr-1"></i><?= esc($data['filters']['currency'] ?? 'IDR') ?>
+                </span>
                 <span class="ml-auto text-[10px] font-black text-slate-400">
                     Data dari <?= count($statFilterData['upload_ids_used']) ?> upload
                 </span>
@@ -448,16 +504,6 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
             <span class="w-2 h-8 bg-blue-600 rounded-full mr-4 shadow-sm"></span>
             Ringkasan Realisasi Investasi
         </h2>
-        <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl shadow-sm border border-slate-200">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Mata Uang</span>
-            <select id="currency-toggle"
-                class="form-select text-sm font-bold border-0 focus:ring-0 cursor-pointer bg-slate-50 rounded-lg text-slate-700">
-                <option value="IDR" <?= ($data['filters']['currency'] ?? 'IDR') === 'IDR' ? 'selected' : '' ?>>IDR (Rp)
-                </option>
-                <option value="USD" <?= ($data['filters']['currency'] ?? 'IDR') === 'USD' ? 'selected' : '' ?>>USD ($)
-                </option>
-            </select>
-        </div>
     </div>
     <?php
     $currency = $data['filters']['currency'] ?? 'IDR';
@@ -479,66 +525,6 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
     ?>
 
 
-    <!-- Lampu Sorot Data (Data Spotlight) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <?php
-        if ($isStatFilterActive && !empty($data['top_district'])) {
-            // Aggregated data — top district from multi-upload
-            $winner = [
-                'kecamatan' => $data['top_district'],
-                'jumlah_proyek' => $data['top_district_count'] ?? 0,
-            ];
-        } else {
-            $top5 = $data['ranking_by_district'] ?? [];
-            $winner = !empty($top5) ? $top5[0] : null;
-        }
-        // Period label
-        if ($isStatFilterActive && !empty($data['period_label'])) {
-            $periodLabelDisplay = $data['period_label'];
-        } else {
-            $q = $data['quarter'] ?? '-';
-            $y = $data['current_year'] ?? '-';
-            $periodLabelDisplay = "$q Tahun $y";
-        }
-        ?>
-        <div
-            class="md:col-span-3 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 rounded-2xl p-0.5 shadow-xl shadow-blue-900/10 overflow-hidden">
-            <div
-                class="bg-slate-900/40 backdrop-blur-xl rounded-[15px] p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6">
-                <div class="flex items-center gap-6">
-                    <div
-                        class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 text-3xl shadow-inner border border-blue-500/30">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-black text-xl tracking-tight">Lampu Sorot Data</h4>
-                        <p class="text-slate-300 text-sm font-medium opacity-80">
-                            Insight cerdas berdasarkan data <span class="text-blue-400 font-bold"> Periode
-                                <span><?= esc($periodLabelDisplay) ?></span>
-
-                        </p>
-                    </div>
-                </div>
-                <div class="flex-1 md:max-w-2xl">
-                    <div class="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 shadow-2xl">
-                        <p class="text-slate-100 text-base font-bold leading-relaxed">
-                            <?php if ($winner): ?>
-                                <i class="fas fa-star text-amber-400 mr-3 animate-pulse"></i>
-                                Kecamatan <span
-                                    class="text-blue-400 underline decoration-blue-500/50 underline-offset-4 font-black"><?= esc($winner['kecamatan']) ?></span>
-                                unggul sebagai kontributor utama dengan total <span
-                                    class="text-white font-black px-2 py-0.5 bg-blue-600 rounded-lg"><?= number_format($winner['jumlah_proyek']) ?>
-                                    proyek</span> aktif.
-                            <?php else: ?>
-                                <i class="fas fa-info-circle text-slate-400 mr-2"></i>
-                                Belum ada data peringkat yang cukup untuk menampilkan insight.
-                            <?php endif; ?>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6">
         <!-- Total Investasi -->
