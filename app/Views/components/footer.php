@@ -5,96 +5,50 @@
     </div>
 
     <div class="container mx-auto px-8 lg:px-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pb-12 border-b border-slate-800">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-16 pb-12 border-b border-slate-800">
             <!-- Brand Column -->
-            <div class="lg:col-span-1">
+            <div class="space-y-6">
                 <div class="flex items-center space-x-3 mb-6">
-                    <div
-                        class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
-                        <i class="fas fa-chart-line text-white"></i>
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
+                        <i class="fas fa-chart-line text-white text-xl"></i>
                     </div>
-                    <span class="text-2xl font-black text-white tracking-tighter">DataInvest</span>
+                    <div>
+                        <span class="text-2xl font-black text-white tracking-tighter block leading-none">DataInvest</span>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Sistem Informasi Terpadu</span>
+                    </div>
                 </div>
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                    Platform manajemen dan analisis data investasi terintegrasi milik DPMPTSP Kabupaten Tanah Bumbu.
-                    Membangun masa depan ekonomi yang transparan.
+                <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                    Platform manajemen dan analisis data investasi terintegrasi milik DPMPTSP Kabupaten Tanah Bumbu. 
+                    Dirancang untuk mendukung transparansi data dan percepatan pertumbuhan ekonomi daerah melalui visualisasi data yang cerdas.
                 </p>
-                <!-- <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 bg-slate-800 hover:bg-blue-600 text-white rounded-xl flex items-center justify-center transition-all duration-300">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-slate-800 hover:bg-blue-400 text-white rounded-xl flex items-center justify-center transition-all duration-300">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-slate-800 hover:bg-pink-600 text-white rounded-xl flex items-center justify-center transition-all duration-300">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div> -->
             </div>
 
-            <!-- Quick Access -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-6 flex items-center">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span> Akses Cepat
+            <!-- Contact & Info -->
+            <div class="lg:pl-20">
+                <h4 class="text-white font-black text-xs uppercase tracking-[0.2em] mb-8 flex items-center">
+                    <span class="w-8 h-[2px] bg-blue-600 mr-3"></span> Hubungi Kami
                 </h4>
-                <ul class="space-y-4">
-                    <li>
-                        <a href="<?= base_url('dashboard') ?>"
-                            class="hover:text-blue-400 transition-colors flex items-center group text-sm">
-                            <i
-                                class="fas fa-chevron-right text-[10px] mr-2 text-slate-600 group-hover:text-blue-400 transition-colors"></i>
-                            Dashboard Realisasi
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('faq') ?>"
-                            class="hover:text-blue-400 transition-colors flex items-center group text-sm">
-                            <i
-                                class="fas fa-chevron-right text-[10px] mr-2 text-slate-600 group-hover:text-blue-400 transition-colors"></i>
-                            Pusat Jawaban (FAQ)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('auth/login') ?>"
-                            class="hover:text-blue-400 transition-colors flex items-center group text-sm">
-                            <i
-                                class="fas fa-chevron-right text-[10px] mr-2 text-slate-600 group-hover:text-blue-400 transition-colors"></i>
-                            Login Administrator
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-
-
-            <!-- Contact & Help -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-6 flex items-center">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-2"></span> Hubungi Kami
-                </h4>
-                <div class="space-y-5">
-                    <div class="flex items-start">
-                        <div
-                            class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center mr-3 mt-1 text-amber-500 shadow-inner">
-                            <i class="fas fa-map-marker-alt text-sm"></i>
+                <div class="space-y-6">
+                    <div class="flex items-start group">
+                        <div class="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center mr-4 text-blue-500 border border-slate-700/50 group-hover:border-blue-500/50 transition-colors">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <p class="text-xs leading-relaxed">
-                            Pd. Butun, Kec. Batulicin, Kabupaten Tanah Bumbu, Kalimantan Selatan 72273
-                        </p>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Kantor Pusat</p>
+                            <p class="text-xs text-slate-300 leading-relaxed max-w-[250px]">
+                                Pd. Butun, Kec. Batulicin, Kabupaten Tanah Bumbu, Kalimantan Selatan 72273
+                            </p>
+                        </div>
                     </div>
-                    <div class="flex items-center">
-                        <div
-                            class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center mr-3 text-blue-500 shadow-inner">
-                            <i class="fas fa-phone-alt text-sm"></i>
+                    <div class="flex items-center group">
+                        <div class="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center mr-4 text-emerald-500 border border-slate-700/50 group-hover:border-emerald-500/50 transition-colors">
+                            <i class="fas fa-phone-alt"></i>
                         </div>
-                        <p class="text-sm">(0518) 70664</p>
+                        <div>
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Telepon & Fax</p>
+                            <p class="text-sm text-slate-300 font-bold">(0518) 70664</p>
+                        </div>
                     </div>
-                    <!-- <div class="flex items-center">
-                        <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center mr-3 text-indigo-500 shadow-inner">
-                            <i class="fas fa-envelope text-sm"></i>
-                        </div>
-                        <p class="text-sm">dpmptsp@tanahbumbu.go.id</p>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -106,9 +60,10 @@
                 Pelayanan Terpadu Satu Pintu | Tanah Bumbu
             </div>
             <div class="text-[13px] text-slate-500 flex items-center">
-                Made with <i class="fas fa-heart text-rose-500 mx-2 animate-pulse"></i> by
+                System Developed & Maintained by
+                <i class="fas fa-code text-blue-500 mx-2"></i>
                 <a href="https://github.com/gilangrizkyr" target="_blank"
-                    class="text-blue-400 font-bold hover:underline ml-2 transition-all">GilangRizky</a>
+                    class="text-white font-bold hover:text-blue-400 transition-all ml-1">GilangRizky</a>
             </div>
         </div>
     </div>

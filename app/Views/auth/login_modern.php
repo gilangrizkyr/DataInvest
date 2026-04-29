@@ -132,10 +132,10 @@
         </div>
 
         <!-- Security Notice -->
-        <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-white text-center text-sm">
+        <!-- <div class="bg-white/10 backdrop-blur-lg rounded-lg p-4 text-white text-center text-sm">
             <i class="fas fa-shield-alt mr-2"></i>
-            Portal ini hanya untuk pengguna resmi. Semua aktivitas dicatat dan dipantau.
-        </div>
+            Portal ini hanya untuk pengguna resmi DPMPTSP Kabupaten Tanah Bumbu. <br> <span class="font-bold">Semua aktivitas dicatat dan dipantau.</span>
+        </div> -->
     </div>
 </div>
 
