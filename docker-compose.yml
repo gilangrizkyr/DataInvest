@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: GeoTagging
+    container_name: DataInvest
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
