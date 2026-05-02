@@ -216,9 +216,7 @@
     </div>
 </div>
 
-<!-- Extra Scripts & Styles for Smooth Transitions -->
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- Extra Styles for Smooth Transitions -->
 
 <style>
     [x-cloak] {

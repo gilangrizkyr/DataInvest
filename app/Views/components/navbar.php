@@ -59,8 +59,8 @@ $user = session()->get('user');
                     <div class="h-4 w-px bg-slate-200 mx-2"></div>
 
                     <!-- User Menu -->
-                    <div class="relative ml-2" x-data="{ open: false }">
-                        <button @click="open = !open"
+                    <div class="relative ml-2" x-data="{ isProfileOpen: false }">
+                        <button @click="isProfileOpen = !isProfileOpen"
                             class="flex items-center space-x-3 p-1.5 pr-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary-200 hover:bg-white hover:shadow-md transition-all duration-300">
                             <div
                                 class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white text-sm font-black shadow-primary-glow">
@@ -70,12 +70,12 @@ $user = session()->get('user');
                                 <span class="text-[12px] font-black text-slate-800"><?= htmlspecialchars($user['name'] ?? 'User') ?></span>
                                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter"><?= $user['role'] ?></span>
                             </div>
-                            <i class="fas fa-chevron-down text-[10px] ml-2 text-slate-400 transition-transform" :class="{'rotate-180': open}"></i>
+                            <i class="fas fa-chevron-down text-[10px] ml-2 text-slate-400 transition-transform" :class="{'rotate-180': isProfileOpen}"></i>
                         </button>
 
                         <!-- Dropdown -->
-                        <div @click.away="open = false" 
-                             x-show="open"
+                        <div @click.away="isProfileOpen = false" 
+                             x-show="isProfileOpen"
                              x-transition:enter="transition ease-out duration-200"
                              x-transition:enter-start="opacity-0 scale-95 translate-y-2"
                              x-transition:enter-end="opacity-100 scale-100 translate-y-0"
