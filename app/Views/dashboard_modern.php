@@ -534,7 +534,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
                     <p
                         class="text-slate-500 text-[8px] sm:text-[10px] font-black uppercase tracking-widest leading-none mb-2">
                         Total
-                        Realisasi</p>
+                        Investasi</p>
                     <h3 class="text-[13px] sm:text-2xl font-black text-slate-900 tabular-nums leading-tight">
                         <span class="text-blue-600 font-bold"><?= $currencySymbol ?></span>
                         <?= number_format(($kpiTotalInvestment['PMA'] ?? 0) + ($kpiTotalInvestment['PMDN'] ?? 0), 0, ',', '.') ?>
@@ -821,7 +821,7 @@ $kpiWorkforce = $isStatFilterActive && $statFilterData
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 sm:mb-8 gap-3">
             <h3 class="text-sm sm:text-lg font-black text-slate-800 flex items-center tracking-tight">
                 <span class="w-1.5 h-5 bg-amber-500 rounded-full mr-3"></span>
-                Top 10 Realisasi per Kecamatan (<?= $currency ?>)
+                Top 10 Tambahan Investasi per Kecamatan (<?= $currency ?>)
             </h3>
             <select onchange="switchChartType('locationChart', this.value)"
                 class="text-[10px] font-black border-slate-300 rounded-lg py-1 px-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-100 text-slate-800 shadow-sm cursor-pointer outline-none">
