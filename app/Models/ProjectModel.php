@@ -629,12 +629,12 @@ class ProjectModel extends Model
         return $districts;
     }
 
-    /** Total investasi per kecamatan (Top 10 Realisasi) — multi upload */
+    /** Tambahan investasi per kecamatan (Top 10) — multi upload */
     public function getInvestmentByDistrictMulti(array $uploadIds): array
     {
         if (empty($uploadIds))
             return [];
-        $result = $this->select('subdistrict, SUM(total_investment) as total')
+        $result = $this->select('subdistrict, SUM(additional_investment) as total')
             ->whereIn('upload_id', $uploadIds)
             ->where('subdistrict IS NOT NULL', null, false)
             ->where('subdistrict !=', '')
