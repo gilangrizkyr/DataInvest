@@ -8,6 +8,7 @@
         <div class="bg-white rounded-2xl shadow-2xl p-8">
 
             <div class="text-center mb-8">
+                <img src="<?= base_url('logo-dpmptsp.png') ?>" class="h-20 mx-auto mb-4">
                 <h1 class="text-3xl font-bold text-gray-900">DataInvest</h1>
                 <p class="text-gray-600">Login menggunakan SSO</p>
             </div>
