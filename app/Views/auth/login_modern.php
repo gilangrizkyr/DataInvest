@@ -32,9 +32,9 @@
     </div>
 </div>
 
+
 <script>
     document.getElementById('ssoLogin')?.addEventListener('click', function () {
-
         const url = '<?= $ssoUrl ?? '' ?>';
 
         const width = 500;
@@ -49,9 +49,11 @@
         );
     });
 
-    // 🔐 SECURITY: VALIDASI ORIGIN
+    // LISTENER HASIL LOGIN
     window.addEventListener('message', function (event) {
-        if (event.origin !== "https://sso.devuna.web.id") return;
+
+        // 🔐 (optional tapi disarankan)
+        // if (event.origin !== "https://sso.devuna.web.id") return;
 
         if (event.data.success) {
             window.location.href = '/';

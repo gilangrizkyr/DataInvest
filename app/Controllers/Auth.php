@@ -25,18 +25,19 @@ class Auth extends BaseController
             return redirect()->to('/');
         }
 
+        $ssoUrl = null;
+        $error = null;
+
         try {
             $sso = new UnaSSO();
             $ssoUrl = $sso->builtRealm();
         } catch (\Exception $e) {
-            return view('auth/login_modern', [
-                'ssoUrl' => null,
-                'error' => $e->getMessage()
-            ]);
+            $error = $e->getMessage();
         }
 
         return view('auth/login_modern', [
-            'ssoUrl' => $ssoUrl
+            'ssoUrl' => $ssoUrl,
+            'error'  => $error
         ]);
     }
 
@@ -69,11 +70,6 @@ class Auth extends BaseController
             return $this->popupResponse(false, 'Signature tidak valid');
         }
 
-        // OPTIONAL: VALIDASI EXP (kalau ada)
-        if (isset($payload['exp']) && $payload['exp'] < time()) {
-            return $this->popupResponse(false, 'Token expired');
-        }
-
         // =========================
         // CEK / AUTO REGISTER USER
         // =========================
@@ -101,7 +97,8 @@ class Auth extends BaseController
                 'username' => $user['username'],
                 'email'    => $user['email'],
                 'name'     => $user['name'],
-                'role'     => $user['role'] ?? 'user',
+                'role'     => $payload['role_name'] ?? 'user',
+                'photo'    => $payload['photo'] ?? null,
             ],
             'isLoggedIn' => true,
         ]);
@@ -110,7 +107,7 @@ class Auth extends BaseController
     }
 
     // =========================
-    // POPUP RESPONSE (HELPER)
+    // RESPONSE UNTUK POPUP
     // =========================
     private function popupResponse($success = true, $message = '')
     {
