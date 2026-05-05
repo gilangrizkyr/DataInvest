@@ -8,14 +8,13 @@
         <div class="bg-white rounded-2xl shadow-2xl p-8">
 
             <div class="text-center mb-8">
-                <img src="<?= base_url('logo-dpmptsp.png') ?>" class="h-20 mx-auto mb-4">
                 <h1 class="text-3xl font-bold text-gray-900">DataInvest</h1>
                 <p class="text-gray-600">Login menggunakan SSO</p>
             </div>
 
-            <?php if (session()->getFlashdata('error')): ?>
-                <div class="bg-red-100 p-3 rounded mb-4">
-                    <?= session()->getFlashdata('error') ?>
+            <?php if (!empty($error)): ?>
+                <div class="bg-red-100 p-3 rounded mb-4 text-red-600 text-sm text-center">
+                    <?= $error ?>
                 </div>
             <?php endif; ?>
 
@@ -32,9 +31,9 @@
     </div>
 </div>
 
-
 <script>
     document.getElementById('ssoLogin')?.addEventListener('click', function () {
+
         const url = '<?= $ssoUrl ?? '' ?>';
 
         const width = 500;
@@ -42,6 +41,7 @@
         const left = (screen.width / 2) - (width / 2);
         const top = (screen.height / 2) - (height / 2);
 
+        // POPUP MODE
         window.open(
             url,
             'SSOLogin',
@@ -49,10 +49,10 @@
         );
     });
 
-    // LISTENER HASIL LOGIN
+    // LISTENER (kalau popup sukses)
     window.addEventListener('message', function (event) {
 
-        // 🔐 (optional tapi disarankan)
+        // optional security
         // if (event.origin !== "https://sso.devuna.web.id") return;
 
         if (event.data.success) {

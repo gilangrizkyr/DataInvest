@@ -42,7 +42,7 @@ class Auth extends BaseController
     }
 
     // =========================
-    // CALLBACK SSO (POPUP MODE)
+    // CALLBACK SSO (FINAL FIX)
     // =========================
     public function callback()
     {
@@ -50,13 +50,13 @@ class Auth extends BaseController
         $signature   = $this->request->getGet('signature');
 
         if (!$userEncoded || !$signature) {
-            return $this->popupResponse(false, 'Data tidak lengkap');
+            return $this->responseScript(false, 'Data tidak lengkap');
         }
 
         $payload = json_decode(base64_decode($userEncoded), true);
 
         if (!$payload) {
-            return $this->popupResponse(false, 'Payload tidak valid');
+            return $this->responseScript(false, 'Payload tidak valid');
         }
 
         // VALIDASI SIGNATURE
@@ -67,11 +67,11 @@ class Auth extends BaseController
         );
 
         if (!hash_equals($expectedSignature, $signature)) {
-            return $this->popupResponse(false, 'Signature tidak valid');
+            return $this->responseScript(false, 'Signature tidak valid');
         }
 
         // =========================
-        // CEK / AUTO REGISTER USER
+        // AUTO REGISTER / AMBIL USER
         // =========================
         $user = $this->userModel->getUserByUsernameOrEmail($payload['email']);
 
@@ -103,21 +103,29 @@ class Auth extends BaseController
             'isLoggedIn' => true,
         ]);
 
-        return $this->popupResponse(true);
+        return $this->responseScript(true);
     }
 
     // =========================
-    // RESPONSE UNTUK POPUP
+    // RESPONSE SCRIPT (POPUP + FALLBACK)
     // =========================
-    private function popupResponse($success = true, $message = '')
+    private function responseScript($success = true, $message = '')
     {
         return response()->setBody("
             <script>
-                window.opener.postMessage({
-                    success: " . ($success ? 'true' : 'false') . ",
-                    message: '" . addslashes($message) . "'
-                }, '*');
-                window.close();
+                if (window.opener) {
+                    // MODE POPUP
+                    window.opener.postMessage({
+                        success: " . ($success ? 'true' : 'false') . ",
+                        message: '" . addslashes($message) . "'
+                    }, '*');
+                    window.close();
+                } else {
+                    // MODE NORMAL (fallback)
+                    " . ($success 
+                        ? "window.location.href = '/';" 
+                        : "window.location.href = '/auth/login';") . "
+                }
             </script>
         ");
     }
