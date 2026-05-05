@@ -1,6 +1,16 @@
 <?php
 // Navigation bar component
 $user = session()->get('user');
+
+// =========================
+// FIX MAPPING SSO (TANPA UBAH UI)
+// =========================
+if ($user) {
+    $user['name']  = $user['name']  ?? $user['nama'] ?? 'User';
+    $user['role']  = $user['role']  ?? $user['role_name'] ?? 'user';
+    $user['email'] = $user['email'] ?? '';
+    $user['photo'] = $user['photo'] ?? null;
+}
 ?>
 <nav 
     x-data="{ mobileMenuOpen: false, scrolled: false }" 
@@ -21,15 +31,14 @@ $user = session()->get('user');
                             class="h-12 w-auto drop-shadow-lg filter brightness-110">
                     </a>
                 </div>
-                <!-- Aesthetic Divider -->
                 <div class="hidden lg:block h-8 w-px bg-slate-200/60 mx-6"></div>
-                <!-- Redesigned Brand Text -->
                 <div class="hidden md:flex flex-col justify-center">
-                    <span
-                        class="text-[8px] font-black text-slate-400 uppercase tracking-[0.25em] leading-none mb-1.5 opacity-80">Pemerintah
-                        Kabupaten</span>
-                    <span class="text-[12px] font-black text-slate-800 tracking-wide leading-none uppercase group-hover:text-primary-600 transition-colors">DPMPTSP Tanah
-                        Bumbu</span>
+                    <span class="text-[8px] font-black text-slate-400 uppercase tracking-[0.25em] leading-none mb-1.5 opacity-80">
+                        Pemerintah Kabupaten
+                    </span>
+                    <span class="text-[12px] font-black text-slate-800 tracking-wide leading-none uppercase group-hover:text-primary-600 transition-colors">
+                        DPMPTSP Tanah Bumbu
+                    </span>
                 </div>
             </div>
 
@@ -62,10 +71,16 @@ $user = session()->get('user');
                     <div class="relative ml-2" x-data="{ isProfileOpen: false }">
                         <button @click="isProfileOpen = !isProfileOpen"
                             class="flex items-center space-x-3 p-1.5 pr-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-primary-200 hover:bg-white hover:shadow-md transition-all duration-300">
-                            <div
-                                class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white text-sm font-black shadow-primary-glow">
-                                <?= strtoupper(substr($user['name'] ?? 'U', 0, 1)) ?>
+                            
+                            <!-- FOTO / INISIAL -->
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-primary-600 to-primary-400 flex items-center justify-center text-white text-sm font-black shadow-primary-glow overflow-hidden">
+                                <?php if (!empty($user['photo'])): ?>
+                                    <img src="<?= $user['photo'] ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
+                                    <?= strtoupper(substr($user['name'] ?? 'U', 0, 1)) ?>
+                                <?php endif; ?>
                             </div>
+
                             <div class="flex flex-col items-start leading-tight">
                                 <span class="text-[12px] font-black text-slate-800"><?= htmlspecialchars($user['name'] ?? 'User') ?></span>
                                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter"><?= $user['role'] ?></span>
@@ -87,9 +102,9 @@ $user = session()->get('user');
                                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Akun Terhubung</p>
                                 <p class="text-xs font-bold text-slate-700 truncate"><?= htmlspecialchars($user['email'] ?? '') ?></p>
                             </div>
-                            <a href="<?= base_url('profile') ?>" class="flex items-center gap-3 px-4 py-2.5 text-[13px] font-bold text-slate-600 hover:bg-primary-50 hover:text-primary-600 rounded-xl transition-all">
+                            <!-- <a href="<?= base_url('profile') ?>" class="flex items-center gap-3 px-4 py-2.5 text-[13px] font-bold text-slate-600 hover:bg-primary-50 hover:text-primary-600 rounded-xl transition-all">
                                 <i class="fas fa-user-circle opacity-70"></i>Profil Saya
-                            </a>
+                            </a> -->
                             <?php if (($user['role'] ?? '') === 'superadmin'): ?>
                                 <a href="<?= base_url('settings') ?>" class="flex items-center gap-3 px-4 py-2.5 text-[13px] font-bold text-slate-600 hover:bg-primary-50 hover:text-primary-600 rounded-xl transition-all">
                                     <i class="fas fa-sliders opacity-70"></i>Pengaturan
@@ -126,31 +141,14 @@ $user = session()->get('user');
              x-transition:enter-end="opacity-100 translate-y-0"
              class="md:hidden border-t border-slate-100 py-4 space-y-2" x-cloak>
             <?php if ($user): ?>
-                <a href="<?= base_url('dashboard') ?>"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-all">
-                    <i class="fas fa-chart-pie w-5 opacity-70"></i>Dashboard
-                </a>
-                <a href="<?= base_url('faq') ?>"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-all">
-                    <i class="fas fa-circle-question w-5 opacity-70"></i>Pusat Bantuan
-                </a>
 
-                <?php if ($user['role'] === 'superadmin'): ?>
-                    <a href="<?= base_url('user-management') ?>"
-                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-all">
-                        <i class="fas fa-user-gear w-5 opacity-70"></i>Manajemen User
-                    </a>
-                    <a href="<?= base_url('security-monitoring') ?>"
-                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-all">
-                        <i class="fas fa-shield-halved w-5 opacity-70"></i>Keamanan
-                    </a>
-                <?php endif; ?>
-
-                <div class="mx-4 my-4 border-t border-slate-100"></div>
-                
                 <div class="px-4 py-2 flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white font-black">
-                        <?= strtoupper(substr($user['name'] ?? 'U', 0, 1)) ?>
+                    <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white font-black overflow-hidden">
+                        <?php if (!empty($user['photo'])): ?>
+                            <img src="<?= $user['photo'] ?>" class="w-full h-full object-cover">
+                        <?php else: ?>
+                            <?= strtoupper(substr($user['name'] ?? 'U', 0, 1)) ?>
+                        <?php endif; ?>
                     </div>
                     <div class="flex flex-col leading-tight">
                         <span class="text-sm font-black text-slate-800"><?= htmlspecialchars($user['name'] ?? 'User') ?></span>
@@ -158,25 +156,6 @@ $user = session()->get('user');
                     </div>
                 </div>
 
-                <a href="<?= base_url('profile') ?>"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 transition-all">
-                    <i class="fas fa-user-circle w-5 opacity-70"></i>Edit Profil
-                </a>
-                <?php if (($user['role'] ?? '') === 'superadmin'): ?>
-                    <a href="<?= base_url('settings') ?>"
-                        class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-slate-700 hover:bg-primary-50 transition-all">
-                        <i class="fas fa-sliders w-5 opacity-70"></i>Pengaturan Sistem
-                    </a>
-                <?php endif; ?>
-                <a href="<?= base_url('auth/logout') ?>"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-[14px] font-bold text-rose-600 bg-rose-50 transition-all">
-                    <i class="fas fa-power-off w-5 opacity-70"></i>Keluar Aplikasi
-                </a>
-            <?php else: ?>
-                <a href="<?= base_url('auth/login') ?>"
-                    class="flex items-center justify-center gap-3 px-4 py-4 rounded-xl text-[12px] font-black text-slate-500 bg-slate-50 border border-slate-100 hover:bg-white hover:text-primary-600 hover:border-primary-200 transition-all">
-                    <i class="fas fa-right-to-bracket opacity-70"></i>
-                </a>
             <?php endif; ?>
         </div>
     </div>
