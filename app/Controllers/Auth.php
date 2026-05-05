@@ -16,9 +16,7 @@ class Auth extends BaseController
         $this->session = session();
     }
 
-    // =========================
-    // LOGIN PAGE
-    // =========================
+
     public function login()
     {
         if ($this->session->has('user_id')) {
@@ -41,9 +39,7 @@ class Auth extends BaseController
         ]);
     }
 
-    // =========================
-    // CALLBACK SSO (FINAL FIX)
-    // =========================
+
     public function callback()
     {
         $userEncoded = $this->request->getGet('user');
@@ -70,9 +66,6 @@ class Auth extends BaseController
             return $this->responseScript(false, 'Signature tidak valid');
         }
 
-        // =========================
-        // AUTO REGISTER / AMBIL USER
-        // =========================
         $user = $this->userModel->getUserByUsernameOrEmail($payload['email']);
 
         if (!$user) {
@@ -87,9 +80,6 @@ class Auth extends BaseController
             $user = $this->userModel->find($userId);
         }
 
-        // =========================
-        // SET SESSION
-        // =========================
         $this->session->set([
             'user_id' => $user['id'],
             'user' => [
@@ -106,9 +96,7 @@ class Auth extends BaseController
         return $this->responseScript(true);
     }
 
-    // =========================
-    // RESPONSE SCRIPT (POPUP + FALLBACK)
-    // =========================
+
     private function responseScript($success = true, $message = '')
     {
         return response()->setBody("
@@ -130,9 +118,7 @@ class Auth extends BaseController
         ");
     }
 
-    // =========================
-    // LOGOUT
-    // =========================
+
     public function logout()
     {
         $this->session->destroy();
