@@ -12,13 +12,17 @@ $routes->get('/', 'Home::index');
 $routes->get('/api/public/data', 'Home::apiData');
 
 // AUTH ROUTES
-$routes->get('/auth/login', 'Auth::login', ['filter' => 'auth:guest']);
-$routes->post('/auth/process-login', 'Auth::processLogin');
+// $routes->get('/auth/login', 'Auth::login', ['filter' => 'auth:guest']);
+// $routes->post('/auth/process-login', 'Auth::processLogin');
+// $routes->get('/auth/logout', 'Auth::logout');
+// $routes->get('/auth/forgot-password', 'Auth::forgotPassword');
+// $routes->post('/auth/process-forgot-password', 'Auth::processForgotPassword');
+// $routes->get('/auth/reset-password/(:segment)', 'Auth::resetPassword/$1');
+// $routes->post('/auth/process-reset-password', 'Auth::processResetPassword');
+// $routes->post('/auth/login', 'Auth::processLogin');
+$routes->get('/auth/login', 'Auth::login');
+$routes->get('/auth/callback', 'Auth::callback');
 $routes->get('/auth/logout', 'Auth::logout');
-$routes->get('/auth/forgot-password', 'Auth::forgotPassword');
-$routes->post('/auth/process-forgot-password', 'Auth::processForgotPassword');
-$routes->get('/auth/reset-password/(:segment)', 'Auth::resetPassword/$1');
-$routes->post('/auth/process-reset-password', 'Auth::processResetPassword');
 
 // DASHBOARD ROUTES
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'roleFilter']);

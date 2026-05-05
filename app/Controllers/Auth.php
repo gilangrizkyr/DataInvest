@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Libraries\UnaSSO;
 
 class Auth extends BaseController
 {
@@ -15,224 +16,121 @@ class Auth extends BaseController
         $this->session = session();
     }
 
+    // =========================
     // LOGIN PAGE
+    // =========================
     public function login()
     {
         if ($this->session->has('user_id')) {
             return redirect()->to('/');
         }
 
-        $data = [
-            'title' => 'Login',
-            'errors' => $this->session->getFlashdata('errors') ?? []
-        ];
+        try {
+            $sso = new UnaSSO();
+            $ssoUrl = $sso->builtRealm();
+        } catch (\Exception $e) {
+            return view('auth/login_modern', [
+                'ssoUrl' => null,
+                'error' => $e->getMessage()
+            ]);
+        }
 
-        return view('auth/login_modern', $data);
+        return view('auth/login_modern', [
+            'ssoUrl' => $ssoUrl
+        ]);
     }
 
-    // PROCESS LOGIN
-    public function processLogin()
+    // =========================
+    // CALLBACK SSO (POPUP MODE)
+    // =========================
+    public function callback()
     {
-        // Validasi input
-        $rules = [
-            'username' => 'required|min_length[3]',
-            'password' => 'required|min_length[8]',
-        ];
+        $userEncoded = $this->request->getGet('user');
+        $signature   = $this->request->getGet('signature');
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        if (!$userEncoded || !$signature) {
+            return $this->popupResponse(false, 'Data tidak lengkap');
         }
 
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $payload = json_decode(base64_decode($userEncoded), true);
 
-        // Cari user
-        $user = $this->userModel->getUserByUsernameOrEmail($username);
+        if (!$payload) {
+            return $this->popupResponse(false, 'Payload tidak valid');
+        }
+
+        // VALIDASI SIGNATURE
+        $expectedSignature = hash_hmac(
+            'sha256',
+            json_encode($payload),
+            getenv('SSO_SECRET')
+        );
+
+        if (!hash_equals($expectedSignature, $signature)) {
+            return $this->popupResponse(false, 'Signature tidak valid');
+        }
+
+        // OPTIONAL: VALIDASI EXP (kalau ada)
+        if (isset($payload['exp']) && $payload['exp'] < time()) {
+            return $this->popupResponse(false, 'Token expired');
+        }
+
+        // =========================
+        // CEK / AUTO REGISTER USER
+        // =========================
+        $user = $this->userModel->getUserByUsernameOrEmail($payload['email']);
 
         if (!$user) {
-            return redirect()->back()->with('error', 'Username atau email tidak ditemukan');
+            $userId = $this->userModel->insert([
+                'username' => $payload['username'],
+                'email'    => $payload['email'],
+                'name'     => $payload['nama'],
+                'password' => password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT),
+                'status'   => 'active',
+            ]);
+
+            $user = $this->userModel->find($userId);
         }
 
-        // Cek status user
-        if ($user['status'] === 'inactive') {
-            return redirect()->back()->with('error', 'Akun Anda tidak aktif. Hubungi administrator');
-        }
-
-        // Verifikasi password
-        if (!$this->userModel->verifyPassword($password, $user['password'])) {
-            return redirect()->back()->with('error', 'Password salah');
-        }
-
-        // Update last login
-        $this->userModel->updateLastLogin($user['id']);
-
-        // Set session - store user data as 'user' array
+        // =========================
+        // SET SESSION
+        // =========================
         $this->session->set([
             'user_id' => $user['id'],
             'user' => [
-                'id' => $user['id'],
+                'id'       => $user['id'],
                 'username' => $user['username'],
-                'email' => $user['email'],
-                'name' => $user['name'] ?? $user['username'],
-                'role' => $user['role'],
+                'email'    => $user['email'],
+                'name'     => $user['name'],
+                'role'     => $user['role'] ?? 'user',
             ],
             'isLoggedIn' => true,
         ]);
 
-        return redirect()->to('/');
+        return $this->popupResponse(true);
     }
 
+    // =========================
+    // POPUP RESPONSE (HELPER)
+    // =========================
+    private function popupResponse($success = true, $message = '')
+    {
+        return response()->setBody("
+            <script>
+                window.opener.postMessage({
+                    success: " . ($success ? 'true' : 'false') . ",
+                    message: '" . addslashes($message) . "'
+                }, '*');
+                window.close();
+            </script>
+        ");
+    }
+
+    // =========================
     // LOGOUT
+    // =========================
     public function logout()
     {
         $this->session->destroy();
-        return redirect()->to('/auth/login')->with('success', 'Anda berhasil logout');
-    }
-
-    // FORGOT PASSWORD PAGE
-    public function forgotPassword()
-    {
-        if ($this->session->has('user_id')) {
-            return redirect()->to('/');
-        }
-
-        return view('auth/forgot_password');
-    }
-
-    // PROCESS FORGOT PASSWORD
-    public function processForgotPassword()
-    {
-        $rules = [
-            'email' => 'required|valid_email',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $email = $this->request->getPost('email');
-        $user = $this->userModel->where('email', $email)->first();
-
-        if (!$user) {
-            // Jangan beri tahu jika email tidak terdaftar (keamanan)
-            return redirect()->back()->with('success', 'Jika email terdaftar, link reset akan dikirim');
-        }
-
-        // Generate token reset
-        $resetToken = bin2hex(random_bytes(32));
-        $resetExpiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-
-        // Simpan token ke session atau database (opsional: buat tabel password_resets)
-        // Untuk sekarang, kita gunakan session
-        session()->set("reset_token_{$user['id']}", [
-            'token' => $resetToken,
-            'expiry' => $resetExpiry,
-        ]);
-
-        // Kirim email
-        $this->sendResetPasswordEmail($user['email'], $resetToken, $user['id']);
-
-        return redirect()->back()->with('success', 'Link reset password telah dikirim ke email Anda');
-    }
-
-    // RESET PASSWORD PAGE
-    public function resetPassword($token = null)
-    {
-        if ($this->session->has('user_id')) {
-            return redirect()->to('/');
-        }
-
-        // Validasi token
-        if (!$token) {
-            return redirect()->to('/auth/login')->with('error', 'Token tidak valid');
-        }
-
-        $data = [
-            'token' => $token,
-        ];
-
-        return view('auth/reset_password', $data);
-    }
-
-    // PROCESS RESET PASSWORD
-    public function processResetPassword()
-    {
-        $rules = [
-            'token' => 'required',
-            'password' => 'required|min_length[8]',
-            'password_confirm' => 'required|matches[password]',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $token = $this->request->getPost('token');
-        $password = $this->request->getPost('password');
-
-        // Validasi token dari session
-        $resetTokenData = $this->validateResetToken($token);
-
-        if (!$resetTokenData) {
-            return redirect()->to('/auth/login')->with('error', 'Token tidak valid atau sudah kadaluarsa');
-        }
-
-        // Update password
-        $userId = $resetTokenData['user_id'];
-        $hashedPassword = $this->userModel->hashPassword($password);
-
-        $this->userModel->update($userId, [
-            'password' => $hashedPassword,
-        ]);
-
-        // Hapus token dari session
-        session()->remove("reset_token_{$userId}");
-
-        return redirect()->to('/auth/login')->with('success', 'Password berhasil diubah. Silakan login dengan password baru');
-    }
-
-    // Helper: Send Reset Password Email
-    private function sendResetPasswordEmail($email, $token, $userId)
-    {
-        $email_service = \Config\Services::email();
-        $email_service->setFrom('your_gmail@gmail.com', 'SST Application');
-        $email_service->setTo($email);
-        $email_service->setSubject('Reset Password - SST Application');
-
-        $resetLink = base_url("auth/reset-password/{$token}");
-        $body = view('auth/email_reset_password', [
-            'resetLink' => $resetLink,
-            'expiryTime' => '1 jam',
-        ]);
-
-        $email_service->setMessage($body);
-
-        if (!$email_service->send()) {
-            log_message('error', 'Email gagal dikirim: ' . $email_service->printDebugger());
-            return false;
-        }
-
-        return true;
-    }
-
-    // Helper: Validate Reset Token
-    private function validateResetToken($token)
-    {
-        // Cari token di semua session reset
-        $sessionData = session()->getSessionData();
-
-        foreach ($sessionData as $key => $value) {
-            if (strpos($key, 'reset_token_') === 0 && is_array($value)) {
-                if ($value['token'] === $token && strtotime($value['expiry']) > time()) {
-                    $userId = str_replace('reset_token_', '', $key);
-                    return [
-                        'user_id' => $userId,
-                        'valid' => true,
-                    ];
-                }
-            }
-        }
-
-        return false;
+        return redirect()->to('/auth/login')->with('success', 'Logout berhasil');
     }
 }
